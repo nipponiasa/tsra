@@ -1,6 +1,7 @@
 @can('reporting_data_entry')
 
-<div class="tab-pane fade" id="summary" role="tabpanel" aria-labelledby="pills-setting-tab">
+<div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="pills-setting-tab">  
+    {{-- "show active" is the class to defaul show --}}
     <div class="card-body">
         <form class="form-horizontal"  method="POST" action="/technical_reports/update_summary">
                 @csrf

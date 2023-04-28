@@ -23,7 +23,7 @@ use App\Models\ReadState;
 class TechnicalDirectiveController extends Controller
 {
   
-
+    // GET CREATE
     public function show_create()
     {
       $uii=DB::select(DB::raw('SELECT * FROM models;'));
@@ -32,21 +32,22 @@ class TechnicalDirectiveController extends Controller
 
 
 
-
-    public function create(Request $request)
+    // POST CREATE
+    public function create(Request $request)   
     {
-      $validated = $request->validate([
-        'subject' => 'required',
-        'directive' => 'required',
-        'publish_state' => 'required',
-        'models' => 'required'
-    ]);
+            
+
+
+        $validated = $request->validate([
+            'subject' => 'required',
+            'directive' => 'required',
+            'publish_state' => 'required',
+            'models' => 'required'
+        ]);
 
 
 
-
-
-    $technicaldirective=new TechnicalDirective();
+        $technicaldirective=new TechnicalDirective();
         $subject=$request->subject;
         $models=$request->models;
         //$directive=$request->directive;//na fygei
@@ -58,7 +59,7 @@ class TechnicalDirectiveController extends Controller
         $technicaldirective->subject=$subject;
         $technicaldirective->publish_state=$publish_state;
         $technicaldirective->agent_id=$agent_id;
-       
+        
 
 
 
@@ -66,41 +67,41 @@ class TechnicalDirectiveController extends Controller
 
 
 
-       // $directive->subject=$subject;
-//******************************* */
+        // $directive->subject=$subject;
+        //******************************* */
 
-$content = $request->directive;
-$dom = new \DomDocument();
-$dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-$content = $dom->saveHTML();
+        $content = $request->directive;
+        $dom = new \DomDocument();
+        $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $content = $dom->saveHTML();
 
-$technicaldirective->directive=$content;
+        $technicaldirective->directive=$content;
 
-//******************************* */
-       //dd( $technicaldirective);
+        //******************************* */
+        //dd( $technicaldirective);
 
-       $technicaldirective->save();
+        $technicaldirective->save();
         $directive_id=$technicaldirective->id;
-      
-       //models
+        
+        //models
 
-       if( !is_null($models)) 
-       {     
+        if( !is_null($models)) 
+        {     
 
-           foreach($models as $model)
-           {
-               DB::table('relations')-> insert(array('source' =>$directive_id ,'relation_type' => "directives_for_model",'destination'=>$model));
+            foreach($models as $model)
+            {
+                DB::table('relations')-> insert(array('source' =>$directive_id ,'relation_type' => "directives_for_model",'destination'=>$model));
 
-           }
+            }
 
-       }
+        }
 
-//models
-ReadState::mark_unread($directive_id,"DIRECTIVE");
+        //models
+        ReadState::mark_unread($directive_id,"DIRECTIVE");
 
 
-return Redirect::to('technical_directives/list');
-                       
+        return Redirect::to('technical_directives/list');
+                        
 
     }
 

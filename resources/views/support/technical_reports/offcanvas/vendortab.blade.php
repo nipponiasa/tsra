@@ -17,7 +17,7 @@
 
 
                              <div class="profiletimeline mt-0">
-
+{{-- 
                              @foreach($messages_vendor as $message)
                                   
                              <hr>
@@ -50,7 +50,7 @@
 
 
 
-                               @endforeach
+                               @endforeach --}}
 
                                </div>
                   
@@ -81,7 +81,7 @@
 
                 <form class="forms" method="POST" enctype="multipart/form-data" action="/technical_reports/send_vendor_message">
                 <input type="hidden" id="supportid" name="supportid" value="{{$support_case->id}}">
-                <input type="hidden" id="number_of_files" name="number_of_files" value="{{$number_of_files}}">
+                {{-- <input type="hidden" id="number_of_files" name="number_of_files" value="{{$number_of_files}}"> --}}
 
                 
                     @csrf
@@ -111,7 +111,7 @@
 
 
                                     <h5 class="modal-title" >{{ __('Select what you want to forward')}}</h5>
-                                    @foreach($messages as $message)
+                                    {{-- @foreach($messages as $message)
                                    
                                    
                                     @foreach($files["{$message->messageid}"] as $file)
@@ -144,7 +144,7 @@
 
 
                                          
-                                @endforeach
+                                @endforeach --}}
    
             
 

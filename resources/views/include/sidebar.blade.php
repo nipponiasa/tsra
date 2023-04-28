@@ -17,6 +17,8 @@
     <div class="sidebar-content">
         <div class="nav-container">
             <nav id="main-menu-navigation" class="navigation-main">
+                <div class="nav-lavel">{{__('Home')}}</div>
+                {{-- αυτό σημαίνει translation αν υπάρχει --}}
                 <div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
                     <a href="{{route('home')}}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span></a>
                 </div>
@@ -52,7 +54,7 @@
 
                 <div class="nav-lavel">{{ __('Support')}} </div>
 
- <!-- start support pages -->
+<!-- start support pages -->
 
                 <div class="nav-item {{ ($segment1 == 'technical_directives' ) ? 'active open' : '' }} has-sub">
                     <a href="#"><i class="ik ik-mail"></i><span>{{ __('Technical Directives')}}</span></a>

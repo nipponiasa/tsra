@@ -260,25 +260,26 @@ return Redirect::to('/technical_reports/list');
 
      public function show_edit(Request $request)
      {
-        $reportt = $request->id;
-        //$support_case_array=DB::select(DB::raw('SELECT * FROM `list_tr` WHERE id='.$reportt.' ;'));
-        $support_case_array=TechnicalReport::list_tr_one($reportt);
-        $support_case=$support_case_array[0]; //gia na paroume ton pinaka mono
-        //dd( $support_case);
-        //status
-        $video_extensions=array("mp4","avi");
-        $statuses_array=DB::select(DB::raw('SELECT id, statusname FROM `case_status` WHERE statuscategory="Technical Report" ;'));
-        $categories_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue1" ;'));
-        $issues_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue2" ;'));
-        $specifymore_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue3" ;'));
-        //status
-        //vendor
-                $userId=config('constants.mailbox_options.userid');
-                $searchinfolderid=config('constants.mailbox_options.tsinboxid');
-                $DestinationsFolderId=config('constants.mailbox_options.tsprocessedid');
-                $searchterm="case__".$reportt;
-                $incomingm = new MsgraphMailHandler();
-                $messages34=$incomingm->searchmf($userId,$searchinfolderid,$searchterm);
+         $reportt = $request->id;
+         //$support_case_array=DB::select(DB::raw('SELECT * FROM `list_tr` WHERE id='.$reportt.' ;'));
+         $support_case_array=TechnicalReport::list_tr_one($reportt);
+         $support_case=$support_case_array[0]; //gia na paroume ton pinaka mono
+         //dd( $support_case);
+         //status
+         $video_extensions=array("mp4","avi");
+         $statuses_array=DB::select(DB::raw('SELECT id, statusname FROM `case_status` WHERE statuscategory="Technical Report" ;'));
+         $categories_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue1" ;'));
+         $issues_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue2" ;'));
+         $specifymore_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue3" ;'));
+         //status
+         /*
+         //vendor
+         $userId=config('constants.mailbox_options.userid');
+         $searchinfolderid=config('constants.mailbox_options.tsinboxid');
+         $DestinationsFolderId=config('constants.mailbox_options.tsprocessedid');
+         $searchterm="case__".$reportt;
+         $incomingm = new MsgraphMailHandler();
+         $messages34=$incomingm->searchmf($userId,$searchinfolderid,$searchterm);
 
             foreach($messages34 as $message){
                 $new_message_id=Message::save_mail_messages_vendor_incomming($message,$reportt);
@@ -289,9 +290,10 @@ return Redirect::to('/technical_reports/list');
     $messages=Message::get_messages_client($reportt);
     $messages_vendor=Message::get_messages_vendor($reportt);
    // dd($messages_vendor);
-    $files_array=$this->get_customer_files($reportt,$messages);
-    $files=$files_array['files'];
-    $number_of_files=$files_array['number_of_files'];
+   $files_array=$this->get_customer_files($reportt,$messages);
+   $files=$files_array['files'];
+   $number_of_files=$files_array['number_of_files'];
+   */
 
 
     $rel_vins=DB::select(DB::raw('SELECT DISTINCT vin_to_cases.vin as vin, motos_vins.model_desc as model, motos_vins.po as po,motos_vins.color as color FROM vin_to_cases JOIN motos_vins ON vin_to_cases.vin=motos_vins.vin WHERE vin_to_cases.case='. $reportt.' ;'));
@@ -301,8 +303,10 @@ return Redirect::to('/technical_reports/list');
 
 
 
-       return view('support.technical_reports.toedit')->with('support_case',$support_case)->with('files',$files)->with('messages',$messages)->with('messages_vendor',$messages_vendor)->with('statuses_array',$statuses_array)->with('categories_array',$categories_array)->with('issues_array',$issues_array)->with('specifymore_array',$specifymore_array)->with('number_of_files',$number_of_files)->with('video_extensions',$video_extensions)->with('rel_vins',$rel_vins);
-     }
+// return view('support.technical_reports.toedit')->with('support_case',$support_case)->with('files',$files)->with('messages',$messages)->with('messages_vendor',$messages_vendor)->with('statuses_array',$statuses_array)->with('categories_array',$categories_array)->with('issues_array',$issues_array)->with('specifymore_array',$specifymore_array)->with('number_of_files',$number_of_files)->with('video_extensions',$video_extensions)->with('rel_vins',$rel_vins);
+return view('support.technical_reports.toedit')->with('support_case',$support_case)->with('statuses_array',$statuses_array)->with('categories_array',$categories_array)->with('issues_array',$issues_array)->with('specifymore_array',$specifymore_array)->with('video_extensions',$video_extensions)->with('rel_vins',$rel_vins);
+    // return "It works!";
+    }
 
 
 

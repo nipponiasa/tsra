@@ -57,21 +57,22 @@
             <div class="col-lg-8 col-md-7">
                 <div class="card">
                     <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
-                        <li class="nav-item">
+
+                        {{-- <li class="nav-item">
                             <a class="nav-link active" id="pills-timeline-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="pills-timeline" aria-selected="true">{{ __('Importer')}}</a>
-                        </li>
+                        </li> --}}
 
                         @can('reporting_data_entry')
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#summary" role="tab" aria-controls="pills-setting" aria-selected="false">{{ __('Case Summary')}}</a>
+                            <a class="nav-link active" id="pills-setting-tab" data-toggle="pill" href="#summary" role="tab" aria-controls="pills-setting" aria-selected="true">{{ __('Case Summary')}}</a>
                         </li>
                         @endcan
 
-                        @can('communication_with_vendor')
+                        {{-- @can('communication_with_vendor')
                         <li class="nav-item">
                             <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#vendor" role="tab" aria-controls="pills-setting" aria-selected="false">{{ __('External Com')}}</a>
                         </li>
-                        @endcan
+                        @endcan --}}
 
 
                     </ul>
@@ -81,7 +82,7 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="timeline" role="tabpanel" aria-labelledby="pills-timeline-tab">
                             
-                            <div class="card-body">
+                            {{--<div class="card-body">
 
                             <div class="row">
                                     <div class="col-lg-12">
@@ -102,7 +103,7 @@
 
           
 
-                            @foreach($messages as $message)
+                             @foreach($messages as $message)
                                   
                                   <div class="sl-item">
                                       <div class="sl-left"> <img src=@php echo url($message->mypic); @endphp alt="user" class="rounded-circle" /> </div>
@@ -138,7 +139,7 @@
                                       </div>
                                   
                                   <hr>
-                               @endforeach
+                               @endforeach 
 
 
 
@@ -149,12 +150,12 @@
 
 
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
 
          
                         @include('support.technical_reports.offcanvas.summarytab')
-                        @include('support.technical_reports.offcanvas.vendortab')
+                        {{-- @include('support.technical_reports.offcanvas.vendortab') --}}
 
 
                     </div>

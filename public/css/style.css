@@ -69,7 +69,6 @@
     border-radius: 5px;
     border: 1px solid #678660;
 }
-}
 .password-block:before{
     content: '';
     height: 0;
@@ -276,7 +275,7 @@
   display: block;
 }
 .wrapper .page-wrap .app-sidebar .sidebar-content .nav-container .navigation-main .nav-item.has-sub .submenu-content .menu-item:after {
-    content: '--';
+    /* content: '--'; */
     position: absolute;
     left: 29px;
 }
