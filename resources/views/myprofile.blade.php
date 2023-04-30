@@ -42,12 +42,17 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+
+
+
                         <form class="forms" method="POST" enctype="multipart/form-data" action="{{ url('myprofile/update') }}" >
-                        @csrf
+                            @csrf
                             <input type="hidden" name="id" value="{{$user->id}}">
+
                             <div class="row">
                                 <div class="col-sm-6">
 
+                                    
                                     <div class="form-group">
                                         <label for="name">{{ __('Username')}}<span class="text-red">*</span></label>
                                         <input id="name" type="text" disabled class="form-control @error('name') is-invalid @enderror" name="name" value="{{ clean($user->name, 'titles')}}" required>
@@ -59,6 +64,8 @@
                                             </span>
                                         @enderror
                                     </div>
+
+                                    
                                     <div class="form-group">
                                         <label for="email">{{ __('Email')}}<span class="text-red">*</span></label>
                                         <input id="email" type="email" disabled class="form-control @error('email') is-invalid @enderror" name="email" value="{{ clean($user->email, 'titles')}}" required>
@@ -74,7 +81,7 @@
                                    
                                     <div class="form-group">
                                         <label for="password">{{ __('Reset Password')}}</label>
-                                        <input id="password" type="password" disabled class="form-control @error('password') is-invalid @enderror" name="password"  >
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  >
                                         <div class="help-block with-errors"></div>
 
                                         @error('password')
@@ -84,23 +91,42 @@
                                         @enderror
                                     </div>
 
-                                            <div class="form-group">
-                                                <label>{{ __('Photo upload (512px square preferred)')}}</label>
-                                                <input type="file" id="mypic" name="mypic[]"  class="file-upload-default">
-                                                <div class="input-group col-xs-12">
-                                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                                                    <span class="input-group-append">
-                                                    <button class="file-upload-browse btn btn-primary" type="button">{{ __('Upload')}}</button>
-                                                    </span>
-                                                </div>
-                                            </div>
+
+                                    {{-- Photo upload --}}
+                                    <div class="form-group">
+                                        <label for="avatar">{{ __('User Photo (.jpg format, 512px square preferred)')}}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="avatar" name="avatar" accept=".jpg">
+                                            <label class="custom-file-label" for="avatar">Choose file</label>
+                                        </div>
+                                        {{-- Για κάποιο λόγο δεν δείχνει ότι επιλέχθηκε εικόνα, οπότε βάζω αυτό: --}}
+                                        <script>
+                                            $('.custom-file-input').on('change', function() { 
+                                                let fileName = $(this).val().split('\\').pop(); 
+                                                $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+                                            });
+                                        </script>
+                                        {{--
+                                        <label for="avatar">{{ __('Photo upload (512px square preferred)')}}</label>
+                                        <div class="">
+                                            <input type="file" class="" id="avatar">
+                                            <label class="custom-file-label" for="avatar">Choose file</label>
+                                          </div> --}}
+                                        {{-- <input type="file" id="avatar" name="avatar"  class="form-control"> --}}
+                                        {{-- <div class="input-group col-xs-12">
+                                            <input type="text" class="form-control file-upload-info" placeholder="Upload Image">
+                                            <span class="input-group-append">
+                                            <button class="file-upload-browse btn btn-primary" type="button">{{ __('Upload')}}</button>
+                                            </span>
+                                        </div> --}}
+                                    </div>
 
 
 
 
                                     <div class="form-group">
                                         <label for="locale">{{ __('Language Preferences')}} <span class="text-red">*</span></label>
-                                        <select name="locale" id="locale" class="form-group select2">
+                                        <select name="locale" id="locale" class="form-control select2">
                                             @foreach(App\Models\User::LOCALES as $locale => $label)
                                                 <option value="{{ $locale }}" {{ $user->locale != $locale ?: 'selected' }}>
                                                     {{ $label }}
@@ -134,7 +160,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center"> 
-                            <img src="{{url($user->mypic)}}" class="rounded-circle" width="150" />
+                            <img src="{{auth()->user()->avatarURL()}}" class="" width="150" />
                             <h4 class="card-title mt-10">{{ clean($user->name, 'titles')}}</h4>
 
                         </div>
@@ -152,6 +178,10 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
+                    
                         
                         </form>
                     </div>

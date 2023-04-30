@@ -1,6 +1,6 @@
 <div class="app-sidebar colored">
     <div class="sidebar-header">
-        <a class="header-brand" href="{{route('dashboard')}}">
+        <a class="header-brand" href="{{route('home')}}">
             <div class="logo-img">
                <img height="30" src="{{ asset('img/logo_white.png')}}" class="header-brand-img" title="RADMIN"> 
             </div>
@@ -20,7 +20,7 @@
                 <div class="nav-lavel">{{__('Home')}}</div>
                 {{-- αυτό σημαίνει translation αν υπάρχει --}}
                 <div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
-                    <a href="{{route('home')}}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span></a>
+                    <a href="{{route('dashboard')}}"><i class="ik ik-bar-chart-2"></i><span>{{ __('Dashboard')}}</span></a>
                 </div>
 
                 <div class="nav-item {{ ($segment1 == 'myprofile') ? 'active' : '' }}">
@@ -52,16 +52,18 @@
 
 
 
-                <div class="nav-lavel">{{ __('Support')}} </div>
+                {{-- <div class="nav-lavel">{{ __('Support1') }} </div> --}}
+                <div class="nav-lavel">{{ __('Technical Directives') }} </div>
 
-<!-- start support pages -->
+                <!-- start support pages -->
 
-                <div class="nav-item {{ ($segment1 == 'technical_directives' ) ? 'active open' : '' }} has-sub">
-                    <a href="#"><i class="ik ik-mail"></i><span>{{ __('Technical Directives')}}</span></a>
-                    <div class="submenu-content">
-                    @can('manage_user') <a href="{{url('technical_directives/create')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'create') ? 'active' : '' }}">{{ __('New Directive')}}</a>@endcan
-                         <a href="{{url('technical_directives/list')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'list') ? 'active' : '' }}">{{ __('List Directives')}}</a>
-                    </div>
+                <div class="nav-item">
+                {{-- <div class="nav-item {{ ($segment1 == 'technical_directives' ) ? 'active open' : '' }} has-sub"> --}}
+                    {{-- <a href="#"><i class="ik ik-mail"></i><span>{{ __('Technical Directives')}}</span></a> --}}
+                    {{-- <div class="submenu-content"> --}}
+                    @can('manage_user') <a href="{{url('technical_directives/create')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('New Directive')}}</a>@endcan
+                    <a href="{{url('technical_directives/list')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('List Directives')}}</a>
+                    {{-- </div> --}}
                 </div>
               
                 @can('manage_user')  <div class="nav-item {{ ($segment1 == 'support_tickets') ? 'active open' : '' }} has-sub">
@@ -72,12 +74,16 @@
                         <a href="#" class="menu-item {{ ($segment1 == 'support_tickets' && $segment2 == '') ? 'active' : '' }}">{{ __('List Tickets')}}</a>
                     </div> -->
                 </div>@endcan
-                <div class="nav-item {{ ($segment1 == 'technical_reports') ? 'active open' : '' }} has-sub">
-                    <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Technical Reports')}}</span></a>
-                    <div class="submenu-content">
-                        <a href="{{url('technical_reports/create')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'create') ? 'active' : '' }}">{{ __('New Report')}}</a>
-                        <a href="{{url('technical_reports/list')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'list') ? 'active' : '' }}">{{ __('List Reports')}}</a>
-                    </div>
+
+                
+                <div class="nav-lavel">{{ __('Technical Reports') }} </div>
+                <div class="nav-item">
+                {{-- <div class="nav-item {{ ($segment1 == 'technical_reports') ? 'active open' : '' }} has-sub"> --}}
+                    {{-- <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Technical Reports')}}</span></a> --}}
+                    {{-- <div class="submenu-content"> --}}
+                        <a href="{{url('technical_reports/create')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('New Report')}}</a>
+                        <a href="{{url('technical_reports/list')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('List Reports')}}</a>
+                    {{-- </div> --}}
                 </div>
                   
                 @can('manage_user') <div class="nav-item {{ ($segment1 == 'warranty_claims' ) ? 'active open' : '' }} has-sub">
@@ -99,17 +105,19 @@
 
                 @can('manage_user')
 
+                <!-- start report pages -->
+
+
                 <div class="nav-lavel">{{ __('Reports')}} </div>
+                
 
-<!-- start report pages -->
-
-
-
-               <div class="nav-item {{ ($segment1 == 'reports') ? 'active open' : '' }} has-sub">
-                    <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Reports per VIN')}}</span></a>
-                    <div class="submenu-content">
-                        <a href="{{url('reports/vin_search')}}" class="menu-item {{ ($segment1 == 'reports' && $segment2 == 'vin_search') ? 'active' : '' }}">{{ __('Vehicle History')}}</a>
-                    </div>
+                <div class="nav-item">
+               {{-- <div class="nav-item {{ ($segment1 == 'reports') ? 'active open' : '' }} has-sub"> --}}
+                    {{-- <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Reports per VIN')}}</span></a> --}}
+                    {{-- <div class="submenu-content"> --}}
+                        {{-- <a href="{{url('reports/vin_search')}}" class="menu-item {{ ($segment1 == 'reports' && $segment2 == 'vin_search') ? 'active' : '' }}">{{ __('Vehicle History')}}</a> --}}
+                        <a href="{{url('reports/vin_search')}}" class="menu-item "><i class="ik ik-file-text"></i>{{ __('Reports per VIN')}}</a>
+                    {{-- </div> --}}
                 </div>
 
                <!-- end report pages -->

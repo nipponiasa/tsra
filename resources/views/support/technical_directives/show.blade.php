@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', $uii->subject)
+@section('title', $directive->subject)
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -12,7 +12,7 @@
             <div class="row align-items-end">
                 <div class="col-lg-8">
                     <div class="page-header-title">
-                        <h5>{{$uii->subject}}</h5>
+                        <h5>{{$directive->subject}}</h5>
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                                 <a href="/technical_directives/list">Technical Directives</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">{{$uii->subject}}</a>
+                                <a href="#">{{$directive->subject}}</a>
                             </li>
                         </ol>
                     </nav>
@@ -47,7 +47,7 @@
                 <div class="card-body">
                     
 
-               {!! $uii->directive !!}
+               {!! $directive->directive !!}
 
 
 

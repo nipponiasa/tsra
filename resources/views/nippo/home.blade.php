@@ -128,6 +128,7 @@
         <script src="{{ asset('plugins/jvectormap/jquery-jvectormap.min.js') }}"></script>
         <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
        
-        <script src="{{ asset('js/widgets.js') }}"></script>
+        {{-- Dim: αυτό το έβγαλα, μπορεί να χρειάζεται --}}
+        {{-- <script src="{{ asset('js/widgets.js') }}"></script> --}}
     @endpush
 @endsection

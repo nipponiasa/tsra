@@ -50,7 +50,7 @@
 
                                     <div class="form-group">
                                         <label for="name">{{ __('Username')}}<span class="text-red">*</span></label>
-                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" placeholder="Enter user name" required>
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Enter user name" required>
                                         <div class="help-block with-errors"></div>
 
                                         @error('name')

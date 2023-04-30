@@ -79,14 +79,16 @@
 
 									
 
-@foreach($uii as $result) 
+@foreach($technical_directives as $directive) 
 <tr>
-<td>{{$result->directive_id}}</td> 
-<td>{{$result->subject}}</td>
-<td>{{$result->models}}</td>
-<td>{{date('d-m-Y', strtotime($result->directive_created_at))}}</td>
-<td> @if (!$result->isread) <span class="badge badge-secondary">Unread</span> @endif</td>
-<td><a href="/technical_directives/{{$result->directive_id}}"><i class="ik ik-message-square f-16 mr-15 text-green"></i></a></td>
+<td>{{$directive->id}}</td> 
+<td><a href="/technical_directives/{{$directive->id}}">{{$directive->subject}}</a></td>
+<td>{{$directive->models}}</td>
+<td>{{date('d-m-Y', strtotime($directive->directive_created_at))}}</td>
+<td> 
+    {{-- @if (!$directive->isread) <span class="badge badge-secondary">Unread</span> @endif --}}
+</td>
+<td><a href="/technical_directives/{{$directive->id}}"><i class="ik ik-message-square f-16 mr-15 text-green"></i></a></td>
 </tr>
 @endforeach
 

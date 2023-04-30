@@ -1,9 +1,9 @@
 @extends('layouts.main') 
 
 @section('title', 'Add a Technical Directive')
-<!-- include summernote css/js-->
-<link href="summernote-bs5.css" rel="stylesheet">
-<script src="summernote-bs5.js"></script>
+<!-- include summernote css/js  Dim: Τα έβγαλα, μπορεί να χρειάζονται-->
+{{-- <link href="summernote-bs5.css" rel="stylesheet"> --}}
+{{-- <script src="summernote-bs5.js"></script> --}}
 @section('content')
     <div class="container-fluid">
     	<div class="page-header">

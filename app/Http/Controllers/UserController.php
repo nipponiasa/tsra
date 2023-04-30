@@ -1,19 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\UserRequest;
+use Auth;
+use DataTables;
 use App\Models\User;
 
-use DataTables;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\View\View;
-use Spatie\Permission\Models\Role;
-use Auth;
-use Illuminate\Support\Facades\URL;
+
 class UserController extends Controller
 {
 
@@ -75,8 +77,11 @@ class UserController extends Controller
             ->make(true);
     }
 
+
+
+
     /**
-     * User Create
+     * User Create - Show form to create new user
      *
      * @return mixed
      */
@@ -91,40 +96,60 @@ class UserController extends Controller
         }
     }
 
+
+
+
     /**
-     * Store User
+     * Store User  // POST CREATE NEW USER
      *
      * @param UserRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        try {
+        
+        // validate user fields
+        $validator = Validator::make($request->all(), [
+            'name' => ['required','string'],
+            'email' => ['required', 'email', Rule::unique('users','email','unique:users')],
+            'password' => ['required', 'confirmed']
+        ]);
+            
+           
+            
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->with('error', $validator->messages()->first());
+        }
+
+
+            // Το hash γίνεται στο model User.php
             // store user information
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password,
-            ]);
-
-
+            $user = User::create($validator);
+            // $user = User::create([
+            //     'name' => $user_fields['name'],
+            //     'email' => $user_fields['email'],
+            //     'password' => $user_fields['password']
+            // ]);
+            
+            
+        try {
+            
             if ($user) {
                 // assign new role to the user
                 $user->syncRoles($request->role);
-
                 return redirect('users')->with('success', 'New user created!');
             }
-
             return redirect('users')->with('error', 'Failed to create new user! Try again.');
+
+
         } catch (\Exception $e) {
             $bug = $e->getMessage();
-
             return redirect()->back()->with('error', $bug);
         }
     }
 
     /**
-     * Edit User
+     * Edit User - Show Form to edit user
      *
      * @param int $id
      * @return mixed
@@ -161,19 +186,15 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required',
             'name' => 'required | string ',
-            'email' => 'required | email',
+            'email' => 'required | email ',
             'role' => 'required',
         ]);
         
         // check validation for password match
-        if (isset($request->password)) {
-            $validator = Validator::make($request->all(), [
-                'password' => 'required | confirmed',
+        if ($request->password) {
+                $validator = Validator::make($request->all(), [
+                    'password' => 'required | confirmed',
             ]);
-
-
-
-
         }
 
         if ($validator->fails()) {
@@ -224,81 +245,96 @@ class UserController extends Controller
     }
 
 
-    /**
-     * Edit User profile by his/her own
-     *
-     * @param int $id
-     * @return mixed
-     */
-    public function editmyprofile()
-    {
-                $userid=Auth::id();
-                //dd($user);
+
+
+
+            /**
+             * Edit User profile by his/her own - show form to edit user profile
+             *
+             * @param int $id
+             * @return mixed
+             */
+            public function editmyprofile()
+            {
+                // the user object 
+                $user = Auth::user();
               
-                $user_rows=DB::select(DB::raw(' SELECT * FROM users WHERE id='.$userid.';'));
-                    $user= $user_rows[0];
+                // $user_rows=DB::select(DB::raw(' SELECT * FROM users WHERE id='.$userid.';'));
+                //     $user= $user_rows[0];
                 return view('myprofile')->with('user',$user);
             }
 
   
+            // Update User profile by his/her own, POST METHOD
             public function updateprofile(Request $request)
             {
-                        $userid=Auth::id();
-                        $mypics = $request->file('mypic');
-                        $locale = $request->locale;
+                    // the user object
+                    $user = Auth::user();
+
+                    // $userid=Auth::id();
+                    // $mypics = $request->file('mypic');
+                    // $locale = $request->locale;
           
 
                 
                        //dd($mypics);
 
 
-                        if( !is_null($mypics)) 
-                        {   
+                    // if( !is_null($mypics)) 
+                    // {   
 
-                            foreach($mypics as $mypic)
-                            {
-                                $directory="users";
-                                    $stored=false;
-                                    if( !is_null($mypic)) 
-                                    {   
-                                    $allowedfileExtension=['pdf','jpg','avi','mp4','png','docx','PNG'];
-                                    $filename = $mypic->getClientOriginalName();
-                                    $extension = $mypic->getClientOriginalExtension();
-                                    $originalName = $mypic->getClientOriginalName();
-                                    $check=in_array($extension,$allowedfileExtension);
-                                    $stored=($stored or $check)?true:false;
-                                    //dd($file);
-                                    if($check)
-                                    {
-//dd($directory);
+                    //     foreach($mypics as $mypic)
+                    //     {
+                    //         $directory="users";
+                    //             $stored=false;
+                    //             if( !is_null($mypic)) 
+                    //             {   
+                    //             $allowedfileExtension=['pdf','jpg','avi','mp4','png','docx','PNG'];
+                    //             $filename = $mypic->getClientOriginalName();
+                    //             $extension = $mypic->getClientOriginalExtension();
+                    //             $originalName = $mypic->getClientOriginalName();
+                    //             $check=in_array($extension,$allowedfileExtension);
+                    //             $stored=($stored or $check)?true:false;
+                    //             //dd($file);
 
-$storagePath=Storage::putFileAs($directory, $mypic, $originalName);
-                                      
-                                         DB::select(DB::raw('UPDATE `users` SET  mypic="storage/azure_ext/'.$storagePath.'"WHERE id='.$userid.';'));
-                                    }
+                    //             if($check)
+                    //                 {
+                    //                 //dd($directory);
 
-                                }
+                    //                 $storagePath=Storage::putFileAs($directory, $mypic, $originalName);
+                                    
+                    //                     DB::select(DB::raw('UPDATE `users` SET  mypic="storage/azure_ext/'.$storagePath.'"WHERE id='.$userid.';'));
+                    //             }
 
-
-
+                    //         }
 
 
+                    //     }
+
+                    // }
 
 
+                    // update user profile
+                    if ($request->password)
+                    {
+                        $user->password = $request->password;  // το hash γίνεται αυτόματα στο μοντέλο User
+                    }
+                    $user->locale = $request->locale;
+                    $user->save();
 
-              
+                    if ($request->file('avatar'))
+                    {
+                        $avatar_directory = 'public/avatars';
+                        $request->file('avatar')->storeAs($avatar_directory, $user->id.'.jpg');
+                    }
 
-                }
 
-            }
-
-
-
-            DB::select(DB::raw('UPDATE `users` SET  locale="'. $locale.'" WHERE id='.$userid.';'));  
-                        $user_rows=DB::select(DB::raw(' SELECT * FROM users WHERE id='.$userid.';'));
-                            $user= $user_rows[0];
-                            $mypic=URL::to($user->mypic);
-                        return view('myprofile')->with('user',$user)->with('mypic',$mypic);
+                    //  DB::select(DB::raw('UPDATE `users` SET  locale="'. $locale.'" WHERE id='.$userid.';'));  
+                    //     $user_rows=DB::select(DB::raw(' SELECT * FROM users WHERE id='.$userid.';'));
+                    //         $user= $user_rows[0];
+                    //         $mypic=URL::to($user->mypic);
+                        // return view('myprofile')->with('user',$user)->with('mypic',$mypic);
+                    return view('myprofile')->with('user',$user);
                     }
 
 

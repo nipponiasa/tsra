@@ -109,41 +109,37 @@ class TechnicalDirectiveController extends Controller
 
 
 
- /**
-     * Show Technical Report List
-     *
+        /**
+         * Show Technical Report List
+         *
          */
         public function getTechnicalDirectiveList()
         {
-    
-            $user_id=Auth::id();
+            // $user_id=Auth::id();
+            // $uii=TechnicalDirective::get_directives_list_user($user_id);
+            $technical_directives = TechnicalDirective::all();
 
-            $uii=TechnicalDirective::get_directives_list_user($user_id);
-
-
-          
-            
-            
-            return view('support.technical_directives.list')->with('uii',$uii);
+            return view('support.technical_directives.list')->with('technical_directives',$technical_directives);
         }
 
 
 
- /**
-     * Show Technical Report
-     *
+        /**
+         * Show Technical Report
+         *
          */
         public function showTechnicalDirective(Request $request)
         {
-            $directive_id = $request->directive_id;
-            $user_id=Auth::id();
+            // $directive_id = $request->directive_id;
+            // $user_id=Auth::id();
 
-            $uii=TechnicalDirective::get_directive_user($user_id,$directive_id)[0];
-            ReadState::mark_read_user($directive_id,'DIRECTIVE',$user_id);
+            // $uii=TechnicalDirective::get_directive_user($user_id,$directive_id)[0];
+            // ReadState::mark_read_user($directive_id,'DIRECTIVE',$user_id);
+            $directive = TechnicalDirective::find($request->directive_id);
             
           
                    
-            return view('support.technical_directives.show')->with('uii',$uii);
+            return view('support.technical_directives.show')->with('directive',$directive);
         }
 
 

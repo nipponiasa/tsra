@@ -30,7 +30,6 @@ Route::get('test', [HomeController::class,'test'])->name('test');
 
 Route::get('login', [LoginController::class,'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class,'login']);
-Route::post('register', [RegisterController::class,'register']);
 
 Route::get('password/forget',  function () { 
 	return view('pages.forgot-password'); 
@@ -51,13 +50,13 @@ Route::group(['middleware' => 'auth'], function(){
 
 	//only those have manage_user permission will get access
 	Route::group(['middleware' => 'can:manage_user'], function(){
-	Route::get('/users', [UserController::class,'index']);
-	Route::get('/user/get-list', [UserController::class,'getUserList']);
-		Route::get('/user/create', [UserController::class,'create']);
-		Route::post('/user/create', [UserController::class,'store'])->name('create-user');
-		Route::get('/user/{id}', [UserController::class,'edit']);
-		Route::post('/user/update', [UserController::class,'update']);
-		Route::get('/user/delete/{id}', [UserController::class,'delete']);
+        Route::get('/users', [UserController::class,'index']);
+        Route::get('/user/get-list', [UserController::class,'getUserList']);
+        Route::get('/user/create', [UserController::class,'create']);
+        Route::post('/user/create', [UserController::class,'store'])->name('create-user');  // POST create form
+        Route::get('/user/{id}', [UserController::class,'edit']);
+        Route::post('/user/update', [UserController::class,'update']);
+        Route::get('/user/delete/{id}', [UserController::class,'delete']);
 	});
 
 	//only those have manage_role permission will get access
