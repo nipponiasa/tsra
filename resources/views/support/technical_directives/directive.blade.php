@@ -40,18 +40,16 @@
                          <div class="row">
                                 <div class="col-sm-6">
 
+                                    {{-- Subject --}}
                                     <div class="form-group">
                                         <label for="subject">Subject<span class="text-red">*</span></label>
                                         <input id="subject" type="text" class="form-control" name="subject" value="" placeholder="Enter a subject" >
 
-
                                         <div class="help-block with-errors">
-                                        @error('subject')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                            @error('subject')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
-
-
                                     </div>
 
 
@@ -59,59 +57,73 @@
 
 
 
-
+                                        {{-- Notes --}}
                                         <div class="form-group">
-                                        <label>{{ __('Instructions')}}</label>
-                                        <textarea  id="directive" name="directive"  class="form-control html-editor h-205" rows="50"></textarea>
-
-                                    </div>
-                                    <div class="help-block with-errors">
-                                        @error('directive')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                            <label>{{ __('Notes')}}</label>
+                                            <textarea  id="notes" name="notes"  class="form-control h-205" rows="3"></textarea>
+                                        </div>
+                                        <div class="help-block with-errors">
+                                            @error('directive')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
-
-
-
-
-
-
+                                        {{-- Directive File --}}
+                                        <div class="custom-file">
+                                            <input name="directivefile" type="file" class="custom-file-input" id="file">
+                                            <label class="custom-file-label" for="file">Upload file</label>
+                                          </div>
 
 
                                 </div>
 
 
                                 <div class="col-sm-3">
+
+                                    {{-- Applicable Models --}}
                                     <div class="form-group">
                                         <label for="models">{{ __('Applicable Model(s)')}} <span class="text-red">*</span></label>
                                         <select name="models[]" id="models" class="form-control select2" multiple="multiple">
-                                        @foreach($uii as $result)
-                                            <option value = "{{ $result->id }}"  >{{ $result->name }}</option>
+                                        @foreach($models as $model)
+                                            <option value = "{{ $model->id }}"  >{{ $model->name }}</option>
                                         @endforeach
                                         </select>
                                     </div>
-
-
                                     <div class="help-block with-errors">
                                         @error('models')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        </div>
+                                    </div>
+
+
+                                    {{-- Applicable Countries --}}
+                                    <div class="form-group">
+                                        <label for="countries">{{ __('Applicable Countries')}} <span class="text-red">*</span></label>
+                                        <select name="countries[]" id="countries" class="form-control select2" multiple="multiple">
+                                            <option value = "HQ"  >HQ</option>
+                                            <option value = "RD"  >RD</option>
+                                            <option value = "GE"  >GE</option>
+                                            <option value = "BE"  >BE</option>
+                                        
+                                        </select>
+                                    </div>
+                                    <div class="help-block with-errors">
+                                        @error('countries')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
 
 
                                     <div class="form-group">
-                                        <label for="publish_state">{{ __('Directive state')}} <span class="text-red">*</span></label>
-                                        <select name="publish_state" id="publish_state" class="form-group select2">
+                                        <label for="state">{{ __('Directive state')}} <span class="text-red">*</span></label>
+                                        <select name="state" id="state" class="form-group select2">
                                           
                                                 <option value="publish" selected>{{ __('Publish')}}</option>
                                                 <option value="republish">{{ __('Republish')}}</option>
                                                 <option value="draft">{{ __('Draft')}}</option>
                                         </select>
                                     </div>
-
-
                                     <div class="help-block with-errors">
                                         @error('publish_state')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -124,9 +136,10 @@
 
 
 
-                                     <div class="form-group text-right">
+                                     <div class="form-group text-right m-5">
                                         <button type="submit" class="btn btn-primary">Create</button>
                                     </div>  
+
                                 </div>
                                 <div class="col-sm-3">
                               </div>

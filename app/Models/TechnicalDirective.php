@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\MotorModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class TechnicalDirective extends Model
@@ -15,7 +16,12 @@ class TechnicalDirective extends Model
 
 
 
-     
+    public function motorModels()
+    {
+        return $this->belongsToMany(MotorModel::class, 'directive_model', 'directive_id', 'model_id');
+        // by default, Laravel would look for technical_directive_id and motor_model_id, not directive_id and model_id
+        // so, we have to write them explicitly
+    }
 
 
    // public static function get_directives_list_user2($user_id)

@@ -166,10 +166,10 @@ Route::post('/myprofile/update', [UserController::class,'updateprofile'])->name(
 
 
 //Technical Directives
-Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'show_create'])->name('show_create_technical_directives')->middleware('auth');
-Route::post('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('create_technical_directives')->middleware('auth');
+Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('create_technical_directives')->middleware('auth');
+Route::post('/technical_directives/create', [TechnicalDirectiveController::class,'store'])->name('store_technical_directives')->middleware('auth');
 Route::get('/technical_directives/list', [TechnicalDirectiveController::class,'getTechnicalDirectiveList'])->name('list_technical_directives')->middleware('auth');
-Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'showTechnicalDirective'])->name('technical_directive_view')->middleware('auth');
+Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('show_technical_directive')->middleware('auth');
 //Technical Directives
 
 //only those have manage_role permission will get access

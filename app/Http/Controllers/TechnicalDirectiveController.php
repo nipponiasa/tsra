@@ -2,102 +2,100 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use File;
+use DataTables;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Mail\MailOut;
 use App\Http\Requests;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Message;
+use App\Models\ReadState;
+use App\Models\MotorModel;
+use Illuminate\Http\Request;
+use App\Models\TechnicalDirective;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
-use DataTables;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\MailOut;
-use App\Models\User;
-use File;
-use App\Models\Message;
-use App\Models\TechnicalDirective;
-use App\Models\ReadState;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 
 
 class TechnicalDirectiveController extends Controller
 {
   
     // GET CREATE
-    public function show_create()
+    public function create()
     {
-      $uii=DB::select(DB::raw('SELECT * FROM models;'));
-      return view('support.technical_directives.create')->with('uii',$uii);
+        $models=MotorModel::all();
+        return view('support.technical_directives.directive', ["models"=>$models]);
     }
 
 
 
+
+
     // POST CREATE
-    public function create(Request $request)   
+    public function store(Request $request)   
     {
             
 
-
         $validated = $request->validate([
             'subject' => 'required',
-            'directive' => 'required',
-            'publish_state' => 'required',
-            'models' => 'required'
+            'notes' => 'nullable',
+            'directivefile' => 'nullable',
+            'models' => 'required',
+            'countries' => 'nullable',
+            'state' => 'required',
         ]);
 
 
+        // SAVE DIRECTIVE
 
-        $technicaldirective=new TechnicalDirective();
-        $subject=$request->subject;
-        $models=$request->models;
-        //$directive=$request->directive;//na fygei
-        $publish_state=$request->publish_state;
-        $agent_id=Auth::user()->id;
-        $agent_email = Auth::user()->email;
-        $date=Carbon::now();
-        //dd( $technicaldirective);
-        $technicaldirective->subject=$subject;
-        $technicaldirective->publish_state=$publish_state;
-        $technicaldirective->agent_id=$agent_id;
-        
+        $technicaldirective = new TechnicalDirective();
 
 
+        $technicaldirective->subject=$request->subject;
+        $technicaldirective->notes=$request->notes;
+        $technicaldirective->state=$request->state;
+        $technicaldirective->agent_id=Auth::user()->id;
 
-
-
-
-
-        // $directive->subject=$subject;
-        //******************************* */
-
-        $content = $request->directive;
-        $dom = new \DomDocument();
-        $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $content = $dom->saveHTML();
-
-        $technicaldirective->directive=$content;
-
-        //******************************* */
-        //dd( $technicaldirective);
+        // SAVE DIRECTIVE FILE...
+        $file=$request->file('directivefile');
 
         $technicaldirective->save();
-        $directive_id=$technicaldirective->id;
+
+
+
+        // ATTACH MOTOR MODELS TO DIRECTIVE
+
+        // $directive_id=$technicaldirective->id;
+        $motorModelIds = $request->input('models');
+        $technicaldirective->motorModels()->attach($motorModelIds);
+
         
         //models
 
-        if( !is_null($models)) 
-        {     
+        // if( !is_null($models)) 
+        // {     
 
-            foreach($models as $model)
-            {
-                DB::table('relations')-> insert(array('source' =>$directive_id ,'relation_type' => "directives_for_model",'destination'=>$model));
+        //     foreach($models as $model)
+        //     {
+        //         DB::table('relations')-> insert(array('source' =>$directive_id ,'relation_type' => "directives_for_model",'destination'=>$model));
 
-            }
+        //     }
 
-        }
+        // }
 
         //models
-        ReadState::mark_unread($directive_id,"DIRECTIVE");
+        // ReadState::mark_unread($directive_id,"DIRECTIVE");
+
+
+
+        // $agent_email = Auth::user()->email;
+        // $date=Carbon::now();
+        //dd( $technicaldirective);
+
 
 
         return Redirect::to('technical_directives/list');
@@ -128,7 +126,7 @@ class TechnicalDirectiveController extends Controller
          * Show Technical Report
          *
          */
-        public function showTechnicalDirective(Request $request)
+        public function show(Request $request)
         {
             // $directive_id = $request->directive_id;
             // $user_id=Auth::id();
@@ -139,7 +137,7 @@ class TechnicalDirectiveController extends Controller
             
           
                    
-            return view('support.technical_directives.show')->with('directive',$directive);
+            return view('support.technical_directives.show', ["directive"=>$directive]);
         }
 
 
