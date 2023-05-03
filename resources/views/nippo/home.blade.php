@@ -51,11 +51,11 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-primary">
                     <div class="widget-body">
-                        <a href="/technical_directives/list" style="color:white;">
+                        <a href="{{route('technical_directives.index')}}" style="color:white;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
                                 <h6>{{ __('Technical Directives')}}</h6>
-                                <h2>{{$unread_directives}}</h2>
+                                <h2>{{$directives}}</h2>
                             </div>
                             <div class="icon">
                                 <i class="ik ik-mail"></i>
@@ -68,7 +68,7 @@
 
 
             @can('manage_user') 
-            <div class="col-lg-3 col-md-6 col-sm-12">
+            {{-- <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-success">
                     <div class="widget-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -82,14 +82,15 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-warning">
                     <div class="widget-body">
+                        <a href="{{route('technical_reports.index')}}" style="color:white;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
                                 <h6>{{ __('Technical Reports')}}</h6>
-                                <h2> 0</h2>
+                                <h2>{{$reports}}</h2>
                             </div>
                             <div class="icon">
                                 <i class="ik ik-file-text"></i>
@@ -98,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
+            {{-- <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-danger">
                     <div class="widget-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -112,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             @endcan
         </div>

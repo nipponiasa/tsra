@@ -10,7 +10,7 @@ class TechnicalReport extends Model
 {
     use HasFactory;
 
-    protected $table = 'technical_directives';
+    protected $table = 'support_cases';
 
 
 
