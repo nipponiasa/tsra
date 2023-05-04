@@ -26,7 +26,7 @@ use App\Http\Controllers\ReportsController;
 |
 */ 
 Route::get('/', function () { return view('auth.login'); });
-Route::get('test', [HomeController::class,'test'])->name('test');
+// Route::get('test', [HomeController::class,'test'])->name('test');
 
 Route::get('login', [LoginController::class,'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class,'login']);
@@ -39,16 +39,17 @@ Route::get('password/reset/{token}', [ResetPasswordController::class,'showResetF
 Route::post('password/reset', [ResetPasswordController::class,'reset'])->name('password.update');
 
 
+
 //* ONLY FOR LOGGED ON USERS
 Route::group(['middleware' => 'auth'], function(){
-	// logout route
+	
+    //* USER PAGES
 	Route::get('/logout', [LoginController::class,'logout']);
 	Route::get('/clear-cache', [HomeController::class,'clearCache']);
-
-
+    Route::get('/myprofile', [UserController::class,'editmyprofile'])->name('myprofile');
+    Route::post('/myprofile/update', [UserController::class,'updateprofile'])->name('updateprofile');
 
     
-
 
     //* ADMIN PAGES
 	//only those have manage_user permission will get access
