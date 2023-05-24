@@ -81,7 +81,20 @@
                                    
                                     <div class="form-group">
                                         <label for="password">{{ __('Reset Password')}}</label>
+                                        <div class="input-group">
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  >
+                                        <div class="input-group-append" style="cursor: pointer;" id="togglePassword">
+                                            <span class="input-group-text">
+                                                <i class="far fa-eye" ></i>
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <script>
+                                            $("#togglePassword").click(function() {
+                                                $("#password").attr('type', ($("#password").attr('type')=='password') ? "text" : "password"  );
+                                            });
+                                        </script>
+
                                         <div class="help-block with-errors"></div>
 
                                         @error('password')
