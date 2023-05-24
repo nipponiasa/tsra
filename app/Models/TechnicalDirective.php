@@ -24,6 +24,14 @@ class TechnicalDirective extends Model
     }
 
 
+    public function motorCountries()
+    {
+        return $this->belongsToMany(MotorModel::class, 'directive_country', 'directive_id', 'country_id');
+        // by default, Laravel would look for technical_directive_id and motor_model_id, not directive_id and model_id
+        // so, we have to write them explicitly
+    }
+
+
    // public static function get_directives_list_user2($user_id)
    // {
 

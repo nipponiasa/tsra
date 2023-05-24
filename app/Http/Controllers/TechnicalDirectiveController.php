@@ -73,6 +73,9 @@ class TechnicalDirectiveController extends Controller
         $motorModelIds = $request->input('models');
         $technicaldirective->motorModels()->attach($motorModelIds);
 
+        $motorCountryIds = $request->input('countries');
+        $technicaldirective->motorCountries()->attach($motorCountryIds);
+
         
         //models
 

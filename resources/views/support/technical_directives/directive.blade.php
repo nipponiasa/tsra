@@ -100,10 +100,10 @@
                                     <div class="form-group">
                                         <label for="countries">{{ __('Applicable Countries')}} <span class="text-red">*</span></label>
                                         <select name="countries[]" id="countries" class="form-control select2" multiple="multiple">
-                                            <option value = "HQ"  >HQ</option>
-                                            <option value = "RD"  >RD</option>
-                                            <option value = "GE"  >GE</option>
-                                            <option value = "BE"  >BE</option>
+                                            <option value="3">HQ</option>
+                                            <option value="1">RD</option>
+                                            <option value="4">GE</option>
+                                            <option value="7">BE</option>
                                         
                                         </select>
                                     </div>
