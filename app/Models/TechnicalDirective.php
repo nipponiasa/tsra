@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Country;
 use App\Models\MotorModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ class TechnicalDirective extends Model
 
     public function motorCountries()
     {
-        return $this->belongsToMany(MotorModel::class, 'directive_country', 'directive_id', 'country_id');
+        return $this->belongsToMany(Country::class, 'directive_country', 'directive_id', 'country_id');
         // by default, Laravel would look for technical_directive_id and motor_model_id, not directive_id and model_id
         // so, we have to write them explicitly
     }

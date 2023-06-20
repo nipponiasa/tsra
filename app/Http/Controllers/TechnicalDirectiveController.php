@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Mail\MailOut;
 use App\Http\Requests;
+use App\Models\Country;
 use App\Models\Message;
 use App\Models\ReadState;
 use App\Models\MotorModel;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Redirect;
 class TechnicalDirectiveController extends Controller
 {
   
-    // GET CREATE
+    // GET CREATE (view create form)
     public function create()
     {
         $models=MotorModel::all();
@@ -60,9 +61,10 @@ class TechnicalDirectiveController extends Controller
         $technicaldirective->state=$request->state;
         $technicaldirective->agent_id=Auth::user()->id;
 
-        // SAVE DIRECTIVE FILE...
+        //# TODO: SAVE DIRECTIVE FILE...
         $file=$request->file('directivefile');
 
+        // Save directive
         $technicaldirective->save();
 
 
@@ -101,7 +103,7 @@ class TechnicalDirectiveController extends Controller
 
 
 
-        return Redirect::to('technical_directives/list');
+        return Redirect()->route('technical_directives.index');
                         
 
     }
@@ -111,14 +113,15 @@ class TechnicalDirectiveController extends Controller
 
 
         /**
-         * Show Technical Report List
+         * Show Technical Report List (index route)
          *
          */
-        public function getTechnicalDirectiveList()
+        public function index()
         {
             // $user_id=Auth::id();
             // $uii=TechnicalDirective::get_directives_list_user($user_id);
-            $technical_directives = TechnicalDirective::all();
+            // $technical_directives = TechnicalDirective::all();
+            $technical_directives = TechnicalDirective::with('motorCountries','motorModels')->get();
 
             return view('support.technical_directives.list')->with('technical_directives',$technical_directives);
         }

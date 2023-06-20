@@ -61,8 +61,8 @@
                 {{-- <div class="nav-item {{ ($segment1 == 'technical_directives' ) ? 'active open' : '' }} has-sub"> --}}
                     {{-- <a href="#"><i class="ik ik-mail"></i><span>{{ __('Technical Directives')}}</span></a> --}}
                     {{-- <div class="submenu-content"> --}}
-                    @can('manage_user') <a href="{{url('technical_directives/create')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('New Directive')}}</a>@endcan
-                    <a href="{{url('technical_directives/list')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('List Directives')}}</a>
+                    @can('manage_user') <a href="{{route('create_technical_directives')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('New Directive')}}</a>@endcan
+                    <a href="{{route('technical_directives.index')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('List Directives')}}</a>
                     {{-- </div> --}}
                 </div>
               

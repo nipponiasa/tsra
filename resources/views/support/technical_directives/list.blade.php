@@ -65,10 +65,11 @@
                                 <tr>
                                     <th>#</th>
 									<th>{{__('Subject')}}</th>
-		                            <th>{{__('Model(s)')}}</th>
-		                            <th>{{__('Date')}}</th>
+		                            <th>{{__('Models')}}</th>
+		                            <th>{{__('Countries')}}</th>
+		                            <th>{{__('Updated on')}}</th>
 		                            <th>{{__('Status')}}</th>
-									<th>{{__('Action')}}</th>
+									<th>{{__('File')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,12 +84,16 @@
 <tr>
 <td>{{$directive->id}}</td> 
 <td><a href="/technical_directives/{{$directive->id}}">{{$directive->subject}}</a></td>
-<td>{{$directive->models}}</td>
-<td>{{date('d-m-Y', strtotime($directive->directive_created_at))}}</td>
+<td>{{$directive->motorModels->pluck('name')->implode(', ')}}</td>
+<td>{{$directive->motorCountries->pluck('shortname')->implode(', ')}}</td>
+<td>{{date('d-m-Y', strtotime($directive->updated_at))}}</td>
 <td> 
+    {{$directive->state}}
     {{-- @if (!$directive->isread) <span class="badge badge-secondary">Unread</span> @endif --}}
 </td>
-<td><a href="/technical_directives/{{$directive->id}}"><i class="ik ik-message-square f-16 mr-15 text-green"></i></a></td>
+<td>
+    {{-- <a href="/technical_directives/{{$directive->id}}"><i class="ik ik-message-square f-16 mr-15 text-green"></i></a> --}}
+</td>
 </tr>
 @endforeach
 

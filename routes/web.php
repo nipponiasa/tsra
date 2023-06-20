@@ -166,9 +166,14 @@ Route::group(['middleware' => 'auth'], function(){
     //* TECHNICAL DIRECTIVES
     Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('create_technical_directives')->middleware('auth');
     Route::post('/technical_directives/create', [TechnicalDirectiveController::class,'store'])->name('store_technical_directives')->middleware('auth');
-    Route::get('/technical_directives/list', [TechnicalDirectiveController::class,'getTechnicalDirectiveList'])->name('technical_directives.index')->middleware('auth');
+    // Route::get('/technical_directives/list', [TechnicalDirectiveController::class,'getTechnicalDirectiveList'])->name('technical_directives.index')->middleware('auth');
+    Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('technical_directives.index')->middleware('auth');
     Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('show_technical_directive')->middleware('auth');
 
+
+
+
+    
     //only those have manage_role permission will get access
 	Route::group(['middleware' => 'can:manage_role|manage_user'], function(){
     //settings
