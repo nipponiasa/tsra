@@ -164,12 +164,15 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     //* TECHNICAL DIRECTIVES
-    Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('create_technical_directives')->middleware('auth');
-    Route::post('/technical_directives/create', [TechnicalDirectiveController::class,'store'])->name('store_technical_directives')->middleware('auth');
-    // Route::get('/technical_directives/list', [TechnicalDirectiveController::class,'getTechnicalDirectiveList'])->name('technical_directives.index')->middleware('auth');
-    Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('technical_directives.index')->middleware('auth');
-    Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'show'])->name('show_technical_directive')->middleware('auth');
-    Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('show_technical_directive')->middleware('auth');
+    Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('directive.create')->middleware('auth');
+    Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'edit'])->name('directive.edit')->middleware('auth');
+    
+    Route::post('/technical_directives', [TechnicalDirectiveController::class,'store'])->name('directive.store')->middleware('auth');
+    Route::put('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'update'])->name('directive.update')->middleware('auth');
+    Route::delete('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'destroy'])->name('directive.destroy')->middleware('auth');
+    
+    Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('directive.show')->middleware('auth');
+    Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('directive.index')->middleware('auth');
 
 
 

@@ -29,7 +29,7 @@ class TechnicalDirectiveController extends Controller
     public function create()
     {
         $models=MotorModel::all();
-        return view('support.technical_directives.directive', ["models"=>$models, "submit"=>"create"]);
+        return view('support.technical_directives.directive', ["models"=>$models, "action"=>"create"]);
     }
 
 
@@ -53,55 +53,31 @@ class TechnicalDirectiveController extends Controller
 
         // SAVE DIRECTIVE
 
-        $technicaldirective = new TechnicalDirective();
+        $directive = new TechnicalDirective();
 
 
-        $technicaldirective->subject=$request->subject;
-        $technicaldirective->notes=$request->notes;
-        $technicaldirective->state=$request->state;
-        $technicaldirective->agent_id=Auth::user()->id;
+        $directive->subject=$request->subject;
+        $directive->notes=$request->notes;
+        $directive->state=$request->state;
+        $directive->agent_id=Auth::user()->id;
 
         //# TODO: SAVE DIRECTIVE FILE...
         $file=$request->file('directivefile');
 
         // Save directive
-        $technicaldirective->save();
+        $directive->save();
 
 
 
         // ATTACH MOTOR MODELS TO DIRECTIVE
 
-        // $directive_id=$technicaldirective->id;
         $motorModelIds = $request->input('models');
-        $technicaldirective->motorModels()->attach($motorModelIds);
+        $directive->motorModels()->attach($motorModelIds);
 
         $motorCountryIds = $request->input('countries');
-        $technicaldirective->motorCountries()->attach($motorCountryIds);
+        $directive->motorCountries()->attach($motorCountryIds);
 
         
-        //models
-
-        // if( !is_null($models)) 
-        // {     
-
-        //     foreach($models as $model)
-        //     {
-        //         DB::table('relations')-> insert(array('source' =>$directive_id ,'relation_type' => "directives_for_model",'destination'=>$model));
-
-        //     }
-
-        // }
-
-        //models
-        // ReadState::mark_unread($directive_id,"DIRECTIVE");
-
-
-
-        // $agent_email = Auth::user()->email;
-        // $date=Carbon::now();
-        //dd( $technicaldirective);
-
-
 
         return Redirect()->route('technical_directives.index');
                         
@@ -113,23 +89,19 @@ class TechnicalDirectiveController extends Controller
 
 
         /**
-         * Show Technical Report List (index route)
+         * Show Technical Directive List (index route)
          *
          */
         public function index()
         {
-            // $user_id=Auth::id();
-            // $uii=TechnicalDirective::get_directives_list_user($user_id);
-            // $technical_directives = TechnicalDirective::all();
             $technical_directives = TechnicalDirective::with('motorCountries','motorModels')->get();
-
             return view('support.technical_directives.list')->with('technical_directives',$technical_directives);
         }
 
 
 
         /**
-         * Show Technical Report
+         * Show Technical Directive
          *
          */
         public function show(Request $request)
@@ -144,11 +116,83 @@ class TechnicalDirectiveController extends Controller
             $models=MotorModel::all();
             
           
-                   
-            // return view('support.technical_directives.show', ["directive"=>$directive]);
-            return view('support.technical_directives.directive', ["directive"=>$directive, "models"=>$models, "submit"=>"show"]);
+                
+            return view('support.technical_directives.directive', ["directive"=>$directive, "models"=>$models, "action"=>"show"]);
         }
 
+
+         /**
+         * Form Edit Technical Directive
+         *
+         */
+        public function edit(Request $request)
+        {
+            $directive_id = $request->directive_id;
+            $directive = TechnicalDirective::with('motorCountries','motorModels')->find($directive_id);
+            $models=MotorModel::all();
+            return view('support.technical_directives.directive', ["directive"=>$directive, "models"=>$models, "action"=>"edit"]);
+        }
+
+
+         /**
+         * PUT Update Technical Directive
+         *
+         */
+        public function update(Request $request)
+        {
+
+            $validated = $request->validate([
+                'subject' => 'required',
+                'notes' => 'nullable',
+                'directivefile' => 'nullable',
+                'models' => 'required',
+                'countries' => 'nullable',
+                'state' => 'required',
+            ]);
+
+            $directive_id = $request->directive_id;
+            $directive = TechnicalDirective::find($directive_id);
+            $directive->subject=$request->subject;
+            $directive->notes=$request->notes;
+            $directive->state=$request->state;
+            $directive->agent_id=Auth::user()->id;
+
+            $directive->motorModels()->detach();               // remove old relationships
+            $motorModelIds = $request->input('models');     
+            $directive->motorModels()->attach($motorModelIds); // add new relationships
+            
+            $directive->motorCountries()->detach();                    // remove old relationships
+            $motorCountryIds = $request->input('countries');
+            $directive->motorCountries()->attach($motorCountryIds);    // add new relationships
+
+
+
+            
+            //# TODO: SAVE DIRECTIVE FILE...
+            $file=$request->file('directivefile');
+
+
+            $directive->save();
+
+            return redirect()->route('directive.index');
+
+        }
+
+
+
+
+        
+         /**
+         * Delete Technical Directive
+         *
+         */
+        public function destroy(Request $request,$directive_id)
+        {
+            // $directive_id = $request()->directive_id;
+            $directive = TechnicalDirective::find($directive_id);
+            $directive->delete();
+            return redirect()->route('directive.index');
+        }
 
 
 

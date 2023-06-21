@@ -83,7 +83,7 @@
 @foreach($technical_directives as $directive) 
 <tr>
 <td>{{$directive->id}}</td> 
-<td><a href="/technical_directives/{{$directive->id}}">{{$directive->subject}}</a></td>
+<td><a href="/technical_directives/{{$directive->id}}/edit">{{$directive->subject}}</a></td>
 <td>{{$directive->motorModels->pluck('name')->implode(', ')}}</td>
 <td>{{$directive->motorCountries->pluck('shortname')->implode(', ')}}</td>
 <td>{{date('d-m-Y', strtotime($directive->updated_at))}}</td>

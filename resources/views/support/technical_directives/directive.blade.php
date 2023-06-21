@@ -12,10 +12,12 @@
                     <div class="page-header-title">
                         <i class="ik ik-file-text bg-blue"></i>
                         <div class="d-inline">
-                            @if($submit=="create")
+                            @if($action=="create")
                                 <h5>New Technical Directive</h5>
-                            @elseif($submit=="show")
+                            @elseif($action=="show")
                                 <h5>Technical Directive</h5>
+                            @elseif($action=="edit")
+                                <h5>Edit Technical Directive</h5>
                             @endif
                             <span></span>
                         </div>
@@ -37,12 +39,24 @@
         </div>
         <div class="row" >
             <div class="col-md-12">
-                <div class="card ">
+                <div class="card">
                     <div class="card-body">
-                        <form class="forms" method="POST" enctype="multipart/form-data" action="/technical_directives/create">
+                        @php
+                            $form_action = ($action=="edit") ? "/technical_directives/$directive->id" : "/technical_directives";
+                        @endphp
+                        <form class="forms" method="POST" enctype="multipart/form-data" action="{{$form_action}}">
                         @csrf
+                        @if($action=="edit")
+                            @method('PUT')
+                        @endif
                          <div class="row">
                                 <div class="col-sm-6">
+                                    
+
+                                    {{-- ID hidden --}}
+                                    @if($action=="edit")
+                                        <input type="hidden" name="id" value="{{$directive->id}}">
+                                    @endif
 
                                     {{-- Subject --}}
                                     <div class="form-group">
@@ -82,11 +96,11 @@
                                 </div>
 
 
-                                <div class="col-sm-3">
+                                <div class="col-sm-6">
 
                                     {{-- Applicable Models --}}
                                     <div class="form-group">
-                                        <label for="models">{{ __('Applicable Model(s)')}} <span class="text-red">*</span></label>
+                                        <label for="models">{{ __('Applicable Models')}} <span class="text-red">*</span></label>
                                         <select name="models[]" id="models" class="form-control select2" multiple="multiple">
                                         @foreach($models as $model)
                                             <option value = "{{ $model->id }}"   {{ ( collect(old('models'))->contains($model->id) || (isset($directive)&&$directive->motorModels->pluck('id')->contains($model->id)) ) ? 'selected':'' }}   >{{ $model->name }}</option>
@@ -138,25 +152,38 @@
                                         @error('publish_state')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
+                                    </div>
+
+
+
+
+
+
+                                    @if($action=="create")
+                                        <div class="form-group text-right m-5">
+                                            <button type="submit" class="btn btn-primary">Create</button>
                                         </div>
-
-
-
-
-
-
-                                    @if($submit=="create")
-                                     <div class="form-group text-right m-5">
-                                        <button type="submit" class="btn btn-primary">Create</button>
-                                    </div>  
+                                    @elseif($action=="edit")
+                                        <div class="form-group text-right my-5">
+                                            <button type="submit" class="btn btn-success m-2">Update</button>
+                                            {{-- <button type="button" class="btn btn-danger m-2" id="deleteThis">Delete</button> --}}
+                                        </div>
                                     @endif
 
                                 </div>
-                                <div class="col-sm-3">
-                              </div>
                             </div>
 
                         </form>
+                        @if($action=="edit")
+                            <form action="/technical_directives/{{$directive->id}}" class="m-2" method="post" onsubmit="return confirm('Do you really want to delete this directive?');">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="id" value="{{$directive->id}}">
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-danger" onclick="">Delete</button>
+                                </div>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>
