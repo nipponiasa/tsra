@@ -29,7 +29,7 @@ class TechnicalDirectiveController extends Controller
     public function create()
     {
         $models=MotorModel::all();
-        return view('support.technical_directives.directive', ["models"=>$models]);
+        return view('support.technical_directives.directive', ["models"=>$models, "submit"=>"create"]);
     }
 
 
@@ -134,16 +134,19 @@ class TechnicalDirectiveController extends Controller
          */
         public function show(Request $request)
         {
-            // $directive_id = $request->directive_id;
+            $directive_id = $request->directive_id;
             // $user_id=Auth::id();
 
             // $uii=TechnicalDirective::get_directive_user($user_id,$directive_id)[0];
             // ReadState::mark_read_user($directive_id,'DIRECTIVE',$user_id);
-            $directive = TechnicalDirective::find($request->directive_id);
+            // $directive = TechnicalDirective::find($request->directive_id);
+            $directive = TechnicalDirective::with('motorCountries','motorModels')->find($directive_id);
+            $models=MotorModel::all();
             
           
                    
-            return view('support.technical_directives.show', ["directive"=>$directive]);
+            // return view('support.technical_directives.show', ["directive"=>$directive]);
+            return view('support.technical_directives.directive', ["directive"=>$directive, "models"=>$models, "submit"=>"show"]);
         }
 
 

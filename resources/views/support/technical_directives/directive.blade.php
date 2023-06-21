@@ -1,6 +1,6 @@
 @extends('layouts.main') 
 
-@section('title', 'Add a Technical Directive')
+@section('title', 'Technical Directive')
 <!-- include summernote css/js  Dim: Τα έβγαλα, μπορεί να χρειάζονται-->
 {{-- <link href="summernote-bs5.css" rel="stylesheet"> --}}
 {{-- <script src="summernote-bs5.js"></script> --}}
@@ -12,7 +12,11 @@
                     <div class="page-header-title">
                         <i class="ik ik-file-text bg-blue"></i>
                         <div class="d-inline">
-                            <h5>New Technical Directive</h5>
+                            @if($submit=="create")
+                                <h5>New Technical Directive</h5>
+                            @elseif($submit=="show")
+                                <h5>Technical Directive</h5>
+                            @endif
                             <span></span>
                         </div>
                     </div>
@@ -24,7 +28,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Add a Technical Directive</a>
+                                <a href="/technical_directives">Technical Directives</a>
                             </li>
                         </ol>
                     </nav>
@@ -43,7 +47,7 @@
                                     {{-- Subject --}}
                                     <div class="form-group">
                                         <label for="subject">Subject<span class="text-red">*</span></label>
-                                        <input id="subject" type="text" class="form-control" name="subject" value="" placeholder="Enter a subject" >
+                                        <input id="subject" type="text" class="form-control" name="subject" value="{{old('subject')??$directive->subject??'' }}" placeholder="Enter a subject" >
 
                                         <div class="help-block with-errors">
                                             @error('subject')
@@ -60,7 +64,7 @@
                                         {{-- Notes --}}
                                         <div class="form-group">
                                             <label>{{ __('Notes')}}</label>
-                                            <textarea  id="notes" name="notes"  class="form-control h-205" rows="3"></textarea>
+                                            <textarea  id="notes" name="notes" class="form-control h-205" rows="3">{{old('notes')??$directive->notes??''}}</textarea>
                                         </div>
                                         <div class="help-block with-errors">
                                             @error('directive')
@@ -85,7 +89,7 @@
                                         <label for="models">{{ __('Applicable Model(s)')}} <span class="text-red">*</span></label>
                                         <select name="models[]" id="models" class="form-control select2" multiple="multiple">
                                         @foreach($models as $model)
-                                            <option value = "{{ $model->id }}"  >{{ $model->name }}</option>
+                                            <option value = "{{ $model->id }}"   {{ ( collect(old('models'))->contains($model->id) || (isset($directive)&&$directive->motorModels->pluck('id')->contains($model->id)) ) ? 'selected':'' }}   >{{ $model->name }}</option>
                                         @endforeach
                                         </select>
                                     </div>
@@ -97,14 +101,20 @@
 
 
                                     {{-- Applicable Countries --}}
+                                    @php
+                                        $countries = array(
+                                            '3' => 'HQ',
+                                            '1' => 'RD',
+                                            '4' => 'GE',
+                                            '7' => 'BE',
+                                        );
+                                    @endphp
                                     <div class="form-group">
                                         <label for="countries">{{ __('Applicable Countries')}} <span class="text-red">*</span></label>
                                         <select name="countries[]" id="countries" class="form-control select2" multiple="multiple">
-                                            <option value="3">HQ</option>
-                                            <option value="1">RD</option>
-                                            <option value="4">GE</option>
-                                            <option value="7">BE</option>
-                                        
+                                            @foreach ($countries as $country_id => $country_name)
+                                                <option value="{{$country_id}}"   {{ ( collect(old('countries'))->contains($country_id) || (isset($directive)&&$directive->motorCountries->pluck('id')->contains($country_id)) ) ? 'selected':'' }}     >{{$country_name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="help-block with-errors">
@@ -135,10 +145,11 @@
 
 
 
-
+                                    @if($submit=="create")
                                      <div class="form-group text-right m-5">
                                         <button type="submit" class="btn btn-primary">Create</button>
                                     </div>  
+                                    @endif
 
                                 </div>
                                 <div class="col-sm-3">

@@ -168,6 +168,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/technical_directives/create', [TechnicalDirectiveController::class,'store'])->name('store_technical_directives')->middleware('auth');
     // Route::get('/technical_directives/list', [TechnicalDirectiveController::class,'getTechnicalDirectiveList'])->name('technical_directives.index')->middleware('auth');
     Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('technical_directives.index')->middleware('auth');
+    Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'show'])->name('show_technical_directive')->middleware('auth');
     Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('show_technical_directive')->middleware('auth');
 
 
