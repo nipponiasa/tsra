@@ -79,7 +79,7 @@ class TechnicalDirectiveController extends Controller
 
         
 
-        return Redirect()->route('technical_directives.index');
+        return Redirect()->route('directives.index');
                         
 
     }
@@ -174,7 +174,7 @@ class TechnicalDirectiveController extends Controller
 
             $directive->save();
 
-            return redirect()->route('directive.index');
+            return redirect()->route('directives.index');
 
         }
 
@@ -191,7 +191,7 @@ class TechnicalDirectiveController extends Controller
             // $directive_id = $request()->directive_id;
             $directive = TechnicalDirective::find($directive_id);
             $directive->delete();
-            return redirect()->route('directive.index');
+            return redirect()->route('directives.index');
         }
 
 

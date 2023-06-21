@@ -138,14 +138,19 @@
                                     </div>
 
 
-
+                                    @php
+                                        $statuses = array(
+                                            'draft' => 'draft',
+                                            'publish' => 'publish',
+                                            'republish' => 'republish',
+                                        );
+                                    @endphp
                                     <div class="form-group">
                                         <label for="state">{{ __('Directive state')}} <span class="text-red">*</span></label>
                                         <select name="state" id="state" class="form-group select2">
-                                          
-                                                <option value="publish" selected>{{ __('Publish')}}</option>
-                                                <option value="republish">{{ __('Republish')}}</option>
-                                                <option value="draft">{{ __('Draft')}}</option>
+                                            @foreach ($statuses as $status_id => $status_name)
+                                                <option value="{{$status_id}}"    {{ ( collect(old('status'))->contains($status_id) || (isset($directive)&&$directive->state==$status_id) ) ? 'selected':'' }}   >{{ $status_name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="help-block with-errors">

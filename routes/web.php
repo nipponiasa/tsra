@@ -164,15 +164,15 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     //* TECHNICAL DIRECTIVES
-    Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('directive.create')->middleware('auth');
-    Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'edit'])->name('directive.edit')->middleware('auth');
+    Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('directives.create')->middleware('auth');
+    Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'edit'])->name('directives.edit')->middleware('auth');
     
-    Route::post('/technical_directives', [TechnicalDirectiveController::class,'store'])->name('directive.store')->middleware('auth');
-    Route::put('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'update'])->name('directive.update')->middleware('auth');
-    Route::delete('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'destroy'])->name('directive.destroy')->middleware('auth');
+    Route::post('/technical_directives', [TechnicalDirectiveController::class,'store'])->name('directives.store')->middleware('auth');
+    Route::put('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'update'])->name('directives.update')->middleware('auth');
+    Route::delete('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'destroy'])->name('directives.destroy')->middleware('auth');
     
-    Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('directive.show')->middleware('auth');
-    Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('directive.index')->middleware('auth');
+    Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('directives.show')->middleware('auth');
+    Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('directives.index')->middleware('auth');
 
 
 
