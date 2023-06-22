@@ -16,7 +16,6 @@ class TechnicalDirective extends Model
     protected $table = 'technical_directives';
 
 
-
     public function motorModels()
     {
         return $this->belongsToMany(MotorModel::class, 'directive_model', 'directive_id', 'model_id');
@@ -31,6 +30,26 @@ class TechnicalDirective extends Model
         // by default, Laravel would look for technical_directive_id and motor_model_id, not directive_id and model_id
         // so, we have to write them explicitly
     }
+
+
+
+
+    /**
+     * Dim: Get the directive's file path.
+     */
+    public function filepath()
+    {
+        $filename = $this->filename;
+        $directive_path = "/storage/directives/{$this->id}/{$filename}";
+        if (file_exists(public_path($directive_path))) {        //# Αν αργεί, να μην γίνεται αυτός ο έλεγχος
+            return $directive_path;
+        } else {
+            return null;
+        }
+    }
+
+
+
 
 
    // public static function get_directives_list_user2($user_id)

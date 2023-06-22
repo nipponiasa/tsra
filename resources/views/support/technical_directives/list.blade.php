@@ -92,7 +92,9 @@
     {{-- @if (!$directive->isread) <span class="badge badge-secondary">Unread</span> @endif --}}
 </td>
 <td>
-    {{-- <a href="/technical_directives/{{$directive->id}}"><i class="ik ik-message-square f-16 mr-15 text-green"></i></a> --}}
+    @if ($directive->filepath() != null)
+        <a href="{{$directive->filepath()}}"><i class="ik ik-file f-16 mr-15 text-green"></i></a>
+    @endif
 </td>
 </tr>
 @endforeach

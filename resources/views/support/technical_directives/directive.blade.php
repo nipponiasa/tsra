@@ -60,7 +60,7 @@
 
                                     {{-- Subject --}}
                                     <div class="form-group">
-                                        <label for="subject">Subject<span class="text-red">*</span></label>
+                                        <label for="subject">Subject <span class="text-red">*</span></label>
                                         <input id="subject" type="text" class="form-control" name="subject" value="{{old('subject')??$directive->subject??'' }}" placeholder="Enter a subject" >
 
                                         <div class="help-block with-errors">
@@ -81,16 +81,33 @@
                                             <textarea  id="notes" name="notes" class="form-control h-205" rows="3">{{old('notes')??$directive->notes??''}}</textarea>
                                         </div>
                                         <div class="help-block with-errors">
-                                            @error('directive')
+                                            @error('notes')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         {{-- Directive File --}}
+                                        <label>File</label>
+                                        @if( in_array($action, ["edit","show"]) && $directive->filename)
+                                        <div>
+                                            <a class="btn btn-primary text-white mb-1" href="{{$directive->filepath()}}">Download Directive File</a>
+                                        </div>
+                                        @endif
                                         <div class="custom-file">
-                                            <input name="directivefile" type="file" class="custom-file-input" id="file">
-                                            <label class="custom-file-label" for="file">Upload file</label>
-                                          </div>
+                                            <input name="directivefile" type="file" accept="application/pdf" class="" id="directivefile">
+                                            <label class="custom-file-label" for="directivefile" id="filename"> {{(isset($directive)&&$directive->filename) ? 'Replace File' : 'Upload File' }} </label>
+                                            <script>
+                                                document.getElementById("directivefile").onchange = function() {
+                                                    document.getElementById("filename").innerText = this.files[0].name;
+                                                };
+                                            </script>
+                                        </div>
+                                        <div><p>File type: pdf, maximum size: 5MB</p></div>
+                                        <div class="help-block with-errors">
+                                            @error('directivefile')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
 
                                 </div>
@@ -124,7 +141,7 @@
                                         );
                                     @endphp
                                     <div class="form-group">
-                                        <label for="countries">{{ __('Applicable Countries')}} <span class="text-red">*</span></label>
+                                        <label for="countries">{{ __('Applicable Countries')}}</label>
                                         <select name="countries[]" id="countries" class="form-control select2" multiple="multiple">
                                             @foreach ($countries as $country_id => $country_name)
                                                 <option value="{{$country_id}}"   {{ ( collect(old('countries'))->contains($country_id) || (isset($directive)&&$directive->motorCountries->pluck('id')->contains($country_id)) ) ? 'selected':'' }}     >{{$country_name}}</option>

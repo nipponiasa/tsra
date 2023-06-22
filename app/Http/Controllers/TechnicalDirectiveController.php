@@ -24,15 +24,18 @@ use Illuminate\Support\Facades\Redirect;
 
 class TechnicalDirectiveController extends Controller
 {
-  
+    
+    // CLASS VARIABLES (METHODS)
+    protected $directives_path = 'public/directives/';   // relative to storage/app/. Use: $this->directives_path
+
+
+
     // GET CREATE (view create form)
     public function create()
     {
         $models=MotorModel::all();
         return view('support.technical_directives.directive', ["models"=>$models, "action"=>"create"]);
     }
-
-
 
 
 
@@ -48,6 +51,7 @@ class TechnicalDirectiveController extends Controller
             'models' => 'required',
             'countries' => 'nullable',
             'state' => 'required',
+            'directivefile' => 'nullable|mimes:pdf|max:5000',
         ]);
 
 
@@ -55,27 +59,36 @@ class TechnicalDirectiveController extends Controller
 
         $directive = new TechnicalDirective();
 
+        $directive->subject = $request->subject;
+        $directive->notes = $request->notes;
+        $directive->state = $request->state;
+        $directive->agent_id = Auth::user()->id;
 
-        $directive->subject=$request->subject;
-        $directive->notes=$request->notes;
-        $directive->state=$request->state;
-        $directive->agent_id=Auth::user()->id;
-
-        //# TODO: SAVE DIRECTIVE FILE...
+        // Construct FileName
         $file=$request->file('directivefile');
-
-        // Save directive
+        if ($file) {
+            $filename = uniqid() . '.' . $file->extension();
+            $directive->filename = $filename;     // store this to database
+        }
+        
+        // Save directive and get an id
         $directive->save();
-
-
-
+        
+        
+        
         // ATTACH MOTOR MODELS TO DIRECTIVE
-
+        
         $motorModelIds = $request->input('models');
         $directive->motorModels()->attach($motorModelIds);
 
         $motorCountryIds = $request->input('countries');
         $directive->motorCountries()->attach($motorCountryIds);
+        
+        
+        // SAVE FILE TO DISK
+        if ($file) {
+            Storage::putFileAs($this->directives_path.$directive->id, $file, $filename);
+        }
 
         
 
@@ -129,7 +142,7 @@ class TechnicalDirectiveController extends Controller
         {
             $directive_id = $request->directive_id;
             $directive = TechnicalDirective::with('motorCountries','motorModels')->find($directive_id);
-            $models=MotorModel::all();
+            $models = MotorModel::all();
             return view('support.technical_directives.directive', ["directive"=>$directive, "models"=>$models, "action"=>"edit"]);
         }
 
@@ -148,14 +161,19 @@ class TechnicalDirectiveController extends Controller
                 'models' => 'required',
                 'countries' => 'nullable',
                 'state' => 'required',
+                'directivefile' => 'nullable|mimes:pdf|max:5000',
             ]);
 
             $directive_id = $request->directive_id;
             $directive = TechnicalDirective::find($directive_id);
-            $directive->subject=$request->subject;
-            $directive->notes=$request->notes;
-            $directive->state=$request->state;
-            $directive->agent_id=Auth::user()->id;
+            $directive->subject = $request->subject;
+            $directive->notes = $request->notes;
+            $directive->state = $request->state;
+            $directive->agent_id = Auth::user()->id;
+
+
+
+            // DETACH & ATTACH NEW RELATIONSHIPS
 
             $directive->motorModels()->detach();               // remove old relationships
             $motorModelIds = $request->input('models');     
@@ -168,8 +186,18 @@ class TechnicalDirectiveController extends Controller
 
 
             
-            //# TODO: SAVE DIRECTIVE FILE...
-            $file=$request->file('directivefile');
+            // UPDATE DIRECTIVE FILE...
+            $old_filename = $directive->filename;
+            $file = $request->file('directivefile');
+            if ($file && $old_filename) {
+                //* Αν επιτρέψουμε και άλλα είδη αρχείων, εκτός από pdf, τότε θα πρέπει να τροποποιηθεί αυτό (να γίνει διαγραφή αρχείου και ενημέρωση βάσης).
+                Storage::putFileAs($this->directives_path.$directive->id, $file, $old_filename);    
+            } elseif ($file && !$old_filename) {
+                $filename = uniqid() . '.' . $file->extension();            
+                $directive->filename = $filename;     // store this to database
+                Storage::putFileAs($this->directives_path.$directive->id, $file, $filename);
+            }
+
 
 
             $directive->save();
@@ -190,6 +218,7 @@ class TechnicalDirectiveController extends Controller
         {
             // $directive_id = $request()->directive_id;
             $directive = TechnicalDirective::find($directive_id);
+            Storage::deleteDirectory('public/directives/'.$directive_id);
             $directive->delete();
             return redirect()->route('directives.index');
         }
