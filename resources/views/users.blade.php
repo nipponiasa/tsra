@@ -12,10 +12,10 @@
             <div class="row align-items-end">
                 <div class="col-lg-8">
                     <div class="page-header-title">
-                        <i class="ik ik-users bg-blue"></i>
+                        <i class="ik ik-users bg-primary"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Users')}}</h5>
-                            <span>{{ __('List of users')}}</span>
+                            <h1>{{ __('Users')}}</h1>
+                            {{-- <span>{{ __('List of users')}}</span> --}}
                         </div>
                     </div>
                 </div>

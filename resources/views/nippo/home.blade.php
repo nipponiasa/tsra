@@ -15,10 +15,10 @@
             <div class="row align-items-end">
                 <div class="col-lg-8">
                     <div class="page-header-title">
-                        <i class="ik ik-layers bg-blue"></i>
+                        <i class="ik ik-layers bg-primary"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Nipponia Technical Support')}}</h5>
-                            <span>{{ __('Nipponia')}}</span>
+                            <h1>{{ __('Nipponia Technical Support')}}</h1>
+                            {{-- <span>{{ __('Nipponia')}}</span> --}}
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                 </div>
             </div> --}}
             <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="widget bg-warning">
+                <div class="widget bg-danger">
                     <div class="widget-body">
                         <a href="{{route('technical_reports.index')}}" style="color:white;">
                         <div class="d-flex justify-content-between align-items-center">

@@ -62,7 +62,7 @@
                     {{-- <a href="#"><i class="ik ik-mail"></i><span>{{ __('Technical Directives')}}</span></a> --}}
                     {{-- <div class="submenu-content"> --}}
                     @can('manage_user') <a href="{{route('directives.create')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('New Directive')}}</a>@endcan
-                    <a href="{{route('directives.index')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('List Directives')}}</a>
+                    <a href="{{route('directives.index')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('Directives List')}}</a>
                     {{-- </div> --}}
                 </div>
               
@@ -82,7 +82,7 @@
                     {{-- <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Technical Reports')}}</span></a> --}}
                     {{-- <div class="submenu-content"> --}}
                         <a href="{{url('technical_reports/create')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('New Report')}}</a>
-                        <a href="{{url('technical_reports/list')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('List Reports')}}</a>
+                        <a href="{{url('technical_reports/list')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('Reports List')}}</a>
                     {{-- </div> --}}
                 </div>
                   

@@ -9,27 +9,27 @@ $(document).ready(function() {
         }],
         dom: "<'row'<'col-sm-2'l><'col-sm-7 text-center'B><'col-sm-3'f>>tipr",
                 buttons: [
-                    {
-                        extend: 'copy',
-                        className: 'btn-sm btn-info', 
-                        header: false,
-                        footer: true,
-                        exportOptions: {
-                            // columns: ':visible'
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        className: 'btn-sm btn-success',
-                        header: false,
-                        footer: true,
-                        exportOptions: {
-                            // columns: ':visible'
-                        }
-                    },
+                    // {
+                    //     extend: 'copy',
+                    //     className: 'btn-sm btn-info', 
+                    //     header: false,
+                    //     footer: true,
+                    //     exportOptions: {
+                    //         // columns: ':visible'
+                    //     }
+                    // },
+                    // {
+                    //     extend: 'csv',
+                    //     className: 'btn-sm btn-success',
+                    //     header: false,
+                    //     footer: true,
+                    //     exportOptions: {
+                    //         // columns: ':visible'
+                    //     }
+                    // },
                     {
                         extend: 'excel',
-                        className: 'btn-sm btn-warning',
+                        className: 'btn-sm btn-success',
                         header: false,
                         footer: true,
                         exportOptions: {
@@ -38,7 +38,7 @@ $(document).ready(function() {
                     },
                     {
                         extend: 'pdf',
-                        className: 'btn-sm btn-primary',
+                        className: 'btn-sm btn-danger',
                         header: false,
                         footer: true,
                         exportOptions: {
@@ -47,7 +47,7 @@ $(document).ready(function() {
                     },
                     {
                         extend: 'print',
-                        className: 'btn-sm btn-default',
+                        className: 'btn-sm btn-secondary',
                         header: true,
                         footer: false,
                         orientation: 'landscape',

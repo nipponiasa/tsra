@@ -12,10 +12,10 @@
             <div class="row align-items-end">
                 <div class="col-lg-8">
                     <div class="page-header-title">
-                        <i class="ik ik-user-plus bg-blue"></i>
+                        <i class="ik ik-user bg-primary"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Edit My Profile')}}</h5>
-                            <span>{{ __('Update Profile Details')}}</span>
+                            <h1>{{ __('Edit My Profile')}}</h1>
+                            <p class="lead">{{ __('Update Profile Details')}}</p class="lead">
                         </div>
                     </div>
                 </div>
@@ -107,10 +107,9 @@
 
                                     {{-- Photo upload --}}
                                     <div class="form-group">
-                                        <label for="avatar">{{ __('User Photo (.jpg format, 512px square preferred)')}}</label>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="avatar" name="avatar" accept=".jpg">
-                                            <label class="custom-file-label" for="avatar">Choose file</label>
+                                            <label class="form-label" for="avatar">{{ __('User Photo (jpg format, 512px square preferred)')}}</label>
+                                            <input type="file" class="form-control" id="avatar" name="avatar" accept=".jpg">
                                         </div>
                                         {{-- Για κάποιο λόγο δεν δείχνει ότι επιλέχθηκε εικόνα, οπότε βάζω αυτό: --}}
                                         <script>
@@ -139,7 +138,7 @@
 
                                     <div class="form-group">
                                         <label for="locale">{{ __('Language Preferences')}} <span class="text-red">*</span></label>
-                                        <select name="locale" id="locale" class="form-control select2">
+                                        <select name="locale" id="locale" class="form-select">
                                             @foreach(App\Models\User::LOCALES as $locale => $label)
                                                 <option value="{{ $locale }}" {{ $user->locale != $locale ?: 'selected' }}>
                                                     {{ $label }}

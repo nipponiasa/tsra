@@ -13,11 +13,11 @@
                         <i class="ik ik-file-text bg-blue"></i>
                         <div class="d-inline">
                             @if($action=="create")
-                                <h5>New Technical Directive</h5>
+                                <h1>New Technical Directive</h1>
                             @elseif($action=="show")
-                                <h5>Technical Directive</h5>
+                                <h1>Technical Directive</h1>
                             @elseif($action=="edit")
-                                <h5>Edit Technical Directive</h5>
+                                <h1>Edit Technical Directive</h1>
                             @endif
                             <span></span>
                         </div>
@@ -37,6 +37,14 @@
                 </div>
             </div>
         </div>
+
+        @if( in_array($action, ["edit","show"]) && $directive->filename)
+        <div class="">
+            <a class="btn btn-lg btn-primary text-white my-3" href="{{$directive->filepath()}}">Download Directive File</a>
+        </div>
+        @endif
+
+
         <div class="row" >
             <div class="col-md-12">
                 <div class="card">
@@ -60,7 +68,7 @@
 
                                     {{-- Subject --}}
                                     <div class="form-group">
-                                        <label for="subject">Subject <span class="text-red">*</span></label>
+                                        <label for="subject">Subject <span class="text-danger">*</span></label>
                                         <input id="subject" type="text" class="form-control" name="subject" value="{{old('subject')??$directive->subject??'' }}" placeholder="Enter a subject" >
 
                                         <div class="help-block with-errors">
@@ -77,7 +85,7 @@
 
                                         {{-- Notes --}}
                                         <div class="form-group">
-                                            <label>{{ __('Notes')}}</label>
+                                            <label for="notes">{{ __('Notes')}}</label>
                                             <textarea  id="notes" name="notes" class="form-control h-205" rows="3">{{old('notes')??$directive->notes??''}}</textarea>
                                         </div>
                                         <div class="help-block with-errors">
@@ -88,14 +96,9 @@
 
                                         {{-- Directive File --}}
                                         <label>File</label>
-                                        @if( in_array($action, ["edit","show"]) && $directive->filename)
-                                        <div>
-                                            <a class="btn btn-primary text-white mb-1" href="{{$directive->filepath()}}">Download Directive File</a>
-                                        </div>
-                                        @endif
                                         <div class="custom-file">
-                                            <input name="directivefile" type="file" accept="application/pdf" class="" id="directivefile">
-                                            <label class="custom-file-label" for="directivefile" id="filename"> {{(isset($directive)&&$directive->filename) ? 'Replace File' : 'Upload File' }} </label>
+                                            <input name="directivefile" type="file" accept="application/pdf" class="form-control" id="directivefile">
+                                            <label class="custom-file-label form-label " for="directivefile" id="filename"> {{(isset($directive)&&$directive->filename) ? 'Replace File' : 'Upload File' }} </label>
                                             <script>
                                                 document.getElementById("directivefile").onchange = function() {
                                                     document.getElementById("filename").innerText = this.files[0].name;
@@ -117,7 +120,7 @@
 
                                     {{-- Applicable Models --}}
                                     <div class="form-group">
-                                        <label for="models">{{ __('Applicable Models')}} <span class="text-red">*</span></label>
+                                        <label for="models">{{ __('Applicable Models')}} <span class="text-danger">*</span></label>
                                         <select name="models[]" id="models" class="form-control select2" multiple="multiple">
                                         @foreach($models as $model)
                                             <option value = "{{ $model->id }}"   {{ ( collect(old('models'))->contains($model->id) || (isset($directive)&&$directive->motorModels->pluck('id')->contains($model->id)) ) ? 'selected':'' }}   >{{ $model->name }}</option>
@@ -157,14 +160,15 @@
 
                                     @php
                                         $statuses = array(
-                                            'draft' => 'draft',
-                                            'publish' => 'publish',
-                                            'republish' => 'republish',
+                                            'Draft' => 'Draft',
+                                            'Publish' => 'Publish',
+                                            'Republish' => 'Republish',
+                                            'Cancelled' => 'Cancelled',
                                         );
                                     @endphp
                                     <div class="form-group">
-                                        <label for="state">{{ __('Directive state')}} <span class="text-red">*</span></label>
-                                        <select name="state" id="state" class="form-group select2">
+                                        <label for="state">{{ __('Directive state')}} <span class="text-danger">*</span></label>
+                                        <select name="state" id="state" class="form-select ">
                                             @foreach ($statuses as $status_id => $status_name)
                                                 <option value="{{$status_id}}"    {{ ( collect(old('status'))->contains($status_id) || (isset($directive)&&$directive->state==$status_id) ) ? 'selected':'' }}   >{{ $status_name}}</option>
                                             @endforeach
@@ -182,7 +186,7 @@
 
 
                                     @if($action=="create")
-                                        <div class="form-group text-right m-5">
+                                        <div class="form-group text-right my-5">
                                             <button type="submit" class="btn btn-primary">Create</button>
                                         </div>
                                     @elseif($action=="edit")
@@ -197,6 +201,7 @@
 
                         </form>
                         @if($action=="edit")
+                        <hr>
                             <form action="/technical_directives/{{$directive->id}}" class="m-2" method="post" onsubmit="return confirm('Do you really want to delete this directive?');">
                                 @csrf
                                 @method('DELETE')
@@ -214,32 +219,15 @@
 
 
 
-    <script type="text/javascript">
-
-
-$(document).ready(function() {
-  $('#directive').summernote(
-{
-
-  
-        minHeight: 500,             
-           
-        focus: true
-
-
-
-
-
-
-
-}
-
-
-  );
-});
-
-    
-  </script>
+{{-- <script type="text/javascript">
+    $(document).ready(function() {
+    $('#directive').summernote(
+    {
+            minHeight: 500,                    
+            focus: true
+    });
+    }); 
+</script> --}}
 
 
 @endsection

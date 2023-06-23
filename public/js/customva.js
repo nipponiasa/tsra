@@ -33,26 +33,26 @@
 
          ],
          buttons: [
-             {
-                 extend: 'copy',
-                 className: 'btn-sm btn-info',
-                 title: 'Roles',
-                 header: false,
-                 footer: true,
-                 exportOptions: {
-                     // columns: ':visible'
-                 }
-             },
-             {
-                 extend: 'csv',
-                 className: 'btn-sm btn-success',
-                 title: 'Roles',
-                 header: false,
-                 footer: true,
-                 exportOptions: {
-                     // columns: ':visible'
-                 }
-             },
+            //  {
+            //      extend: 'copy',
+            //      className: 'btn-sm btn-info',
+            //      title: 'Roles',
+            //      header: false,
+            //      footer: true,
+            //      exportOptions: {
+            //          // columns: ':visible'
+            //      }
+            //  },
+            //  {
+            //      extend: 'csv',
+            //      className: 'btn-sm btn-success',
+            //      title: 'Roles',
+            //      header: false,
+            //      footer: true,
+            //      exportOptions: {
+            //          // columns: ':visible'
+            //      }
+            //  },
              {
                  extend: 'excel',
                  className: 'btn-sm btn-warning',

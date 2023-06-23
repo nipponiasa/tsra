@@ -13,30 +13,29 @@
             pagingType: "full_numbers",
             dom: "<'row'<'col-sm-2'l><'col-sm-7 text-center'B><'col-sm-3'f>>tipr",
             buttons: [
-                {
-                    extend: 'copy',
-                    className: 'btn-sm btn-info', 
-                    title: 'Permissions',
-                    header: false,
-                    footer: true,
-                    exportOptions: {
-                        // columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'csv',
-                    className: 'btn-sm btn-success',
-                    title: 'Permissions',
-                    header: false,
-                    footer: true,
-                    exportOptions: {
-                        // columns: ':visible'
-                    }
-                },
+                // {
+                //     extend: 'copy',
+                //     className: 'btn-sm btn-info', 
+                //     title: 'Permissions',
+                //     header: false,
+                //     footer: true,
+                //     exportOptions: {
+                //         // columns: ':visible'
+                //     }
+                // },
+                // {
+                //     extend: 'csv',
+                //     className: 'btn-sm btn-success',
+                //     title: 'Permissions',
+                //     header: false,
+                //     footer: true,
+                //     exportOptions: {
+                //         // columns: ':visible'
+                //     }
+                // },
                 {
                     extend: 'excel',
-                    className: 'btn-sm btn-warning',
-                    title: 'Permissions',
+                    className: 'btn-sm btn-success',
                     header: false,
                     footer: true,
                     exportOptions: {
@@ -45,9 +44,7 @@
                 },
                 {
                     extend: 'pdf',
-                    className: 'btn-sm btn-primary',
-                    title: 'Permissions',
-                    pageSize: 'A2',
+                    className: 'btn-sm btn-danger',
                     header: false,
                     footer: true,
                     exportOptions: {
@@ -56,10 +53,7 @@
                 },
                 {
                     extend: 'print',
-                    className: 'btn-sm btn-default',
-                    title: 'Permissions',
-                    // orientation:'landscape',
-                    pageSize: 'A2',
+                    className: 'btn-sm btn-secondary',
                     header: true,
                     footer: false,
                     orientation: 'landscape',

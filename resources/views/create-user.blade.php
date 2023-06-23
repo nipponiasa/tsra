@@ -12,10 +12,10 @@
             <div class="row align-items-end">
                 <div class="col-lg-8">
                     <div class="page-header-title">
-                        <i class="ik ik-user-plus bg-blue"></i>
+                        <i class="ik ik-user-plus bg-primary"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Add User')}}</h5>
-                            <span>{{ __('Create new user, assign roles & permissions')}}</span>
+                            <h1>{{ __('Add User')}}</h1>
+                            <p class="lead">{{ __('Create new user, assign roles & permissions')}}</p>
                         </div>
                     </div>
                 </div>
