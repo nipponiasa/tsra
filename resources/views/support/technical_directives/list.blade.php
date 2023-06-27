@@ -84,7 +84,9 @@
                                 <tr>
                                 <td>{{$directive->id}}</td> 
                                 <td><a href="/technical_directives/{{$directive->id}}/edit">{{$directive->subject}}</a></td>
-                                <td>{{$directive->motorModels->pluck('name')->implode(', ')}}</td>
+                                {{-- old code where models was many-to-many relationship, not text --}}
+                                {{-- <td>{{$directive->motorModels->pluck('name')->implode(', ')}}</td> --}}
+                                <td>{{$directive->model}}</td> 
                                 <td>{{$directive->motorCountries->pluck('shortname')->implode(', ')}}</td>
                                 <td>{{date('d-m-Y', strtotime($directive->updated_at))}}</td>
                                 <td> 
@@ -93,7 +95,7 @@
                                 </td>
                                 <td>
                                     @if ($directive->filepath() != null)
-                                        <a href="{{$directive->filepath()}}"><i class="ik ik-file text-success"></i></a>
+                                        <a href="{{$directive->filepath()}}" target="_blank"><i class="ik ik-file text-success"></i></a>
                                     @endif
                                 </td>
                                 </tr>

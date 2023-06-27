@@ -118,8 +118,8 @@
 
                                 <div class="col-sm-6">
 
-                                    {{-- Applicable Models --}}
-                                    <div class="form-group">
+                                    {{-- Applicable Models   --  old code where models was many-to-many relationship, not text --}}                                 
+                                    {{-- <div class="form-group">
                                         <label for="models">{{ __('Applicable Models')}} <span class="text-danger">*</span></label>
                                         <select name="models[]" id="models" class="form-control select2" multiple="multiple">
                                         @foreach($models as $model)
@@ -131,16 +131,32 @@
                                         @error('models')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
+                                    </div> --}}
+
+
+                                    {{-- Applicable Models --}}
+                                    <div class="form-group">
+                                        <label for="model">{{ __('Applicable Models')}} <span class="text-danger">*</span></label>
+                                        <input id="model" type="text" class="form-control" name="model" value="{{old('model')??$directive->model??'' }}" placeholder="Enter all applicable models" >
                                     </div>
+                                    <div class="help-block with-errors">
+                                        @error('model')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
 
 
                                     {{-- Applicable Countries --}}
                                     @php
                                         $countries = array(
-                                            '3' => 'HQ',
-                                            '1' => 'RD',
-                                            '4' => 'GE',
-                                            '7' => 'BE',
+                                            '4' => "AL - Albania",
+                                            '7' => "BE - Belgium",
+                                            '5' => "CY - Cyprus",
+                                            '1' => "DO - Dominican Republic",
+                                            '3' => "FR - France",
+                                            '8' => "GT - Guatemala",
+                                            '2' => "NL - Netherlands",
                                         );
                                     @endphp
                                     <div class="form-group">
@@ -160,10 +176,10 @@
 
                                     @php
                                         $statuses = array(
-                                            'Draft' => 'Draft',
-                                            'Publish' => 'Publish',
-                                            'Republish' => 'Republish',
-                                            'Cancelled' => 'Cancelled',
+                                            'Draft' => "Draft",
+                                            'Publish' => "Publish",
+                                            'Republish' => "Republish",
+                                            'Cancelled' => "Cancelled",
                                         );
                                     @endphp
                                     <div class="form-group">

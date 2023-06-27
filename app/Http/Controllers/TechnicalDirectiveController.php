@@ -34,7 +34,7 @@ class TechnicalDirectiveController extends Controller
     public function create()
     {
         $models=MotorModel::all();
-        return view('support.technical_directives.directive', ["models"=>$models, "action"=>"create"]);
+        return view('support.technical_directives.directive', [/*"models"=>$models,*/ "action"=>"create"]);
     }
 
 
@@ -48,7 +48,8 @@ class TechnicalDirectiveController extends Controller
             'subject' => 'required',
             'notes' => 'nullable',
             'directivefile' => 'nullable',
-            'models' => 'required',
+            'model' => "required",     
+            // 'models' => 'nullable', //old code where models was many-to-many relationship, not text
             'countries' => 'nullable',
             'state' => 'required',
             'directivefile' => 'nullable|mimes:pdf|max:5000',
@@ -61,6 +62,7 @@ class TechnicalDirectiveController extends Controller
 
         $directive->subject = $request->subject;
         $directive->notes = $request->notes;
+        $directive->model = $request->model;
         $directive->state = $request->state;
         $directive->agent_id = Auth::user()->id;
 
@@ -78,8 +80,9 @@ class TechnicalDirectiveController extends Controller
         
         // ATTACH MOTOR MODELS TO DIRECTIVE
         
-        $motorModelIds = $request->input('models');
-        $directive->motorModels()->attach($motorModelIds);
+        //old code where models was many-to-many relationship, not text
+        // $motorModelIds = $request->input('models');
+        // $directive->motorModels()->attach($motorModelIds);
 
         $motorCountryIds = $request->input('countries');
         $directive->motorCountries()->attach($motorCountryIds);
@@ -107,7 +110,7 @@ class TechnicalDirectiveController extends Controller
          */
         public function index()
         {
-            $technical_directives = TechnicalDirective::with('motorCountries','motorModels')->get();
+            $technical_directives = TechnicalDirective::with('motorCountries'/*,'motorModels'*/)->get();
             return view('support.technical_directives.list')->with('technical_directives',$technical_directives);
         }
 
@@ -125,12 +128,12 @@ class TechnicalDirectiveController extends Controller
             // $uii=TechnicalDirective::get_directive_user($user_id,$directive_id)[0];
             // ReadState::mark_read_user($directive_id,'DIRECTIVE',$user_id);
             // $directive = TechnicalDirective::find($request->directive_id);
-            $directive = TechnicalDirective::with('motorCountries','motorModels')->find($directive_id);
-            $models=MotorModel::all();
+            $directive = TechnicalDirective::with('motorCountries'/*,'motorModels'*/)->find($directive_id);
+            // $models=MotorModel::all();
             
           
                 
-            return view('support.technical_directives.directive', ["directive"=>$directive, "models"=>$models, "action"=>"show"]);
+            return view('support.technical_directives.directive', ["directive"=>$directive, /*"models"=>$models,*/ "action"=>"show"]);
         }
 
 
@@ -141,9 +144,9 @@ class TechnicalDirectiveController extends Controller
         public function edit(Request $request)
         {
             $directive_id = $request->directive_id;
-            $directive = TechnicalDirective::with('motorCountries','motorModels')->find($directive_id);
-            $models = MotorModel::all();
-            return view('support.technical_directives.directive', ["directive"=>$directive, "models"=>$models, "action"=>"edit"]);
+            $directive = TechnicalDirective::with('motorCountries'/*,'motorModels'*/)->find($directive_id);
+            // $models = MotorModel::all();
+            return view('support.technical_directives.directive', ["directive"=>$directive, /*"models"=>$models,*/ "action"=>"edit"]);
         }
 
 
@@ -158,7 +161,8 @@ class TechnicalDirectiveController extends Controller
                 'subject' => 'required',
                 'notes' => 'nullable',
                 'directivefile' => 'nullable',
-                'models' => 'required',
+                'model' => "required",     
+                // 'models' => 'nullable', //old code where models was many-to-many relationship, not text
                 'countries' => 'nullable',
                 'state' => 'required',
                 'directivefile' => 'nullable|mimes:pdf|max:5000',
@@ -168,6 +172,7 @@ class TechnicalDirectiveController extends Controller
             $directive = TechnicalDirective::find($directive_id);
             $directive->subject = $request->subject;
             $directive->notes = $request->notes;
+            $directive->model = $request->model;
             $directive->state = $request->state;
             $directive->agent_id = Auth::user()->id;
 
@@ -175,9 +180,10 @@ class TechnicalDirectiveController extends Controller
 
             // DETACH & ATTACH NEW RELATIONSHIPS
 
-            $directive->motorModels()->detach();               // remove old relationships
-            $motorModelIds = $request->input('models');     
-            $directive->motorModels()->attach($motorModelIds); // add new relationships
+            //old code where models was many-to-many relationship, not text
+            // $directive->motorModels()->detach();               // remove old relationships
+            // $motorModelIds = $request->input('models');     
+            // $directive->motorModels()->attach($motorModelIds); // add new relationships
             
             $directive->motorCountries()->detach();                    // remove old relationships
             $motorCountryIds = $request->input('countries');
