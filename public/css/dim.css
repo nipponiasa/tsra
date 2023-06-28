@@ -17,6 +17,15 @@
 }
 
 
+.btn-purple{
+    background-color: hsl(261, 51%, 51%);
+    color: var(--bs-light);
+}
+.btn-purple:hover{
+    background-color: hsl(261, 51%, 40%);
+    color: var(--bs-light);
+}
+
 .bg-blue{
     background-color: var(--primary) !important;
 }

@@ -40,7 +40,7 @@
 
         @if( in_array($action, ["edit","show"]) && $directive->filename)
         <div class="">
-            <a class="btn btn-lg btn-primary text-white my-3" href="{{$directive->filepath()}}">Download Directive File</a>
+            <a class="btn btn-lg btn-purple text-white my-3" href="{{$directive->filepath()}}">Download Directive File</a>
         </div>
         @endif
 
@@ -136,7 +136,7 @@
 
                                     {{-- Applicable Models --}}
                                     <div class="form-group">
-                                        <label for="model">{{ __('Applicable Models')}} <span class="text-danger">*</span></label>
+                                        <label for="model">{{ __('Applicable Models')}} <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Use no spaces between the model's name and displacement (For example, BRIO110) "> </i></label>
                                         <input id="model" type="text" class="form-control" name="model" value="{{old('model')??$directive->model??'' }}" placeholder="Enter all applicable models" >
                                     </div>
                                     <div class="help-block with-errors">
@@ -234,6 +234,13 @@
     </div>
 
 
+
+
+<script>
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+    </script>
 
 {{-- <script type="text/javascript">
     $(document).ready(function() {
