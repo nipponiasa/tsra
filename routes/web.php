@@ -138,7 +138,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/warranty_claims', function () { return view('support.warranty_claims.list'); });
 
 
-   //# TECHNICAL REPORTS
+   //# TECHNICAL CASES
     Route::get('/technical_cases/create', [TechnicalCaseController::class,'create'])->name('cases.create')->middleware('auth');
     Route::get('/technical_cases/{report_id}/edit', [TechnicalCaseController::class,'edit'])->name('cases.edit')->middleware('auth');
 

@@ -29,11 +29,11 @@
                         <i class="ik ik-file-text bg-blue"></i>
                         <div class="d-inline">
                             @if($action=="create")
-                                <h1>New Technical Report</h1>
+                                <h1>New Technical Case</h1>
                             @elseif($action=="show")
-                                <h1>Technical Report</h1>
+                                <h1>Technical Case</h1>
                             @elseif($action=="edit")
-                                <h1>Edit Technical Report</h1>
+                                <h1>Edit Technical Case</h1>
                             @endif
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Add a Report</a>
+                                <a href="#">Cases</a>
                             </li>
                         </ol>
                     </nav>
@@ -105,7 +105,20 @@
                             
                          
 
+                                    <div class="form-group">
 
+
+                                        <label>Vechicle identity</label>
+                                            <div class="field_wrapper">
+                                                <div>
+                                                    <input type="text" placeholder="VIN" name="vin_table[]" id="vin1" value=""/>
+                                                    <input type="text" placeholder="Distance(km)" name="distance_table[]" id="distance" value=""/>
+                                                    <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/img/add-icon.png"/></a>
+                                                    <p id="model_desc1"></p>
+                                                </div>
+                                            </div>
+    
+                                        </div>
 
 
 
@@ -141,31 +154,7 @@
 -->
 
 
-                                    <div class="form-group">
 
-
-                                    <label>Vechicle identity</label>
-
-
-                <div class="field_wrapper">
-                    <div>
-                        <input type="text" placeholder="VIN" name="vin_table[]" id="vin1" value=""/>
-                        <input type="text" placeholder="Distance(km)" name="distance_table[]" id="distance" value=""/>
-                        <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/img/add-icon.png"/></a>
-                        <p id="model_desc1"></p>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-                                    </div>
 
 
 

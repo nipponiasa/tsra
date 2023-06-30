@@ -29,7 +29,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Technical Reports</a>
+                                <a href="#">Technical Cases</a>
                             </li>
                         </ol>
                     </nav>

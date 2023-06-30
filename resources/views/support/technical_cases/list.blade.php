@@ -76,8 +76,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-headphones bg-green"></i>
                         <div class="d-inline">
-                            <h1>Technical Reports</h1>
-                            {{-- <span class="lead">View, delete and update Technical Reports</span> --}}
+                            <h1>Technical Cases</h1>
+                            {{-- <span class="lead">View, delete and update Technical Cases</span> --}}
                         </div>
                     </div>
                 </div>

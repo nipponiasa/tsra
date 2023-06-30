@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', 'Technical Reports')
+@section('title', 'Technical Cases')
 @section('content')
 
 @push('head')
@@ -76,8 +76,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-headphones bg-green"></i>
                         <div class="d-inline">
-                            <h5>Technical Reports</h5>
-                            <span>View, delete and update Technical Reports</span>
+                            <h5>Technical Cases</h5>
+                            <span>View, delete and update Technical Cases</span>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Technical Reports</a>
+                                <a href="#">Technical Cases</a>
                             </li>
                         </ol>
                     </nav>

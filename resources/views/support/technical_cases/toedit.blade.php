@@ -33,7 +33,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/technical_reports/list">Technical Reports</a>
+                                <a href="/technical_reports/list">Technical Cases</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="#">Message</a>

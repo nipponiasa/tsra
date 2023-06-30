@@ -92,7 +92,7 @@
                         <a href="{{route('cases.index')}}" style="color:white;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
-                                <h6>{{ __('Technical Reports')}}</h6>
+                                <h6>{{ __('Technical Cases')}}</h6>
                                 <h2>{{$reports}}</h2>
                             </div>
                             <div class="icon">
