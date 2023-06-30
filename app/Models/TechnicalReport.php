@@ -13,6 +13,7 @@ class TechnicalReport extends Model
     protected $table = 'support_cases';
 
 
+    
 
 
     public static function list_tr_one($reportt)

@@ -63,7 +63,7 @@
 							
                                 <th>VIN</th>
                                 <th>Case #</th>
-                                <th>Case description</th>
+                                <th>Case Subject</th>
 
                                 </tr>
                             </thead>

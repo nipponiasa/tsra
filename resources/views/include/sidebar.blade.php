@@ -76,13 +76,13 @@
                 </div>@endcan
 
                 
-                <div class="nav-lavel">{{ __('Technical Reports') }} </div>
+                <div class="nav-lavel">{{ __('Technical Cases') }} </div>
                 <div class="nav-item">
                 {{-- <div class="nav-item {{ ($segment1 == 'technical_reports') ? 'active open' : '' }} has-sub"> --}}
                     {{-- <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Technical Reports')}}</span></a> --}}
                     {{-- <div class="submenu-content"> --}}
-                        <a href="{{url('technical_reports/create')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('New Report')}}</a>
-                        <a href="{{url('technical_reports/list')}}" class="menu-item {{ ($segment1 == 'technical_reports' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('Reports List')}}</a>
+                        <a href="{{route('cases.create')}}" class="menu-item {{ ($segment1 == 'technical_cases' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('New Case')}}</a>
+                        <a href="{{route('cases.index')}}" class="menu-item {{ ($segment1 == 'technical_cases' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('List of Cases')}}</a>
                     {{-- </div> --}}
                 </div>
                   

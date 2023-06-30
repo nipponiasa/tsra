@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap.css') }}">
     @endpush
 
+
+    {{-- HOME DASHBOARD --}}
     <div class="container-fluid">
     <div class="container-fluid">
         <div class="page-header">
@@ -46,7 +48,8 @@
 
 
 
-    
+        {{-- DASHBOARD WIDGETS --}}
+        
         <div class="row clearfix">
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-primary">
@@ -86,7 +89,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-danger">
                     <div class="widget-body">
-                        <a href="{{route('technical_reports.index')}}" style="color:white;">
+                        <a href="{{route('cases.index')}}" style="color:white;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
                                 <h6>{{ __('Technical Reports')}}</h6>

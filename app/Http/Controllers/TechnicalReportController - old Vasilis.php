@@ -36,7 +36,7 @@ class TechnicalReportController extends Controller
      *
      * @return mixed
      */
-    public function show_create()
+    public function create()
     {
         $user_role=Auth::user()->roles->first()->name;
         //Auth::user()->hasRole('Super Admin');
@@ -158,7 +158,7 @@ return Redirect::to('/technical_reports/list');
      *
      * @return mixed
      */
-    public function create(Request $request): mixed
+    public function store(Request $request): mixed
     {
        
         $subject=$request->subject;

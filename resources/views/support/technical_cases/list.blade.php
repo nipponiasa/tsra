@@ -76,8 +76,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-headphones bg-green"></i>
                         <div class="d-inline">
-                            <h5>Technical Reports</h5>
-                            <span>View, delete and update Technical Reports</span>
+                            <h1>Technical Reports</h1>
+                            {{-- <span class="lead">View, delete and update Technical Reports</span> --}}
                         </div>
                     </div>
                 </div>
@@ -108,20 +108,20 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    {{-- <div class="card-header">
 							<div class="card-options text-left">
 								<a href="{{url('technical_reports/create')}}" class=" btn btn-outline-primary btn-semi-rounded ">Add New Report</a>
 							</div>
-						</div>
+						</div> --}}
 
 
 
 
                     <div class="card-body">
-                        <table id="technical_reports_table" class="table">
+                        <table id="data_table" class="table">
                             <thead>
                                 <tr>
-								<th class="nosort"></th>
+								{{-- <th class="nosort">Submitter</th> --}}
                                     <th>Case #</th>
 									<th>User</th>
 		                            <th>Subject</th>
@@ -138,38 +138,49 @@
 
                             {{--------------------------------<img src="{{url($result->mypic)}}" class="table-user-thumb" alt="">---------------------------------------------------------}}
 
-@foreach($uii as $result) 
+@foreach($technical_cases as $report) 
 
 <tr>
 
-<td>
+{{-- <td>
 
 <img src="{{url($result->mypic)}}" class="table-user-thumb" alt="">
 
-</td>
+</td> --}}
 
-<td><a href="/technical_reports/toedit/{{$result->id}}">{{$result->id}}</a></td>
-<td><a href="/technical_reports/toedit/{{$result->id}}">{{$result->name}}</a></td>
-<td><a href="/technical_reports/toedit/{{$result->id}}">{{$result->subject}}</a></td>
-<td><a href="/technical_reports/toedit/{{$result->id}}">{{$result->models}}</a></td>
-<td><a href="/technical_reports/toedit/{{$result->id}}">{{date('d-m-Y', strtotime($result->created_at))}}</a></td>
+<td>
+    <a href="/technical_cases/{{$report->id}}/edit">{{$report->id}}</a>
+</td>
+<td>
+    {{-- <a href="/technical_cases/toedit/{{$result->id}}">{{$result->name}}</a> --}}
+</td>
+<td>
+    <a href="/technical_cases/{{$report->id}}/edit">{{$report->subject}}</a>
+</td>
+<td>
+    {{-- <a href="/technical_cases/toedit/{{$result->id}}">{{$result->models}}</a> --}}
+</td>
+<td>{{date('d-m-Y', strtotime($report->created_at))}}</td>
 
 <td>
     
-@if($result->statusname == "Waiting for Nipponia") 
-	<span class="badge badge-pill badge-primary mb-1">{{$result->statusname}}</span>
-@elseif ($result->statusname == "Waiting for Dealer") 
-	<span class="badge badge-pill badge-secondary mb-1">{{$result->statusname}}</span>
-@elseif ($result->statusname == "Resolved") 
-	<span class="badge badge-pill badge-success mb-1">{{$result->statusname}}</span>
-@elseif ($result->statusname == "Claim approved")
-	<span class="badge badge-pill badge-danger mb-1">{{$result->statusname}}</span>
-@elseif ($result->statusname == "Waiting for Vendor")
-	<span class="badge badge-pill badge-warning mb-1">{{$result->statusname}}</span>
+@if($report->statusname == "Waiting for Nipponia") 
+	<span class="badge badge-pill badge-primary mb-1">{{$report->statusname}}</span>
+@elseif ($report->statusname == "Waiting for Dealer") 
+	<span class="badge badge-pill badge-secondary mb-1">{{$report->statusname}}</span>
+@elseif ($report->statusname == "Resolved") 
+	<span class="badge badge-pill badge-success mb-1">{{$report->statusname}}</span>
+@elseif ($report->statusname == "Claim approved")
+	<span class="badge badge-pill badge-danger mb-1">{{$report->statusname}}</span>
+@elseif ($report->statusname == "Waiting for Vendor")
+	<span class="badge badge-pill badge-warning mb-1">{{$report->statusname}}</span>
+@else 
+    <span class="badge badge-pill badge-info mb-1">{{$report->statusname}}</span>
 @endif
-@if($result->claim_approved) 
+@if($report->claim_approved) 
 <span class="badge badge-pill badge-warning mb-1">Claim Approved</span>
-@endif</td>
+@endif
+</td>
 
 
 </tr>

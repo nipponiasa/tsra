@@ -19,7 +19,6 @@
                             @elseif($action=="edit")
                                 <h1>Edit Technical Directive</h1>
                             @endif
-                            <span></span>
                         </div>
                     </div>
                 </div>

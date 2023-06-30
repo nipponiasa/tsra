@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', 'Add a Report')
+@section('title', 'Technical Report')
 @section('content')
 
 
@@ -28,8 +28,13 @@
                     <div class="page-header-title">
                         <i class="ik ik-file-text bg-blue"></i>
                         <div class="d-inline">
-                            <h5>Add a Report</h5>
-                            <span>Add new Technical Report</span>
+                            @if($action=="create")
+                                <h1>New Technical Report</h1>
+                            @elseif($action=="show")
+                                <h1>Technical Report</h1>
+                            @elseif($action=="edit")
+                                <h1>Edit Technical Report</h1>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -51,21 +56,25 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-body">
-                        <form class="forms" method="POST" enctype="multipart/form-data" action="/technical_reports/create">
+
+
+
+
+                        <form class="forms" method="POST" enctype="multipart/form-data" action="{{route("cases.store")}}">
                         @csrf
                          <div class="row">
                                 <div class="col-sm-6">
 
                                     <div class="form-group">
                                         <label for="subject">Subject<span class="text-red">*</span></label>
-                                        <input id="subject" type="text" class="form-control" name="subject" value="" placeholder="Enter a subject" required="">
+                                        <input id="subject" type="text" class="form-control" name="subject" value="{{old('subject')??$report->subject??'' }}" placeholder="Enter a subject" required="">
                                         <div class="help-block with-errors"></div>
 
 
                                     </div>
                                     <div class="form-group">
                                         <label for="description">{{ __('Description')}}<span class="text-red">*</span></label>
-                                        <textarea name="description" id="description" class="form-control" rows="10" required=""></textarea>
+                                        <textarea name="description" id="description" class="form-control" rows="10" required="">{{old('description')??$report->description??'' }}</textarea>
 
                                     </div>
 
@@ -88,9 +97,9 @@
                                     <div class="form-group">
                                         <label for="models">{{ __('Model(s)')}} </label>
                                         <select name="models[]" id="models" class="form-control select2" multiple="multiple">
-                                        @foreach($uii as $result)
+                                        {{-- @foreach($uii as $result)
                                             <option value = "{{ $result->id }}"  >{{ $result->name }}</option>
-                                        @endforeach
+                                        @endforeach --}}
                                         </select>
                                     </div>
                             
@@ -105,7 +114,7 @@
 
                                     <div class="form-group">
                                         <label for="po">Purchase Order</label>
-                                        <input id="po" type="text" class="form-control" name="po" value="" placeholder="Enter Purchase Order">
+                                        <input id="po" type="text" class="form-control" name="purchase_order" value="{{old('subject')??$report->po??'' }}" placeholder="Enter Purchase Order">
      
 
                                     </div>
@@ -170,7 +179,13 @@
 
 
                                     <div class="form-group text-right">
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            @if($action=="create")
+                                                Save
+                                            @elseif($action=="edit")
+                                                Update
+                                            @endif
+                                        </button>
                                     </div>  
 
 
@@ -184,6 +199,9 @@
                             </div>
 
                         </form>
+
+
+
                     </div>
                 </div>
             </div>
