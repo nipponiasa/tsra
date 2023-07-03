@@ -231,7 +231,7 @@ class TechnicalCaseController extends Controller
         $case->save(); 
 
 
-        return redirect()->route('cases.index');
+        return redirect()->route('cases.indexpending');
                                         
 
     }

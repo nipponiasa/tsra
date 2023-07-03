@@ -149,9 +149,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('/technical_cases/{case_id}/revise', [TechnicalCaseController::class,'revise'])->name('cases.revise')->middleware('auth');
     // Route::delete('/technical_cases/{case_id}/delete', [TechnicalCaseController::class,'destroy'])->name('cases.destroy')->middleware('auth');
 
+    Route::get('/technical_cases/all', [TechnicalCaseController::class,'index'])->name('cases.index')->middleware('auth');
     Route::get('/technical_cases/pending', [TechnicalCaseController::class,'indexpending'])->name('cases.indexpending')->middleware('auth');
     Route::get('/technical_cases/{directive_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware('auth');
-    Route::get('/technical_cases', [TechnicalCaseController::class,'index'])->name('cases.index')->middleware('auth');
 
     // Route::get('technical_cases/reportt_view_form_modal', [TechnicalCaseController::class,'fetch_TechnicalReport_modal_view'])->name('technicalReport_modal_view')->middleware('auth');//json request
     // Route::get('/technical_cases/toedit/{id}', [TechnicalCaseController::class,'show_edit'])->name('show_edit_technical_cases')->middleware('auth');

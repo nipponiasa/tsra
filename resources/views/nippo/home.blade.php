@@ -87,13 +87,29 @@
                 </div>
             </div> --}}
             <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="widget bg-danger">
+                <div class="widget bg-secondary">
                     <div class="widget-body">
                         <a href="{{route('cases.index')}}" style="color:white;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
                                 <h6>{{ __('Technical Cases')}}</h6>
-                                <h2>{{$reports}}</h2>
+                                <h2>{{$cases}}</h2>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-file-text"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="widget bg-danger">
+                    <div class="widget-body">
+                        <a href="{{route('cases.indexpending')}}" style="color:white;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>{{ __('Cases Waiting for Nipponia')}}</h6>
+                                <h2>{{$pending_cases}}</h2>
                             </div>
                             <div class="icon">
                                 <i class="ik ik-file-text"></i>
