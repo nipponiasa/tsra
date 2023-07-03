@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', 'Update Report')
+@section('title', 'Review Technical Case')
 @section('content')
 
 @push('script')
@@ -19,8 +19,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-file-text bg-blue"></i>
                         <div class="d-inline">
-                            <h5>{{$support_case->subject}}</h5>
-                            <span>Update Report</span>
+                            <h1>{{$case->subject}}</h1>
+                            <p class="lead">Review Technical Case</p>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
 
                         @can('reporting_data_entry')
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-setting-tab" data-toggle="pill" href="#summary" role="tab" aria-controls="pills-setting" aria-selected="true">{{ __('Case Summary')}}</a>
+                            <a class="nav-link active text-danger font-weight-bold" id="pills-setting-tab" data-toggle="pill" href="#summary" role="tab" aria-controls="pills-setting" aria-selected="true">{{ __('Case Summary')}}</a>
                         </li>
                         @endcan
 
@@ -108,7 +108,7 @@
                                   <div class="sl-item">
                                       <div class="sl-left"> <img src=@php echo url($message->mypic); @endphp alt="user" class="rounded-circle" /> </div>
                                       <div class="sl-right">
-                                          <div> <a href="javascript:void(0)" class="link">{{$message->name}}</a> <span class="sl-date">{{ \Carbon\Carbon::parse($message->created_at)->diffForHumans() }} ( @php echo date('d-m-Y', strtotime($support_case->created_at)); @endphp )</span>
+                                          <div> <a href="javascript:void(0)" class="link">{{$message->name}}</a> <span class="sl-date">{{ \Carbon\Carbon::parse($message->created_at)->diffForHumans() }} ( @php echo date('d-m-Y', strtotime($case->created_at)); @endphp )</span>
                                               <div class="row">
                                                 
                                                   <div class="col-md-9 col-xs-12">
@@ -154,8 +154,8 @@
                         </div>
 
          
-                        @include('support.technical_reports.offcanvas.summarytab')
-                        {{-- @include('support.technical_reports.offcanvas.vendortab') --}}
+                        @include('support.technical_cases.tabs.summary')
+                        {{-- @include('support.technical_cases.offcanvas.vendortab') --}}
 
 
                     </div>
@@ -175,11 +175,11 @@
                         <h5 class="modal-title" id="newmessagemodalLabel">{{ __('New Message')}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
-                    <form class="forms" method="POST" enctype="multipart/form-data" action="/technical_reports/update_new_message">
+                    <form class="forms" method="POST" enctype="multipart/form-data" action="/technical_cases/update_new_message">
                         @csrf
                     <div class="modal-body">
 
-                    <input type="hidden" id="supportid" name="supportid" value="{{$support_case->id}}">
+                    <input type="hidden" id="supportid" name="supportid" value="{{$case->id}}">
                                     <div class="form-group">
                                         <label for="message">{{ __('Message')}}<span class="text-red">*</span></label>
                                         <textarea name="message" id="message" class="form-control" rows="10"></textarea>

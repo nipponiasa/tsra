@@ -10,7 +10,7 @@
         
         <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon" />
 
-        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
+        {{-- <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet"> --}}
         
         <script src="{{ asset('js/app.js') }}"></script>
 

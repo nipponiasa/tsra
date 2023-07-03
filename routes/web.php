@@ -138,29 +138,27 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/warranty_claims', function () { return view('support.warranty_claims.list'); });
 
 
+
    //# TECHNICAL CASES
     Route::get('/technical_cases/create', [TechnicalCaseController::class,'create'])->name('cases.create')->middleware('auth');
-    Route::get('/technical_cases/{report_id}/edit', [TechnicalCaseController::class,'edit'])->name('cases.edit')->middleware('auth');
+    Route::get('/technical_cases/{case_id}/edit', [TechnicalCaseController::class,'edit'])->name('cases.edit')->middleware('auth');
+    Route::get('/technical_cases/{case_id}/review', [TechnicalCaseController::class,'review'])->name('cases.review')->middleware('auth');
 
     Route::post('/technical_cases/create', [TechnicalCaseController::class,'store'])->name('cases.store')->middleware('auth');
-    Route::get('technical_cases/reportt_view_form_modal', [TechnicalCaseController::class,'fetch_TechnicalReport_modal_view'])->name('technicalReport_modal_view')->middleware('auth');//json request
-    Route::get('/technical_cases/toedit/{id}', [TechnicalCaseController::class,'show_edit'])->name('show_edit_technical_cases')->middleware('auth');
-    Route::post('/technical_cases/update_new_message', [TechnicalCaseController::class,'update_new_message'])->name('update_edit_technical_cases')->middleware('auth');
-    Route::post('/technical_cases/update_summary', [TechnicalCaseController::class,'update_summary'])->name('update_summary_technical_cases')->middleware('auth');
-    
-    Route::post('/technical_cases/send_vendor_message', [TechnicalCaseController::class,'send_vendor_message'])->name('send_vendor_message')->middleware('auth');
-    
-    Route::get('/technical_cases/fetch_select_children', [TechnicalCaseController::class,'fetch_select_children'])->name('fetch_select_children')->middleware('auth');
-    Route::get('/technical_cases/fetch_model_for_vin', [TechnicalCaseController::class,'fetch_model_for_vin'])->name('fetch_model_for_vin')->middleware('auth');
-    
+    Route::put('/technical_cases/{case_id}/update', [TechnicalCaseController::class,'update'])->name('cases.update')->middleware('auth');
+    Route::put('/technical_cases/{case_id}/revise', [TechnicalCaseController::class,'revise'])->name('cases.revise')->middleware('auth');
+    // Route::delete('/technical_cases/{case_id}/delete', [TechnicalCaseController::class,'destroy'])->name('cases.destroy')->middleware('auth');
+
+    Route::get('/technical_cases/{directive_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware('auth');
     Route::get('/technical_cases', [TechnicalCaseController::class,'index'])->name('cases.index')->middleware('auth');
 
-
-    // technical_reports 
-    // Route::get('/technical_reports/get-list', [TechnicalCaseController::class,'getTechnicalReportList2']);//datatables 
-    // Route::get('/technical_directives', function () { return view('support.technical_directives.list'); }); 
-
-
+    // Route::get('technical_cases/reportt_view_form_modal', [TechnicalCaseController::class,'fetch_TechnicalReport_modal_view'])->name('technicalReport_modal_view')->middleware('auth');//json request
+    // Route::get('/technical_cases/toedit/{id}', [TechnicalCaseController::class,'show_edit'])->name('show_edit_technical_cases')->middleware('auth');
+    // Route::post('/technical_cases/update_new_message', [TechnicalCaseController::class,'update_new_message'])->name('update_edit_technical_cases')->middleware('auth');
+    // Route::post('/technical_cases/send_vendor_message', [TechnicalCaseController::class,'send_vendor_message'])->name('send_vendor_message')->middleware('auth');
+    // Route::get('/technical_cases/fetch_select_children', [TechnicalCaseController::class,'fetch_select_children'])->name('fetch_select_children')->middleware('auth');
+    // Route::get('/technical_cases/fetch_model_for_vin', [TechnicalCaseController::class,'fetch_model_for_vin'])->name('fetch_model_for_vin')->middleware('auth');
+    
 
 
 

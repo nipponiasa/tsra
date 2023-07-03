@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', 'Technical Report')
+@section('title', 'Technical Case')
 @section('content')
 
 
@@ -57,25 +57,37 @@
                 <div class="card ">
                     <div class="card-body">
 
+                        
 
 
-
-                        <form class="forms" method="POST" enctype="multipart/form-data" action="{{route("cases.store")}}">
+                        <form class="forms" method="POST" enctype="multipart/form-data" action="{{ ($action=='edit') ? route("cases.update",$case->id) : route("cases.create") }}">
                         @csrf
+                        @if($action=="edit")
+                            @method('PUT')
+                        @endif
                          <div class="row">
                                 <div class="col-sm-6">
 
                                     <div class="form-group">
-                                        <label for="subject">Subject<span class="text-red">*</span></label>
-                                        <input id="subject" type="text" class="form-control" name="subject" value="{{old('subject')??$report->subject??'' }}" placeholder="Enter a subject" required="">
-                                        <div class="help-block with-errors"></div>
-
-
+                                        <label for="subject">Subject <span class="text-danger">*</span></label>
+                                        <input id="subject" type="text" class="form-control" name="subject" value="{{old('subject')??$case->subject??'' }}" placeholder="Enter a subject" required>
+                                        <div class="help-block with-errors">
+                                            @error('subject')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="description">{{ __('Description')}}<span class="text-red">*</span></label>
-                                        <textarea name="description" id="description" class="form-control" rows="10" required="">{{old('description')??$report->description??'' }}</textarea>
 
+
+
+                                    <div class="form-group">
+                                        <label for="description">{{ __('Description')}} <span class="text-danger">*</span> </label>
+                                        <textarea name="description" id="description" class="form-control" rows="10" required>{{old('description')??$case->description??'' }}</textarea>
+                                        <div class="help-block with-errors">
+                                            @error('description')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
 
 
@@ -127,9 +139,7 @@
 
                                     <div class="form-group">
                                         <label for="po">Purchase Order</label>
-                                        <input id="po" type="text" class="form-control" name="purchase_order" value="{{old('subject')??$report->po??'' }}" placeholder="Enter Purchase Order">
-     
-
+                                        <input id="po" type="text" class="form-control" name="purchase_order" value="{{old('subject')??$case->po??'' }}" placeholder="Enter Purchase Order">
                                     </div>
                                   
 

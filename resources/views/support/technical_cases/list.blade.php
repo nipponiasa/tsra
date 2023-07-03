@@ -8,7 +8,7 @@
 
 
  <!-- view modal -->
- <script>
+ {{-- <script>
         function getcasetechidview(name) {
                             $.get('reportt_view_form_modal?reportt='+name, function (data) {
                                         $('#caseView').on('shown.bs.modal', function () {
@@ -47,7 +47,7 @@
 
 
 
-</script>
+</script> --}}
  <!-- view modal -->
 
  
@@ -123,11 +123,12 @@
                                 <tr>
 								{{-- <th class="nosort">Submitter</th> --}}
                                     <th>Case #</th>
-									<th>User</th>
+									<th>Submitter</th>
+                                    <th>Date</th>
 		                            <th>Subject</th>
 		                            <th>{{__('Model(s)')}}</th>
-  		                             <th>Date</th>
 		                            <th>Status</th>
+                                    <th>Reminder</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -138,7 +139,7 @@
 
                             {{--------------------------------<img src="{{url($result->mypic)}}" class="table-user-thumb" alt="">---------------------------------------------------------}}
 
-@foreach($technical_cases as $report) 
+@foreach($technical_cases as $case) 
 
 <tr>
 
@@ -149,36 +150,47 @@
 </td> --}}
 
 <td>
-    <a href="/technical_cases/{{$report->id}}/edit">{{$report->id}}</a>
+    <a href="/technical_cases/{{$case->id}}/review">{{$case->id}}</a>
 </td>
 <td>
+    {{$case->user->name}}
     {{-- <a href="/technical_cases/toedit/{{$result->id}}">{{$result->name}}</a> --}}
 </td>
+
+<td>{{date('d-m-Y', strtotime($case->created_at))}}</td>
+
 <td>
-    <a href="/technical_cases/{{$report->id}}/edit">{{$report->subject}}</a>
+    <a href="/technical_cases/{{$case->id}}/edit">{{$case->subject}}</a>
 </td>
 <td>
     {{-- <a href="/technical_cases/toedit/{{$result->id}}">{{$result->models}}</a> --}}
 </td>
-<td>{{date('d-m-Y', strtotime($report->created_at))}}</td>
+
 
 <td>
     
-@if($report->statusname == "Waiting for Nipponia") 
-	<span class="badge badge-pill badge-primary mb-1">{{$report->statusname}}</span>
-@elseif ($report->statusname == "Waiting for Dealer") 
-	<span class="badge badge-pill badge-secondary mb-1">{{$report->statusname}}</span>
-@elseif ($report->statusname == "Resolved") 
-	<span class="badge badge-pill badge-success mb-1">{{$report->statusname}}</span>
-@elseif ($report->statusname == "Claim approved")
-	<span class="badge badge-pill badge-danger mb-1">{{$report->statusname}}</span>
-@elseif ($report->statusname == "Waiting for Vendor")
-	<span class="badge badge-pill badge-warning mb-1">{{$report->statusname}}</span>
+@if($case->statusname == "Waiting for Nipponia") 
+	<span class="badge badge-pill badge-primary mb-1">{{$case->statusname}}</span>
+@elseif ($case->statusname == "Waiting for Dealer") 
+	<span class="badge badge-pill badge-secondary mb-1">{{$case->statusname}}</span>
+@elseif ($case->statusname == "Resolved") 
+	<span class="badge badge-pill badge-success mb-1">{{$case->statusname}}</span>
+@elseif ($case->statusname == "Claim approved")
+	<span class="badge badge-pill badge-danger mb-1">{{$case->statusname}}</span>
+@elseif ($case->statusname == "Waiting for Vendor")
+	<span class="badge badge-pill badge-warning mb-1">{{$case->statusname}}</span>
 @else 
-    <span class="badge badge-pill badge-info mb-1">{{$report->statusname}}</span>
+    <span class="badge badge-pill badge-info mb-1">{{$case->statusname}}</span>
 @endif
-@if($report->claim_approved) 
+@if($case->claim_approved) 
 <span class="badge badge-pill badge-warning mb-1">Claim Approved</span>
+@endif
+</td>
+
+
+<td>
+@if($case->reminder == 1) 
+    <span class="badge badge-pill badge-danger mb-1">Yes</span>
 @endif
 </td>
 

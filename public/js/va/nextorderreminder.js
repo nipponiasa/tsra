@@ -1,8 +1,8 @@
-$("#nextorderreminder").change(function() {
+$("#reminder").change(function() {
   if(this.checked) {
-      $("#nextorderremindert").prop('disabled', false);
+      $("#reminder_desc").prop('disabled', false);
   }else
   {
-      $("#nextorderremindert").prop('disabled', true);
+      $("#reminder_desc").prop('disabled', true);
   }
 });
