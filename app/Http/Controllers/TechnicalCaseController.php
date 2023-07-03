@@ -99,12 +99,23 @@ class TechnicalCaseController extends Controller
         // }
         
         // $technical_cases = TechnicalCase::all();
-        $technical_cases = TechnicalCase::with('user')->get();
-        return view('support.technical_cases.list')->with('technical_cases',$technical_cases);
+        $technical_cases = TechnicalCase::with(['user','status'])->get();
+        return view('support.technical_cases.list',['technical_cases'=>$technical_cases,'pending'=>false]);
     }
     
     
-    
+ 
+    //* GET - EDIT PENDING REPORT LIST (indexpending route)
+    public function indexpending()
+    {
+        $technical_cases = TechnicalCase::with(
+            ['user','status'])->whereHas('status', function($query)         // where status.statuscategory is one of ["Initial", "Pending"]
+            {
+                $query->whereIn('statuscategory', ["Initial", "Pending"]); 
+            })
+            ->get();
+            return view('support.technical_cases.list', ['technical_cases'=>$technical_cases , 'pending'=>true]);
+    }   
 
 
 

@@ -76,7 +76,7 @@
                     <div class="page-header-title">
                         <i class="ik ik-headphones bg-green"></i>
                         <div class="d-inline">
-                            <h1>Technical Cases</h1>
+                            <h1>{{$pending ? "Pending " : ""}} Technical Cases</h1>
                             {{-- <span class="lead">View, delete and update Technical Cases</span> --}}
                         </div>
                     </div>
@@ -168,19 +168,18 @@
 
 
 <td>
-    
-@if($case->statusname == "Waiting for Nipponia") 
-	<span class="badge badge-pill badge-primary mb-1">{{$case->statusname}}</span>
-@elseif ($case->statusname == "Waiting for Dealer") 
-	<span class="badge badge-pill badge-secondary mb-1">{{$case->statusname}}</span>
-@elseif ($case->statusname == "Resolved") 
-	<span class="badge badge-pill badge-success mb-1">{{$case->statusname}}</span>
-@elseif ($case->statusname == "Claim approved")
-	<span class="badge badge-pill badge-danger mb-1">{{$case->statusname}}</span>
-@elseif ($case->statusname == "Waiting for Vendor")
-	<span class="badge badge-pill badge-warning mb-1">{{$case->statusname}}</span>
+@if($case->status->statusname == "Waiting for Nipponia") 
+	<span class="badge badge-pill badge-primary mb-1">{{$case->status->statusname}}</span>
+@elseif ($case->status->statusname == "Waiting for Dealer") 
+	<span class="badge badge-pill badge-secondary mb-1">{{$case->status->statusname}}</span>
+@elseif ($case->status->statusname == "Resolved") 
+	<span class="badge badge-pill badge-success mb-1">{{$case->status->statusname}}</span>
+@elseif ($case->status->statusname == "Claim approved")
+	<span class="badge badge-pill badge-danger mb-1">{{$case->status->statusname}}</span>
+@elseif ($case->status->statusname == "Waiting for Vendor")
+	<span class="badge badge-pill badge-warning mb-1">{{$case->status->statusname}}</span>
 @else 
-    <span class="badge badge-pill badge-info mb-1">{{$case->statusname}}</span>
+    <span class="badge badge-pill badge-info mb-1">{{$case->status->statusname}}</span>
 @endif
 @if($case->claim_approved) 
 <span class="badge badge-pill badge-warning mb-1">Claim Approved</span>

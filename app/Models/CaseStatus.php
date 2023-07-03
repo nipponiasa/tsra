@@ -12,4 +12,9 @@ class CaseStatus extends Model
     protected $table = 'case_status';
 
 
+    public function case()
+    {
+        return $this->belongsToMany(TechnicalCase::class,'status_id','id');
+    }
+
 }
