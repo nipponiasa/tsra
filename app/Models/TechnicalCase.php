@@ -12,7 +12,7 @@ class TechnicalCase extends Model
 {
     use HasFactory;
 
-    protected $table = 'support_cases';
+    protected $table = 'technical_cases';
 
 
     public function user()

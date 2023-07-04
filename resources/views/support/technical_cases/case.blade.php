@@ -138,8 +138,8 @@
 
 
                                     <div class="form-group">
-                                        <label for="po">Purchase Order</label>
-                                        <input id="po" type="text" class="form-control" name="purchase_order" value="{{old('subject')??$case->po??'' }}" placeholder="Enter Purchase Order">
+                                        <label for="purchase_order">Purchase Order</label>
+                                        <input id="purchase_order" type="text" class="form-control" name="purchase_order" value="{{old('purchase_order')??$case->purchase_order??'' }}" placeholder="Enter Purchase Order">
                                     </div>
                                   
 

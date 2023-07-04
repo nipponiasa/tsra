@@ -25,12 +25,7 @@
 
             <div class="form-group">
                 <label for="description">{{ __('Description')}} <span class="text-danger">*</span></label>
-                <textarea name="description" id="description" class="form-control" rows="5" required>{{old('description')??$case->description??'' }}</textarea>
-                <div class="help-block with-errors">
-                    @error('description')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+                <textarea name="description" id="description" class="form-control" rows="5" disabled>{{old('description')??$case->description??'' }}</textarea>
             </div>
 
             <div class="form-group">
@@ -40,11 +35,21 @@
             </div>
 
             <div class="form-group">
-                <label for="po">Purchase Order</label>
-                <input id="po" type="text" class="form-control" name="purchase_order" value="{{old('subject')??$case->po??'' }}" placeholder="Enter Purchase Order">
+                <label for="purchase_order">Purchase Order</label>
+                <input id="purchase_order" type="text" class="form-control" name="purchase_order" value="{{old('purchase_order')??$case->purchase_order??'' }}" placeholder="Enter Purchase Order">
             </div>
 
-            <hr class="my-4">
+
+            <label for="files">{{ __('Files')}} </label>
+            <br>
+            <label for="vins">{{ __('VINs')}} </label>
+
+            <div class="form-group">
+                <label for="submitter">Submitter</label>
+                <input id="submitter" type="text" class="form-control" name="submitter" value="{{old('submitter')??$case->user->name??'' }}" disabled>
+            </div>
+
+            <hr class="my-4 border border-dark">
 
             @php
                 $categories = array(
@@ -68,16 +73,28 @@
                         );
             @endphp
 
-            <div class="form-group">
-                <label for="category">{{ __('Category')}}</label>
-                <select name="category" id="category" class="form-select">
-                <option value="0" >{{ __('Please select...')}}</option>
-                @foreach ($categories as $category_id=>$category_name) 
-                        <option value="{{$category_id}}"   @if ($category_id == $case->case_category_id)  {{ 'selected' }} @endif >{{$category_name}}</option>
-                @endforeach
-                </select>
-            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="category">{{ __('Category')}}</label>
+                    <select name="category" id="category" class="form-select">
+                    <option value="0" >{{ __('Please select...')}}</option>
+                    @foreach ($categories as $category_id=>$category_name) 
+                            <option value="{{$category_id}}"   @if ($category_id == $case->case_category_id)  {{ 'selected' }} @endif >{{$category_name}}</option>
+                    @endforeach
+                    </select>
+                </div>
 
+                <div class="form-group col-md-6">
+                    <label for="subcategory">{{ __('Subcategory')}}</label>
+                    <select name="subcategory" id="subcategory" class="form-select">
+                    <option value="0" >{{ __('Please select...')}}</option>
+                    @foreach ($categories as $subcategory_id=>$subcategory_name) 
+                            <option value="{{$subcategory_id}}"   @if ($subcategory_id == $case->case_subcategory_id)  {{ 'selected' }} @endif >{{$subcategory_name}}</option>
+                    @endforeach
+                    </select>
+                </div>
+
+            </div>
 
             <div class="form-group">
                 <label for="status">{{ __('Status')}} <span class="text-danger">*</span></label>
@@ -87,6 +104,17 @@
                         <option value="{{$status->id}}"  @if ($status->id == $case->status_id)  {{ 'selected' }} @endif  >{{$status->statusname}}</option>
                         @endforeach
                 </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="notes">{{ __('Notes')}} </label>
+                <textarea name="notes" id="notes" class="form-control" rows="5">{{old('notes')??$case->notes??'' }}</textarea>
+                <div class="help-block with-errors">
+                    @error('notes')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
 
 

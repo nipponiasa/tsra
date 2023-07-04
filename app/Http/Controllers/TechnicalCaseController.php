@@ -70,7 +70,7 @@ class TechnicalCaseController extends Controller
         $case_id = $request->case_id;
         $case = TechnicalCase::find($case_id);
         $statuses = CaseStatus::All();
-        return view('support.technical_cases.casefull', ['case'=>$case, 'statuses'=>$statuses ,"action"=>"review"]);
+        return view('support.technical_cases.casereview', ['case'=>$case, 'statuses'=>$statuses ,"action"=>"review"]);
     }
 
 
@@ -147,7 +147,7 @@ class TechnicalCaseController extends Controller
         // $date=Carbon::now();
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
-        $case->po=$request->purchase_order;
+        $case->purchase_order=$request->purchase_order;
         $case->status_id=1;//Waiting for Nipponia
         $case->save(); 
 
@@ -187,7 +187,7 @@ class TechnicalCaseController extends Controller
         // $date=Carbon::now();
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
-        $case->po=$request->purchase_order;
+        $case->purchase_order=$request->purchase_order;
         $case->save(); 
 
 
@@ -219,14 +219,14 @@ class TechnicalCaseController extends Controller
         $case = TechnicalCase::find($case_id);
 
         $case->subject=$request->subject;
-        $case->description=$request->description;
+        // $case->description=$request->description;    // not editable by Nipponia Member
         // $message=$description;
         $case->agent_id=Auth::user()->id;
         // $user_email = Auth::user()->email;
         // $date=Carbon::now();
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
-        $case->po=$request->purchase_order;
+        $case->purchase_order=$request->purchase_order;
         $case->status_id=$request->status;
         $case->save(); 
 
