@@ -11,6 +11,7 @@
 
                 {{-- <input type="hidden" id="supportid" name="supportid" value="{{$case->id}}"> --}}
 
+            <h3>Case Details</h3>
         
             <div class="form-group">
                 <label for="subject">Subject <span class="text-danger">*</span></label>
@@ -55,7 +56,9 @@
                 <input id="submitter" type="text" class="form-control" name="submitter" value="{{old('submitter')??$case->user->name??'' }}" disabled>
             </div>
 
-            <hr class="my-4 border border-dark">
+            <hr class="mt-5 border border-dark">
+
+            <h3>Nipponia Notes</h3>
 
             @php
                 $categories = array(
@@ -215,11 +218,17 @@
 
 
 
-
+            <hr class="my-4 border border-dark">
 
 
             <div class="text-end">
-                <button class="btn btn-success my-4" type="submit">Update Summary</button>
+
+                <div class="form-group mt-4">
+                    <input class="form-check-input" type="checkbox" id="donotmail" name="donotmail" value="1" >
+                    <label class="form-check-label" for="donotmail" >Do not send e-mail on Update</label>     
+                </div>
+                
+                <button class="btn btn-success" type="submit">Update Summary</button>
             </div>
         </form>
     </div>
