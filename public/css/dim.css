@@ -16,6 +16,10 @@
     align-items: center;
 }
 
+.input-group label{
+    font-weight: normal;
+    color: var(--secondary);
+}
 
 .btn-purple{
     background-color: hsl(261, 51%, 51%);

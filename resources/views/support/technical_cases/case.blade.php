@@ -6,6 +6,7 @@
 @push('head')
 
 <link rel="stylesheet" href="{{ asset('css/va/add_vin.css') }}">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 @endpush
 
@@ -100,9 +101,9 @@
                                     </div>
 
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-6">
 
-
+                                    
 
                                     <div class="form-group">
                                         <label for="model">{{ __('Model')}} <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Use no spaces between the model's name and displacement (For example, BRIO110) "> </i></label>
@@ -121,25 +122,54 @@
                                     </div> --}}
                             
                          
+                                    {{-- VINS Section --}}
+                                    <div class="" x-data="{ 
+                                        vins: [] , 
+                                        showvin: vin=>vin[0]+' - '+vin[1]+'km',
+                                    }">      
 
-                                    <div class="form-group">
+                                
+                                        <div class="form-group" >
 
+                                            <label>Vechicle Identities</label>
+                                            <div class="input-group">
+                                                    {{-- <div class=""> --}}
+                                                        <input id="newVIN" type="text" min="0" class="form-control" placeholder="VIN" @keydown.enter.prevent="addVIN.click()">
+                                                        {{-- <label for="newVIN">VIN</label> --}}
+                                                    {{-- </div> --}}
+                                                    {{-- <div class=""> --}}
+                                                        <input id="newKM" type="number" min="0" step="1" class="form-control" placeholder="Distance (km)" @keydown.enter.prevent="addVIN.click()">
+                                                        {{-- <label for="newKM">Distance (km)</label> --}}
+                                                    {{-- </div> --}}
+                                                    <button class="btn btn-secondary" type="button" id="addVIN" 
+                                                    @click="
+                                                        if (newVIN.value.length>0) {vins.push([newVIN.value,newKM.value||0])};
+                                                        newVIN.value='';newKM.value=''
+                                                    ">
+                                                        Add VIN
+                                                    </button>
 
-                                        <label>Vechicle identity</label>
-                                            <div class="field_wrapper">
-                                                <div>
-                                                    <input type="text" placeholder="VIN" name="vin_table[]" id="vin1" value=""/>
-                                                    <input type="text" placeholder="Distance(km)" name="distance_table[]" id="distance" value=""/>
-                                                    <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/img/add-icon.png"/></a>
-                                                    <p id="model_desc1"></p>
-                                                </div>
+                                                    {{-- <input type="text" placeholder="VIN" name="vin_table[]" id="vin1" value=""/> --}}
+                                                    {{-- <input type="text" placeholder="Distance(km)" name="distance_table[]" id="distance" value=""/> --}}
+                                                    {{-- <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/img/add-icon.png"/></a> --}}
+                                                    {{-- <p id="model_desc1"></p> --}}
                                             </div>
-    
+                                            <div class="form-group my-1">
+                                                <select name="VIN[]" id="VIN" class="form-control select2" multiple="multiple" size="1">
+                                                    <template x-for="vin in vins">
+                                                        <option :value="vin.toString()" x-text="showvin(vin)" selected></option>
+                                                    </template>
+                                                    {{-- @foreach ($countries as $country_id => $country_name)
+                                                        <option value="{{$country_id}}"   {{ ( collect(old('countries'))->contains($country_id) || (isset($directive)&&$directive->motorCountries->pluck('id')->contains($country_id)) ) ? 'selected':'' }}     >{{$country_name}}</option>
+                                                    @endforeach --}}
+                                                </select>
+                                            </div>
+        
                                         </div>
 
 
-
-
+                                    
+                                    </div>
 
 
                                     <div class="form-group">
@@ -182,19 +212,19 @@
 
 
 
-                                    <div class="form-group text-right">
+                                    <div class="form-group text-right my-5">
                                         <button type="submit" class="btn btn-primary">
                                             @if($action=="create")
-                                                Save
+                                                Submit Case
                                             @elseif($action=="edit")
-                                                Update
+                                                Update Case
                                             @endif
                                         </button>
                                     </div>  
 
 
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-6">
 
                              
                                
@@ -213,9 +243,9 @@
     </div>
 
 
-@push('script')
+{{-- @push('script')
 <script src="{{ asset('js/va/vin_input.js') }}"></script>
-@endpush
+@endpush --}}
 
 
 
