@@ -29,10 +29,16 @@
             </div>
 
             <div class="form-group">
+                <label for="model">{{ __('Model')}} <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Use no spaces between the model's name and displacement (For example, BRIO110) "> </i></label>
+                <input id="model" type="text" class="form-control" name="model" value="{{old('model')??$case->model??'' }}" placeholder="" required>
+                </select>
+            </div>
+
+            {{-- <div class="form-group">
                 <label for="models">{{ __('Model(s)')}} </label>
                 <select name="models[]" id="models" class="form-control select2" multiple="multiple">
                 </select>
-            </div>
+            </div> --}}
 
             <div class="form-group">
                 <label for="purchase_order">Purchase Order</label>
@@ -144,20 +150,20 @@
 
             {{-- @can('approve_claims') --}}
                 <div class="form-group m-4">
-                    <input class="form-check-input" type="checkbox" id="claimapproved" name="claimapproved"  @if ($case->claim_approved == 1)  {{ 'checked' }} @endif  >
-                    <label class="form-check-label" for="claimapproved" >Claim approved</label>  
+                    <input class="form-check-input" type="checkbox" id="approved" name="approved"  @if ($case->approved == 1) {{ 'checked' }} @endif  value="1" >
+                    <label class="form-check-label" for="approved" >Claim approved</label>  
                 </div>
             {{-- @endcan --}}
 
             <div class="form-group m-4">
-                <input class="form-check-input" type="checkbox" id="reminder" name="reminder" value={!!$case->nextorderreminder!!} @if ($case->nextorderreminder == 1)  {{ 'checked' }} @endif  >
+                <input class="form-check-input" type="checkbox" id="reminder" name="reminder" value="1" @if ($case->reminder == 1) {{ 'checked' }} @endif  >
                 <label class="form-check-label" for="reminder" >Reminder for next order</label>     
             </div>
 
 
             <div class="form-group">
                 <label for="reminder_desc">{{ __('Reminder')}}</label>
-                <textarea name="reminder_desc" id="reminder_desc" rows="5" class="form-control" @unless ($case->nextorderreminder == 1)  {{ 'disabled' }} @endunless >{!!$case->nextorderremindert!!}</textarea>
+                <textarea name="reminder_desc" id="reminder_desc" rows="5" class="form-control" value="1" @unless ($case->reminder == 1)  {{ 'disabled' }} @endunless >{{old('reminder_desc')??$case->reminder_desc }}</textarea>
             </div>
 
 

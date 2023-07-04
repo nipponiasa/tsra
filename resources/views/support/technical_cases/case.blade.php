@@ -104,16 +104,21 @@
 
 
 
-                                
-                              
                                     <div class="form-group">
-                                        <label for="models">{{ __('Model(s)')}} </label>
-                                        <select name="models[]" id="models" class="form-control select2" multiple="multiple">
-                                        {{-- @foreach($uii as $result)
-                                            <option value = "{{ $result->id }}"  >{{ $result->name }}</option>
-                                        @endforeach --}}
+                                        <label for="model">{{ __('Model')}} <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Use no spaces between the model's name and displacement (For example, BRIO110) "> </i></label>
+                                        <input id="model" type="text" class="form-control" name="model" value="{{old('model')??$case->model??'' }}" placeholder="" required>
                                         </select>
                                     </div>
+                              
+                                    {{-- old code for multiple select --}}
+                                    {{-- <div class="form-group">
+                                        <label for="models">{{ __('Model(s)')}} </label>
+                                        <select name="models[]" id="models" class="form-control select2" multiple="multiple">
+                                        @foreach($uii as $result)
+                                            <option value = "{{ $result->id }}"  >{{ $result->name }}</option>
+                                        @endforeach
+                                        </select>
+                                    </div> --}}
                             
                          
 

@@ -131,7 +131,7 @@ class TechnicalCaseController extends Controller
         $validated = $request->validate([
             'subject' => 'required',
             'description' => 'nullable',
-            // 'model' => "required",     
+            'model' => "required",     
             'models' => 'nullable', //old code where models was many-to-many relationship, not text
             'purchase_order' => 'required',
         ]);
@@ -147,6 +147,7 @@ class TechnicalCaseController extends Controller
         // $date=Carbon::now();
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
+        $case->model=$request->model;
         $case->purchase_order=$request->purchase_order;
         $case->status_id=1;//Waiting for Nipponia
         $case->save(); 
@@ -171,7 +172,7 @@ class TechnicalCaseController extends Controller
         $validated = $request->validate([
             'subject' => 'required',
             'description' => 'nullable',
-            // 'model' => "required",     
+            'model' => "required",     
             'models' => 'nullable', //old code where models was many-to-many relationship, not text
             'purchase_order' => 'required',
         ]);
@@ -187,6 +188,7 @@ class TechnicalCaseController extends Controller
         // $date=Carbon::now();
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
+        $case->model=$request->model;
         $case->purchase_order=$request->purchase_order;
         $case->save(); 
 
@@ -226,8 +228,16 @@ class TechnicalCaseController extends Controller
         // $date=Carbon::now();
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
+        $case->model=$request->model;
         $case->purchase_order=$request->purchase_order;
         $case->status_id=$request->status;
+        $case->notes=$request->notes;
+        $case->approved=$request->approved;
+        $case->reminder=$request->reminder;
+        if ($request->reminder_desc){
+            $case->reminder_desc=$request->reminder_desc;
+        }
+
         $case->save(); 
 
 
