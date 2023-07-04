@@ -153,6 +153,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/technical_cases/pending', [TechnicalCaseController::class,'indexpending'])->name('cases.indexpending')->middleware('auth');
     Route::get('/technical_cases/{directive_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware('auth');
 
+
+    //#Reports
+    Route::get('/reports/vins', [ReportsController::class,'vin_search'])->name('reports.vins')->middleware('auth');
+
+
     // Route::get('technical_cases/reportt_view_form_modal', [TechnicalCaseController::class,'fetch_TechnicalReport_modal_view'])->name('technicalReport_modal_view')->middleware('auth');//json request
     // Route::get('/technical_cases/toedit/{id}', [TechnicalCaseController::class,'show_edit'])->name('show_edit_technical_cases')->middleware('auth');
     // Route::post('/technical_cases/update_new_message', [TechnicalCaseController::class,'update_new_message'])->name('update_edit_technical_cases')->middleware('auth');
@@ -189,8 +194,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-    //Reports
-    Route::get('/reports/vin_search', [ReportsController::class,'vin_search'])->name('vin_search')->middleware('auth');
 
     //Reports
 

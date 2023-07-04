@@ -32,7 +32,7 @@ class ReportsController extends Controller
     public function vin_search()
     {
 
-        $uii=DB::select(DB::raw('SELECT vin_to_cases.case as cas , vin_to_cases.vin as vi, support_cases.subject  as sub FROM vin_to_cases JOIN support_cases ON vin_to_cases.case=support_cases.id;'));
+        $uii=DB::select(DB::raw('SELECT vin_to_cases.case as cas , vin_to_cases.vin as vi, technical_cases.subject  as sub FROM vin_to_cases JOIN technical_cases ON vin_to_cases.case=technical_cases.id;'));
 
      
 
