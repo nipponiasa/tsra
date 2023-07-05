@@ -114,10 +114,10 @@
 
                 <div class="nav-item">
                {{-- <div class="nav-item {{ ($segment1 == 'reports') ? 'active open' : '' }} has-sub"> --}}
-                    {{-- <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Reports per VIN')}}</span></a> --}}
+                    {{-- <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Cases per VIN')}}</span></a> --}}
                     {{-- <div class="submenu-content"> --}}
                         {{-- <a href="{{url('reports/vin_search')}}" class="menu-item {{ ($segment1 == 'reports' && $segment2 == 'vin_search') ? 'active' : '' }}">{{ __('Vehicle History')}}</a> --}}
-                        <a href="{{route('reports.vins')}}" class="menu-item "><i class="ik ik-file-text"></i>{{ __('Reports per VIN')}}</a>
+                        <a href="{{route('reports.vins')}}" class="menu-item "><i class="ik ik-file-text"></i>{{ __('Cases per VIN')}}</a>
                     {{-- </div> --}}
                 </div>
 

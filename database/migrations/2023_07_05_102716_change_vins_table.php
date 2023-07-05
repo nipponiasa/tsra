@@ -18,10 +18,7 @@ class ChangeVinsTable extends Migration
             $table->renameColumn("distancekm","distance");
             $table->renameColumn("case","case_id");
         });
-        // Schema::table("vins", function (Blueprint $table) {
-        //     $table->index('case_id');
-        //     $table->foreign('case_id')->references('id')->on('technical_cases')->onDelete('cascade');
-        // });
+
     }
 
     /**
@@ -33,7 +30,6 @@ class ChangeVinsTable extends Migration
     {
         Schema::table("vins", function (Blueprint $table) {
             $table->renameColumn("distance", "distancekm");
-            // $table->dropForeign(['case_id']);
             $table->renameColumn("case_id", "case");
         });
     
