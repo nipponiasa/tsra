@@ -15,9 +15,10 @@
                             @if($action=="create")
                                 <h1>New Technical Directive</h1>
                             @elseif($action=="show")
-                                <h1>Technical Directive</h1>
+                                <h1>{{$directive->subject}}</h1>
                             @elseif($action=="edit")
-                                <h1>Edit Technical Directive</h1>
+                                <h1>{{$directive->subject}}</h1>
+                                <p class="lead">Edit Technical Directive</p>
                             @endif
                         </div>
                     </div>

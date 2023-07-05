@@ -189,7 +189,7 @@
 
 <td>
 @if($case->reminder == 1) 
-    <span class="badge badge-pill badge-danger mb-1">Yes</span>
+    <span class="badge badge-pill badge-danger mb-1">Reminder</span>
 @endif
 </td>
 

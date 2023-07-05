@@ -15,16 +15,21 @@ class TechnicalCase extends Model
     protected $table = 'technical_cases';
 
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+
 
     public function status()
     {
         return $this->hasOne(CaseStatus::class,'id','status_id');
     }
 
+
+    
     public function vins()
     {
         return $this->hasMany(Vin::class,'case_id','id');

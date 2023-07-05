@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use File;
 use DataTables;
 use Carbon\Carbon;
+use App\Models\Vin;
 use App\Models\User;
 use App\Mail\MailOut;
 use App\Http\Requests;
@@ -19,9 +20,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
+
 use Dcblogdev\MsGraph\Facades\MsGraph;
 use Illuminate\Support\Facades\Artisan;
-
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Dcblogdev\MsGraph\Models\MsGraphToken;
@@ -40,7 +41,7 @@ class TechnicalCaseController extends Controller
     //* GET - CREATE REPORT FORM
     public function create()
     {
-      return view('support.technical_cases.case',[/*"models"=>$models,*/ "action"=>"create"]);
+        return view('support.technical_cases.case',[/*"models"=>$models,*/ "action"=>"create"]);
     }
 
 
@@ -48,16 +49,8 @@ class TechnicalCaseController extends Controller
     //* GET - EDIT REPORT
     public function edit(Request $request)
     {
-         $case_id = $request->case_id;
-         $case = TechnicalCase::find($case_id);
-        //  $support_case_array=TechnicalReport::list_tr_one($reportt);
-        //  $support_case=$support_case_array[0]; //gia na paroume ton pinaka mono
-        //  $video_extensions=array("mp4","avi");
-        //  $statuses_array=DB::select(DB::raw('SELECT id, statusname FROM `case_status` WHERE statuscategory="Technical Report" ;'));
-        //  $categories_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue1" ;'));
-        //  $issues_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue2" ;'));
-        //  $specifymore_array=DB::select(DB::raw('SELECT id, issuename FROM `issues_categories` WHERE type="Issue3" ;'));
-
+        $case_id = $request->case_id;
+        $case = TechnicalCase::find($case_id);
         return view('support.technical_cases.case', ['case'=>$case, "action"=>"edit"]);
     }
 
@@ -132,8 +125,9 @@ class TechnicalCaseController extends Controller
             'subject' => 'required',
             'description' => 'nullable',
             'model' => "required",     
-            'models' => 'nullable', //old code where models was many-to-many relationship, not text
+            // 'models' => 'nullable', //old code where models was many-to-many relationship, not text
             'purchase_order' => 'required',
+            'vins' => 'required',
         ]);
        
 
@@ -141,17 +135,23 @@ class TechnicalCaseController extends Controller
 
         $case->subject=$request->subject;
         $case->description=$request->description;
-        // $message=$description;
         $case->user_id=Auth::user()->id;
+        // $message=$description;
         // $user_email = Auth::user()->email;
         // $date=Carbon::now();
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
         $case->model=$request->model;
         $case->purchase_order=$request->purchase_order;
-        $case->status_id=1;//Waiting for Nipponia
-        $case->save(); 
+        $case->status_id=1;     //Waiting for Nipponia
+        $case->save();          // save case to get case_id
 
+
+
+        foreach($request->vins as $vin){
+            $vin_array = explode(',',$vin);     // string to array
+            $new_vin = Vin::create(['vin'=>$vin_array[0], 'distance'=>$vin_array[1], 'case_id'=>$case->id]);    // array to associative array
+        } 
 
 
         return redirect()->route('cases.index');
@@ -173,8 +173,9 @@ class TechnicalCaseController extends Controller
             'subject' => 'required',
             'description' => 'nullable',
             'model' => "required",     
-            'models' => 'nullable', //old code where models was many-to-many relationship, not text
+            // 'models' => 'nullable', //old code where models was many-to-many relationship, not text
             'purchase_order' => 'required',
+            'vins' => 'required',
         ]);
        
         $case_id = $request->case_id;
@@ -182,16 +183,24 @@ class TechnicalCaseController extends Controller
 
         $case->subject=$request->subject;
         $case->description=$request->description;
-        // $message=$description;
         $case->user_id=Auth::user()->id;
+        // $message=$description;
         // $user_email = Auth::user()->email;
         // $date=Carbon::now();
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
         $case->model=$request->model;
         $case->purchase_order=$request->purchase_order;
-        $case->save(); 
+        
+        $case->save();
 
+
+        // update associated vins
+        $case->vins()->delete();    // delete all old associated vins
+        foreach($request->vins as $vin){
+            $vin_array = explode(',',$vin);     // string to array
+            $new_vin = Vin::create(['vin'=>$vin_array[0], 'distance'=>$vin_array[1], 'case_id'=>$case_id]);    // array to associative array
+        } 
 
         return redirect()->route('cases.index');
                                         
@@ -239,6 +248,15 @@ class TechnicalCaseController extends Controller
         }
 
         $case->save(); 
+
+
+
+        // update associated vins
+        $case->vins()->delete();    // delete all old associated vins
+        foreach($request->vins as $vin){
+            $vin_array = explode(',',$vin);     // string to array
+            $new_vin = Vin::create(['vin'=>$vin_array[0], 'distance'=>$vin_array[1], 'case_id'=>$case_id]);    // array to associative array
+        } 
 
 
         return redirect()->route('cases.indexpending');

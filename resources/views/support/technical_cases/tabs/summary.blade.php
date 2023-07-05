@@ -49,7 +49,57 @@
 
             <label for="files">{{ __('Files')}} </label>
             <br>
-            <label for="vins">{{ __('VINs')}} </label>
+
+
+                                    {{-- VINS Section --}}
+                                    <div class="" x-data="{ 
+                                        vins: [] , 
+                                        showvin: vin=>vin[0]+' - '+vin[1]+'km',
+                                    }">      
+
+                                
+                                        <div class="form-group" >
+
+                                            <label>Vechicle Identities <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Enter VIN & distance travelled in kilometers and press &quot;Add VIN&quot;"> </i></label>
+                                            <div class="input-group">
+                                                    {{-- <div class=""> --}}
+                                                        <input id="newVIN" type="text" min="0" class="form-control" placeholder="Enter VIN here" @keydown.enter.prevent="addVIN.click()">
+                                                        {{-- <label for="newVIN">VIN</label> --}}
+                                                    {{-- </div> --}}
+                                                    {{-- <div class=""> --}}
+                                                        <input id="newKM" type="number" min="0" step="1" class="form-control" placeholder="Distance (km)" @keydown.enter.prevent="addVIN.click()" style="max-width:200px">
+                                                        {{-- <label for="newKM">Distance (km)</label> --}}
+                                                    {{-- </div> --}}
+                                                    <button class="btn btn-secondary" type="button" id="addVIN" 
+                                                    @click="
+                                                        if (newVIN.value.length>0) {vins.push([newVIN.value,newKM.value||0])};
+                                                        newVIN.value='';newKM.value=''
+                                                    ">
+                                                        Add VIN
+                                                    </button>
+
+                                                    {{-- <input type="text" placeholder="VIN" name="vin_table[]" id="vin1" value=""/> --}}
+                                                    {{-- <input type="text" placeholder="Distance(km)" name="distance_table[]" id="distance" value=""/> --}}
+                                                    {{-- <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/img/add-icon.png"/></a> --}}
+                                                    {{-- <p id="model_desc1"></p> --}}
+                                            </div>
+                                            <div class="form-group my-2 bg-light">
+                                                <select name="vins[]" id="vins" class="form-control select2" multiple="multiple" size="1" required>
+                                                    @foreach ($case->vins??[] as $vin)
+                                                        <option value="{{implode(',',$vin->as_array())}}" selected   >{{$vin->vin}} - {{$vin->distance}}km</option>
+                                                    @endforeach
+                                                    <template x-for="vin in vins">
+                                                        <option :value="vin.toString()" x-text="showvin(vin)" selected></option>
+                                                    </template>
+                                                </select>
+                                            </div>
+        
+                                        </div>
+
+
+                                    
+                                    </div>
+
 
             <div class="form-group">
                 <label for="submitter">Submitter</label>
@@ -170,51 +220,8 @@
             </div>
 
 
-{{-- VIN table --}}
 
-
-            {{-- <div class="form-group">
-            <label for="vins">{{ __('Related vehicles')}}</label> 
-            <table id="vins" class="table">
-                            <thead>
-                                <tr>
-
-                                    <th>VIN</th>
-									<th>Model</th>
-		                            <th>PO</th>
-		                            <th>Color</th>
-
-                                </tr>
-                            </thead>
-                            <tbody> --}}
-
-
-
-
-
-{{-- @foreach($rel_vins as $result) 
-<tr>
-<td>{{$result->vin}}</td>
-<td>{{$result->model}}</td>
-<td>{{$result->po}}</td>
-<td>{{$result->color}}</td>
-</tr>
-@endforeach --}}
-
-
-
-
-
-
-{{-- </tbody>
-</table>
-</div> --}}
-
-
-
-            {{-- VIN table --}}
-
-
+            
 
 
 

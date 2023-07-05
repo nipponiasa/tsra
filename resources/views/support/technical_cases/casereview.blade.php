@@ -4,6 +4,7 @@
 
 @push('script')
 <script src="{{ asset('js/va/issueselect.js') }}"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endpush
 
 
@@ -54,7 +55,7 @@
         <div class="row">
           
 
-            <div class="col-lg-8 col-md-7">
+            <div class="">
                 <div class="card">
                     <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
 
