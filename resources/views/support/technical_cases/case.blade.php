@@ -5,7 +5,7 @@
 
 @push('head')
 
-<link rel="stylesheet" href="{{ asset('css/va/add_vin.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('css/va/add_vin.css') }}"> --}}
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 @endpush
@@ -94,10 +94,25 @@
 
  
 
-
+                                    
                                     <div class="form-group">
                                         <label>Photos/Videos</label>
-                                        <div class="input-images" data-input-name="photos" data-label="Drag & Drop photos here or click to browse"></div>
+
+                                        @if (isset($photos))
+                                            <div class="mb-3">
+                                            @foreach ($photos as $photo)
+                                                <div class="mx-3">
+                                                    <a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a>
+                                                    <button type="button" class="badge badge-pill badge-danger border-0">Delete</button>
+                                                </div>
+                                                    @endforeach
+                                            </div>
+                                        @endif
+                                        @if($action=="edit")
+                                        <div class="input-images" data-input-name="photos" data-label="Drag & Drop more photos in this area or click here to upload more photos. Don't forget to click &quot;Update Case&quot; afterwards."></div>
+                                        @else
+                                        <div class="input-images" data-input-name="photos" data-label="Drag & Drop photos in this area or click here to browse."></div>
+                                        @endif
                                     </div>
 
                                 </div>

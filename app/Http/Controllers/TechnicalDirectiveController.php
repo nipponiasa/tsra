@@ -86,7 +86,7 @@ class TechnicalDirectiveController extends Controller
         $directive->motorCountries()->attach($motorCountryIds);
         
         
-        // SAVE FILE TO DISK
+        // SAVE FILE TO DISK (case must be saved first to get an id)
         if ($file) {
             Storage::putFileAs($this->directives_path.$directive->id, $file, $filename);
         }

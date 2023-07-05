@@ -48,7 +48,15 @@
 
 
             <label for="files">{{ __('Files')}} </label>
-            <br>
+            @if (isset($photos))
+                <div class="mb-3">
+                @foreach ($photos as $photo)
+                    <div class="">
+                        <a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a>
+                    </div>
+                        @endforeach
+                </div>
+            @endif
 
 
                                     {{-- VINS Section --}}
@@ -63,7 +71,7 @@
                                             <label>Vechicle Identities <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Enter VIN & distance travelled in kilometers and press &quot;Add VIN&quot;"> </i></label>
                                             <div class="input-group">
                                                     {{-- <div class=""> --}}
-                                                        <input id="newVIN" type="text" min="0" class="form-control" placeholder="Enter VIN here" @keydown.enter.prevent="addVIN.click()">
+                                                        <input id="newVIN" type="text" min="0" class="form-control" placeholder="Enter new VINs here" @keydown.enter.prevent="addVIN.click()">
                                                         {{-- <label for="newVIN">VIN</label> --}}
                                                     {{-- </div> --}}
                                                     {{-- <div class=""> --}}

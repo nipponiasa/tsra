@@ -35,6 +35,10 @@ class TechnicalCaseController extends Controller
 
     //* CLASS VARIABLES AND METHODS
     protected $cases_path = 'public/cases/';   // relative to storage/app/. Use: $this->cases_path
+    public function cases_public_folder($case_id) 
+    { 
+        return '/storage/cases/'.$case_id.'/';
+    } 
 
 
 
@@ -51,7 +55,10 @@ class TechnicalCaseController extends Controller
     {
         $case_id = $request->case_id;
         $case = TechnicalCase::find($case_id);
-        return view('support.technical_cases.case', ['case'=>$case, "action"=>"edit"]);
+        $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
+        $photos_path = $this->cases_public_folder($case_id);                         // path for URL is diffeeent from path for Storage::disk
+        $action = "edit";
+        return view('support.technical_cases.case', compact('case', 'photos', 'photos_path', 'action'));
     }
 
 
@@ -63,7 +70,10 @@ class TechnicalCaseController extends Controller
         $case_id = $request->case_id;
         $case = TechnicalCase::find($case_id);
         $statuses = CaseStatus::All();
-        return view('support.technical_cases.casereview', ['case'=>$case, 'statuses'=>$statuses ,"action"=>"review"]);
+        $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
+        $photos_path = $this->cases_public_folder($case_id);                         // path for URL is diffeeent from path for Storage::disk
+        @$action = "review";
+        return view('support.technical_cases.casereview', compact('case', 'photos', 'photos_path', 'action', 'statuses'));
     }
 
 
@@ -154,6 +164,14 @@ class TechnicalCaseController extends Controller
         } 
 
 
+        // Save files
+        $photos=$request->file('photos');
+        foreach ($photos as $photo) {
+            $filename = uniqid() . '.' . $photo->extension();
+            Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
+        }
+
+
         return redirect()->route('cases.index');
                                         
 
@@ -201,6 +219,15 @@ class TechnicalCaseController extends Controller
             $vin_array = explode(',',$vin);     // string to array
             $new_vin = Vin::create(['vin'=>$vin_array[0], 'distance'=>$vin_array[1], 'case_id'=>$case_id]);    // array to associative array
         } 
+
+
+        //# Update saved files
+        $photos=$request->file('photos');
+        foreach ($photos??[] as $photo) {
+            $filename = uniqid() . '.' . $photo->extension();
+            Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
+        }
+
 
         return redirect()->route('cases.index');
                                         

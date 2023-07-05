@@ -37,6 +37,10 @@
     background-color: var(--success) !important;
 }
 
+.upload-text span{
+    text-align: center;
+}
+
 
 
 .select2.select2-container:focus-within{
@@ -60,6 +64,8 @@
 .bg-light .select2-container--default .select2-selection--multiple{
     background-color: hsl(0, 0%, 95%);
 }
+
+
 
 
 
