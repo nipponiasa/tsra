@@ -75,14 +75,14 @@
 
 									
 
-@foreach($uii as $result) 
+@foreach($vins as $vin) 
 
 <tr>
 
 
-<td><a href="/technical_reports/toedit/{{$result->cas}}">{{$result->vi}}</a></td>
-<td><a href="/technical_reports/toedit/{{$result->cas}}">{{$result->cas}}</a></td>
-<td><a href="/technical_reports/toedit/{{$result->cas}}">{{$result->sub}}</a></td>
+<td>{{$vin->vin}}</td>
+<td><a href="{{route('cases.review',$vin->case_id)}}">{{$vin->case_id}}</a></td>
+<td><a href="{{route('cases.review',$vin->case_id)}}">{{$vin->case->subject}}</a></td>
 
 
 

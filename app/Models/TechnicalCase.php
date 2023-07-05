@@ -25,5 +25,10 @@ class TechnicalCase extends Model
         return $this->hasOne(CaseStatus::class,'id','status_id');
     }
 
+    public function vins()
+    {
+        return $this->hasMany(Vin::class,'case_id','id');
+    }
+
 
 }

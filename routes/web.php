@@ -155,7 +155,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     //#Reports
-    Route::get('/reports/vins', [ReportsController::class,'vin_search'])->name('reports.vins')->middleware('auth');
+    Route::get('/reports/vins', [ReportsController::class,'casespervin'])->name('reports.vins')->middleware('auth');
 
 
     // Route::get('technical_cases/reportt_view_form_modal', [TechnicalCaseController::class,'fetch_TechnicalReport_modal_view'])->name('technicalReport_modal_view')->middleware('auth');//json request

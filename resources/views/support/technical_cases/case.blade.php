@@ -32,9 +32,9 @@
                             @if($action=="create")
                                 <h1>New Technical Case</h1>
                             @elseif($action=="show")
-                                <h1>Technical Case</h1>
+                                <h1>{{$case->subject}}</h1>
                             @elseif($action=="edit")
-                                <h1>Edit Technical Case</h1>
+                                <h1>{{$case->subject}}</h1>
                             @endif
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                                             <label>Vechicle Identities <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Enter VIN & distance travelled in kilometers and press &quot;Add VIN&quot;"> </i></label>
                                             <div class="input-group">
                                                     {{-- <div class=""> --}}
-                                                        <input id="newVIN" type="text" min="0" class="form-control" placeholder="VIN" @keydown.enter.prevent="addVIN.click()">
+                                                        <input id="newVIN" type="text" min="0" class="form-control" placeholder="Enter VIN here" @keydown.enter.prevent="addVIN.click()">
                                                         {{-- <label for="newVIN">VIN</label> --}}
                                                     {{-- </div> --}}
                                                     {{-- <div class=""> --}}
@@ -156,12 +156,12 @@
                                             </div>
                                             <div class="form-group my-2 bg-light">
                                                 <select name="vins[]" id="vins" class="form-control select2" multiple="multiple" size="1" required>
+                                                    @foreach ($case->vins??[] as $vin)
+                                                        <option value="{{implode(',',$vin->as_array())}}" selected   >{{$vin->vin}} - {{$vin->distance}}km</option>
+                                                    @endforeach
                                                     <template x-for="vin in vins">
                                                         <option :value="vin.toString()" x-text="showvin(vin)" selected></option>
                                                     </template>
-                                                    {{-- @foreach ($countries as $country_id => $country_name)
-                                                        <option value="{{$country_id}}"   {{ ( collect(old('countries'))->contains($country_id) || (isset($directive)&&$directive->motorCountries->pluck('id')->contains($country_id)) ) ? 'selected':'' }}     >{{$country_name}}</option>
-                                                    @endforeach --}}
                                                 </select>
                                             </div>
         

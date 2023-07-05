@@ -1,46 +1,47 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Gate;
-use DataTables;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\MailOut;
-use App\Models\User;
 use File;
+use DataTables;
+use Carbon\Carbon;
+use App\Models\Vin;
+use App\Models\User;
+use App\Mail\MailOut;
+use App\Http\Requests;
 use App\Models\Message;
-use Dcblogdev\MsGraph\Facades\MsGraphAdmin;
-use Dcblogdev\MsGraph\Facades\MsGraph;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
-use Dcblogdev\MsGraph\Models\MsGraphToken;
-use Vtzimpl\MsgraphMailHandler\MsgraphMailHandler;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
+use Illuminate\Http\Request;
 use App\Models\TechnicalReport;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
+use Dcblogdev\MsGraph\Facades\MsGraph;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use Dcblogdev\MsGraph\Models\MsGraphToken;
+use Dcblogdev\MsGraph\Facades\MsGraphAdmin;
+use Vtzimpl\MsgraphMailHandler\MsgraphMailHandler;
 
 class ReportsController extends Controller
 {
   
     
-    public function vin_search()
+    public function casespervin()
     {
 
-        $uii=DB::select(DB::raw('SELECT vin_to_cases.case as cas , vin_to_cases.vin as vi, technical_cases.subject  as sub FROM vin_to_cases JOIN technical_cases ON vin_to_cases.case=technical_cases.id;'));
+        // $uii=DB::select(DB::raw('SELECT vins.case_id as cas , vins.vin as vi, technical_cases.subject  as sub FROM vins JOIN technical_cases ON vins.case_id=technical_cases.id;'));
 
-     
+        $vins = Vin::all();
 
 
         //$hasManageUser = Auth::user()->can('manage_user');
         
       
-      return view('reports.vin_search')->with('uii',$uii);
+      return view('reports.casespervin')->with('vins',$vins);
     }
 
 
