@@ -47,20 +47,18 @@
             </div>
 
 
-            <label for="files">{{ __('Files')}} </label>
+            <label for="files" class="mt-2">{{ __('Files')}} </label>
             @if (isset($photos))
-                <div class="mb-3">
-                @foreach ($photos as $photo)
-                    <div class="">
-                        <a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a>
-                    </div>
-                        @endforeach
-                </div>
+                <ul style="list-style-type:circle;" class="mb-3">
+                    @foreach ($photos as $photo)
+                            <li><a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a></li>
+                            @endforeach
+                </ul>
             @endif
 
 
                                     {{-- VINS Section --}}
-                                    <div class="" x-data="{ 
+                                    <div class="my-4" x-data="{ 
                                         vins: [] , 
                                         showvin: vin=>vin[0]+' - '+vin[1]+'km',
                                     }">      

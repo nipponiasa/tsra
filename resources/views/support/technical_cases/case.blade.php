@@ -99,11 +99,11 @@
                                         <label>Photos/Videos</label>
 
                                         @if (isset($photos))
-                                            <div class="mb-3">
+                                            <ul style="list-style-type:circle;" class="mb-3">
                                                 @foreach ($photos as $photo)
                                                     @php $filename = basename($photo); @endphp
-                                                    <div class="mx-3" data-photo="{{$filename}}">
-                                                        <a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a>
+                                                    <li data-photo="{{$filename}}">
+                                                        <a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a>&nbsp;&nbsp;
                                                         <button type="button" class="badge badge-pill badge-danger border-0" onclick="deleteTheFile('{{basename($photo)}}')">Delete</button>
                                                         {{-- <form action="/technical_cases/{{$case->id}}/deletefile/$filename" method="post" onsubmit="return confirm('Do you want to delete this file now?');">
                                                             @csrf
@@ -111,9 +111,9 @@
                                                             <input type="hidden" name="photo" value="{{$filename}}">
                                                             <button type="submit" class="badge badge-pill badge-danger border-0">Delete</button>
                                                         </form> --}}
-                                                    </div>
+                                                    </li>
                                                 @endforeach
-                                            </div>
+                                            </ul>
                                         @endif
                                         @if($action=="edit")
                                         <div class="input-images" data-input-name="photos" data-label="Drag & drop more photos in this area or click here to upload more photos. Don't forget to click &quot;Update Case&quot; afterwards!"></div>
