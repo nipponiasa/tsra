@@ -100,18 +100,25 @@
 
                                         @if (isset($photos))
                                             <div class="mb-3">
-                                            @foreach ($photos as $photo)
-                                                <div class="mx-3">
-                                                    <a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a>
-                                                    <button type="button" class="badge badge-pill badge-danger border-0">Delete</button>
-                                                </div>
-                                                    @endforeach
+                                                @foreach ($photos as $photo)
+                                                    @php $filename = basename($photo); @endphp
+                                                    <div class="mx-3" data-photo="{{$filename}}">
+                                                        <a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a>
+                                                        <button type="button" class="badge badge-pill badge-danger border-0" onclick="deleteTheFile('{{basename($photo)}}')">Delete</button>
+                                                        {{-- <form action="/technical_cases/{{$case->id}}/deletefile/$filename" method="post" onsubmit="return confirm('Do you want to delete this file now?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input type="hidden" name="photo" value="{{$filename}}">
+                                                            <button type="submit" class="badge badge-pill badge-danger border-0">Delete</button>
+                                                        </form> --}}
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         @endif
                                         @if($action=="edit")
-                                        <div class="input-images" data-input-name="photos" data-label="Drag & Drop more photos in this area or click here to upload more photos. Don't forget to click &quot;Update Case&quot; afterwards."></div>
+                                        <div class="input-images" data-input-name="photos" data-label="Drag & drop more photos in this area or click here to upload more photos. Don't forget to click &quot;Update Case&quot; afterwards!"></div>
                                         @else
-                                        <div class="input-images" data-input-name="photos" data-label="Drag & Drop photos in this area or click here to browse."></div>
+                                        <div class="input-images" data-input-name="photos" data-label="Drag & drop photos in this area or click here to browse."></div>
                                         @endif
                                     </div>
 
@@ -227,7 +234,7 @@
 
 
 
-                                    <div class="form-group text-right my-5">
+                                    <div id="submitBtn" class="form-group text-right my-5">
                                         <button type="submit" class="btn btn-primary">
                                             @if($action=="create")
                                                 Submit Case
@@ -262,6 +269,25 @@
 <script src="{{ asset('js/va/vin_input.js') }}"></script>
 @endpush --}}
 
+@if(isset($case))
+<script>
+    function deleteTheFile(filename){
+        let r = confirm("Are you sure you want to delete this file now?");
+        if (r == true) {
+            fetch(`/technical_cases/{{$case->id}}/deletefile/${filename}`,{
+                method:'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    "X-CSRF-Token": document.querySelector('input[name=_token]').value
+                },
+            }).then(response => document.querySelector(`[data-photo="${filename}"]`).remove());
+        } else {
+            //do nothing
+        }
+    }
+</script>
+@endif
 
 
 

@@ -229,7 +229,7 @@
 
 
 
-            
+            <button id="messageToFactory" class="btn btn-primary" type="button">Message To Factory</button>
 
 
 

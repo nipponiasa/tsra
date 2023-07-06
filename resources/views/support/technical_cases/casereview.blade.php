@@ -3,7 +3,8 @@
 @section('content')
 
 @push('script')
-<script src="{{ asset('js/va/issueselect.js') }}"></script>
+{{-- <script src="{{ asset('js/va/issueselect.js') }}"></script> --}}
+<script defer src="{{ asset('js/messageToFactory.js') }}"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endpush
 
@@ -34,11 +35,11 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/technical_reports/list">Technical Cases</a>
+                                <a href="#">Technical Cases</a>
                             </li>
-                            <li class="breadcrumb-item">
+                            {{-- <li class="breadcrumb-item">
                                 <a href="#">Message</a>
-                            </li>
+                            </li> --}}
                         </ol>
                     </nav>
                 </div>

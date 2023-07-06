@@ -221,7 +221,7 @@ class TechnicalCaseController extends Controller
         } 
 
 
-        //# Update saved files
+        // Store new uploaded files
         $photos=$request->file('photos');
         foreach ($photos??[] as $photo) {
             $filename = uniqid() . '.' . $photo->extension();
@@ -293,6 +293,22 @@ class TechnicalCaseController extends Controller
 
 
 
+
+
+
+
+    //* DELETE FILE FROM CASE
+    public function destroyfile(Request $request)
+    {
+        $case_id = $request->case_id;
+        $filename = $request->filename;
+        Storage::delete($this->cases_path.$case_id.'/'.$filename);
+
+        return response()->noContent();
+    }
+    
+    
+    
 
 
 

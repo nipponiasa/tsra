@@ -147,8 +147,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/technical_cases/create', [TechnicalCaseController::class,'store'])->name('cases.store')->middleware('auth');
     Route::put('/technical_cases/{case_id}/update', [TechnicalCaseController::class,'update'])->name('cases.update')->middleware('auth');
     Route::put('/technical_cases/{case_id}/revise', [TechnicalCaseController::class,'revise'])->name('cases.revise')->middleware('auth');
-    // Route::delete('/technical_cases/{case_id}/delete', [TechnicalCaseController::class,'destroy'])->name('cases.destroy')->middleware('auth');
+    Route::delete('/technical_cases/{case_id}/deletefile/{filename}', [TechnicalCaseController::class,'destroyfile'])->name('cases.destroyfile')->middleware('auth');
 
+    
     Route::get('/technical_cases/all', [TechnicalCaseController::class,'index'])->name('cases.index')->middleware('auth');
     Route::get('/technical_cases/pending', [TechnicalCaseController::class,'indexpending'])->name('cases.indexpending')->middleware('auth');
     Route::get('/technical_cases/{directive_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware('auth');
