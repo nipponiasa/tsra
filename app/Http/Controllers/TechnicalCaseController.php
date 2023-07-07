@@ -14,13 +14,14 @@ use Illuminate\View\View;
 use App\Models\CaseStatus;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
+use App\Mail\NewCaseMessage;
 use Illuminate\Http\Request;
 use App\Models\TechnicalCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Mail;
 
+use Illuminate\Support\Facades\Mail;
 use Dcblogdev\MsGraph\Facades\MsGraph;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
@@ -228,10 +229,15 @@ class TechnicalCaseController extends Controller
             Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
         }
 
+        // dispatch job to send email to nipponia
+        // Job::dispatchAfterResponse();
+        // Job::dispatchAfterResponse();   
+        // Mail::to('ts@nipponia.com')->send(new NewCaseMessage($case));  
+        
 
-        return redirect()->route('cases.index');
+        return redirect()->back();      // refresh page
+
                                         
-
     }
 
 
@@ -286,7 +292,7 @@ class TechnicalCaseController extends Controller
         } 
 
 
-        return redirect()->route('cases.indexpending');
+        return redirect()->back();      // refresh page
                                         
 
     }

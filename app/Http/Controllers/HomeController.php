@@ -35,11 +35,11 @@ class HomeController extends Controller
         // $user_id=Auth::id();
         //    $unread_directives=ReadState::number_unread_user('DIRECTIVE',$user_id);
         $directives = TechnicalDirective::count();
-        $cases = TechnicalCase::count();
-        $pending_cases = TechnicalCase::where('status_id','1')->count();
+        $pending_cases = TechnicalCase::whereIn('status_id',['1','2','3'])->count();
+        $waiting_cases = TechnicalCase::where('status_id','1')->count();
            
         // return view('nippo.home')->with('unread_directives',$unread_directives);;
-        return view('nippo.home', compact('directives', 'cases', 'pending_cases'));
+        return view('nippo.home', compact('directives', 'pending_cases', 'waiting_cases'));
     }
 
 

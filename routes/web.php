@@ -1,19 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\TechnicalCaseController;
 use App\Http\Controllers\MailOutController;
-use App\Http\Controllers\TechnicalDirectiveController;
-use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\TechnicalCaseController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\TechnicalDirectiveController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -183,6 +184,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
+    //# TESTS
+    Route::get('/test', [TestController::class,'test'])->name('test.new')->middleware('auth');
 
     
     //only those have manage_role permission will get access

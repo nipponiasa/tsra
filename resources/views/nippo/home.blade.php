@@ -54,7 +54,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-primary">
                     <div class="widget-body">
-                        <a href="{{route('directives.index')}}" style="color:white;">
+                        <a href="{{route('directives.index')}}" class="text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
                                 <h6>{{ __('Technical Directives')}}</h6>
@@ -70,7 +70,8 @@
             </div>
 
 
-            @can('manage_user') 
+
+            {{-- @can('manage_user')  --}}
             {{-- <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-success">
                     <div class="widget-body">
@@ -89,32 +90,35 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-secondary">
                     <div class="widget-body">
-                        <a href="{{route('cases.index')}}" style="color:white;">
+                        <a href="{{route('cases.index')}}" class="text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
-                                <h6>{{ __('Technical Cases')}}</h6>
-                                <h2>{{$cases}}</h2>
-                            </div>
-                            <div class="icon">
-                                <i class="ik ik-file-text"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="widget bg-danger">
-                    <div class="widget-body">
-                        <a href="{{route('cases.indexpending')}}" style="color:white;">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="state">
-                                <h6>{{ __('Cases Waiting for Nipponia')}}</h6>
+                                <h6>{{ __('Technical Cases Pending')}}</h6>
                                 <h2>{{$pending_cases}}</h2>
                             </div>
                             <div class="icon">
                                 <i class="ik ik-file-text"></i>
                             </div>
                         </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="widget bg-danger">
+                    <div class="widget-body">
+                        {{-- here --}}
+                        <a href="{{route('cases.indexpending')}}" class="text-white">        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>{{ __('Cases Waiting for Nipponia')}}</h6>
+                                <h2>{{$waiting_cases}}</h2>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-file-text"></i>
+                            </div>
+                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -134,7 +138,7 @@
                 </div>
             </div> --}}
 
-            @endcan
+            {{-- @endcan --}}
         </div>
 
 
