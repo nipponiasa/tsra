@@ -17,10 +17,11 @@ use Microsoft\Graph\Model;
 use App\Mail\NewCaseMessage;
 use Illuminate\Http\Request;
 use App\Models\TechnicalCase;
+use App\Mail\ReviseCaseMessage;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-
 use Illuminate\Support\Facades\Mail;
 use Dcblogdev\MsGraph\Facades\MsGraph;
 use Illuminate\Support\Facades\Artisan;
@@ -245,9 +246,10 @@ class TechnicalCaseController extends Controller
         // Job::dispatchAfterResponse();   
         
         
+        
         return redirect()->back();      // refresh page
         
-        Mail::to('ts@nipponia.com')->send(new NewCaseMessage($case));  
+        Mail::to('Ismini.Zounta@nipponia.com')->send(new NewCaseMessage($case));  //# να μεταφερθεί στο create
                                         
     }
 
@@ -302,9 +304,12 @@ class TechnicalCaseController extends Controller
             $new_vin = Vin::create(['vin'=>$vin_array[0], 'distance'=>$vin_array[1], 'case_id'=>$case_id]);    // array to associative array
         } 
 
-
+        
         return redirect()->back();      // refresh page
-                                        
+        
+        if (!$request->donotmail){
+            Mail::to('Ismini.Zounta@nipponia.com')->send(new ReviseCaseMessage($case));  
+        }
 
     }
 

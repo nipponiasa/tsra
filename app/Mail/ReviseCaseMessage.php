@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NewCaseMessage extends Mailable
+class ReviseCaseMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,6 +30,6 @@ class NewCaseMessage extends Mailable
      */
     public function build()
     {
-        return $this->subject('Technical Support - New Case #'.$this->case->id.' - '.$this->case->status->statusname)->view('mail.newcase', ["case"=>$this->case]);
+        return $this->subject('Technical Support - Case #'.$this->case->id.' - Status Update - '.$this->case->status->statusname)->view('mail.updatecase', ["case"=>$this->case]);
     }
 }
