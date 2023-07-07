@@ -4,7 +4,7 @@
 
 @push('script')
 {{-- <script src="{{ asset('js/va/issueselect.js') }}"></script> --}}
-<script defer src="{{ asset('js/messageToFactory.js') }}"></script>
+<script defer src="{{ asset('js/casereview.js') }}"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endpush
 

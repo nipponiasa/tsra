@@ -37,6 +37,11 @@
     background-color: var(--success) !important;
 }
 
+.badge-info2{
+    background-color: hsl(212, 51%, 51%);
+    color: var(--bs-light);
+}
+
 .upload-text span{
     text-align: center;
 }

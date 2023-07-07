@@ -237,7 +237,7 @@
             <div class="text-end">
 
                 <div class="form-group mt-4">
-                    <input class="form-check-input" type="checkbox" id="donotmail" name="donotmail" value="1" >
+                    <input class="form-check-input" type="checkbox" id="donotmail" name="donotmail" value="1" checked>
                     <label class="form-check-label" for="donotmail" >Do not send e-mail on Update</label>     
                 </div>
                 

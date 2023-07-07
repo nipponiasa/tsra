@@ -6,3 +6,8 @@ document.getElementById("messageToFactory").addEventListener("click", function()
   
     window.location.href = emailLink;
   });
+
+
+document.getElementById('status').addEventListener('change', function() { 
+    document.getElementById('donotmail').checked = false;
+});
