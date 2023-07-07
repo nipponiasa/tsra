@@ -64,6 +64,17 @@ class TechnicalCaseController extends Controller
 
 
 
+        //* GET - SHOW CASE FILES
+        public function files(Request $request)
+        {
+            $case_id = $request->case_id;
+            $case = TechnicalCase::find($case_id);
+            $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
+            $photos_path = $this->cases_public_folder($case_id);                         // path for URL is diffeeent from path for Storage::disk
+            return view('support.technical_cases.photos', compact('case','photos', 'photos_path'));
+        }
+
+
 
     //* GET - REVIEW & EDIT REPORT by Nipponia
     public function review(Request $request)
@@ -168,7 +179,7 @@ class TechnicalCaseController extends Controller
         // Save files
         $photos=$request->file('photos');
         foreach ($photos as $photo) {
-            $filename = uniqid() . '.' . $photo->extension();
+            $filename = 'case'.$case->id.'-'.uniqid() . '.' . $photo->extension();
             Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
         }
 
@@ -225,7 +236,7 @@ class TechnicalCaseController extends Controller
         // Store new uploaded files
         $photos=$request->file('photos');
         foreach ($photos??[] as $photo) {
-            $filename = uniqid() . '.' . $photo->extension();
+            $filename = 'case'.$case->id.'-'.uniqid() . '.' . $photo->extension();
             Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
         }
 

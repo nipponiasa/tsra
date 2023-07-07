@@ -144,6 +144,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/technical_cases/create', [TechnicalCaseController::class,'create'])->name('cases.create')->middleware('auth');
     Route::get('/technical_cases/{case_id}/edit', [TechnicalCaseController::class,'edit'])->name('cases.edit')->middleware('auth');
     Route::get('/technical_cases/{case_id}/review', [TechnicalCaseController::class,'review'])->name('cases.review')->middleware('auth');
+    Route::get('/technical_cases/{case_id}/files', [TechnicalCaseController::class,'files'])->name('directives.files')->middleware('auth');
 
     Route::post('/technical_cases/create', [TechnicalCaseController::class,'store'])->name('cases.store')->middleware('auth');
     Route::put('/technical_cases/{case_id}/update', [TechnicalCaseController::class,'update'])->name('cases.update')->middleware('auth');
@@ -174,6 +175,7 @@ Route::group(['middleware' => 'auth'], function(){
     //# TECHNICAL DIRECTIVES
     Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('directives.create')->middleware('auth');
     Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'edit'])->name('directives.edit')->middleware('auth');
+
     
     Route::post('/technical_directives', [TechnicalDirectiveController::class,'store'])->name('directives.store')->middleware('auth');
     Route::put('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'update'])->name('directives.update')->middleware('auth');

@@ -49,11 +49,12 @@
 
             <label for="files" class="mt-2">{{ __('Files')}} </label>
             @if (isset($photos))
-                <ul style="list-style-type:circle;" class="mb-3">
+                <ul style="list-style-type:circle;" class="mb-1">
                     @foreach ($photos as $photo)
-                            <li><a class="link-primary" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a></li>
+                            <li><a class="link-info2" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a></li>
                             @endforeach
                 </ul>
+                <a class="link-primary" href="{{route('directives.files',$case->id)}}">View all</a>
             @endif
 
 

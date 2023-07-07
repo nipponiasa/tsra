@@ -30,7 +30,7 @@
     </div>
     
 	<!-- initiate modal menu section
-	@include('include.modalmenu')
+	{{-- @include('include.modalmenu') --}}
 -->
 	<!-- initiate scripts-->
 	@include('include.script')	
