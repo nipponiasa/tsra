@@ -232,11 +232,11 @@ class TechnicalCaseController extends Controller
         // dispatch job to send email to nipponia
         // Job::dispatchAfterResponse();
         // Job::dispatchAfterResponse();   
-        // Mail::to('ts@nipponia.com')->send(new NewCaseMessage($case));  
         
-
+        
         return redirect()->back();      // refresh page
-
+        
+        Mail::to('ts@nipponia.com')->send(new NewCaseMessage($case));  
                                         
     }
 
