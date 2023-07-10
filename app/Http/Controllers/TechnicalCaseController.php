@@ -7,19 +7,20 @@ use DataTables;
 use Carbon\Carbon;
 use App\Models\Vin;
 use App\Models\User;
-use App\Mail\MailOut;
+// use App\Mail\MailOut;
 use App\Http\Requests;
 use App\Models\Message;
 use Illuminate\View\View;
 use App\Models\CaseStatus;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
-use App\Mail\NewCaseMessage;
+use App\Jobs\SendCaseEmail;
+// use App\Mail\NewCaseMessage;
 use Illuminate\Http\Request;
 use App\Models\TechnicalCase;
 use App\Mail\ReviseCaseMessage;
-use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
@@ -184,6 +185,7 @@ class TechnicalCaseController extends Controller
             Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
         }
 
+        dispatch(New SendCaseEmail(['case'=>$case,'action'=>'new']));
 
         return redirect()->route('cases.index');
                                         
@@ -241,15 +243,10 @@ class TechnicalCaseController extends Controller
             Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
         }
 
-        // dispatch job to send email to nipponia
-        // Job::dispatchAfterResponse();
-        // Job::dispatchAfterResponse();   
-        
-        
+        // dispatch(New SendCaseEmail(['case'=>$case,'action'=>'new']));  // send email
+        // SendCaseEmail::dispatchAfterResponse(['case'=>$case,'action'=>'new']);  // send email
         
         return redirect()->back();      // refresh page
-        
-        Mail::to('Ismini.Zounta@nipponia.com')->send(new NewCaseMessage($case));  //# να μεταφερθεί στο create
                                         
     }
 
@@ -304,12 +301,13 @@ class TechnicalCaseController extends Controller
             $new_vin = Vin::create(['vin'=>$vin_array[0], 'distance'=>$vin_array[1], 'case_id'=>$case_id]);    // array to associative array
         } 
 
+        if (!$request->donotmail){
+            dispatch(New SendCaseEmail(['case'=>$case,'action'=>'revise']));  // send email
+            // Mail::to('Ismini.Zounta@nipponia.com')->send(new ReviseCaseMessage($case));  
+        }
         
         return redirect()->back();      // refresh page
         
-        if (!$request->donotmail){
-            Mail::to('Ismini.Zounta@nipponia.com')->send(new ReviseCaseMessage($case));  
-        }
 
     }
 
