@@ -156,6 +156,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/technical_cases/pending', [TechnicalCaseController::class,'indexpending'])->name('cases.indexpending')->middleware('auth');
     Route::get('/technical_cases/{directive_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware('auth');
 
+    Route::post('/api/messageToFactory', [TechnicalCaseController::class,'messageToFactory'])->name('directives.factory')->middleware('auth');
+
 
     //#Reports
     Route::get('/reports/vins', [ReportsController::class,'casespervin'])->name('reports.vins')->middleware('auth');

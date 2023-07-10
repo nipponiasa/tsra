@@ -7,7 +7,6 @@ use DataTables;
 use Carbon\Carbon;
 use App\Models\Vin;
 use App\Models\User;
-// use App\Mail\MailOut;
 use App\Http\Requests;
 use App\Models\Message;
 use Illuminate\View\View;
@@ -15,11 +14,11 @@ use App\Models\CaseStatus;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\Jobs\SendCaseEmail;
-// use App\Mail\NewCaseMessage;
 use Illuminate\Http\Request;
 use App\Models\TechnicalCase;
-use App\Mail\ReviseCaseMessage;
+use App\Mail\MessageToFactory;
 
+use App\Mail\ReviseCaseMessage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -329,6 +328,21 @@ class TechnicalCaseController extends Controller
     
     
     
+
+
+
+
+     /** 
+     * Message To Factory
+     *
+     * @return mixed
+     */
+    public function messageToFactory(Request $request): mixed
+    {
+        // return $request;
+        Mail::send(new MessageToFactory($request));
+        return redirect()->back();      // refresh page
+    }
 
 
 

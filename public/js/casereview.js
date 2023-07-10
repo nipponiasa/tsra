@@ -1,6 +1,13 @@
 document.getElementById("messageToOutlook").addEventListener("click", function() {
-    var emailLink = "mailto:";
+    let emailLink = "mailto:";
     emailLink += "?subject=" + encodeURIComponent(document.getElementById("emailsubject").value);
+ 
+    // let attachmentsString = '<br><br>'; 
+    // [...document.querySelectorAll('#attachmentsDiv input:checked')].forEach(photo=>{
+    //     attachmentsString += `<a href="${photo.dataset.url}">${photo.value}</a>`;
+    // });
+    // console.log(attachmentsString);
+
     emailLink += "&body=" + encodeURIComponent(document.getElementById("emailbody").value);
 
     // emailLink += "&attachment=" + encodeURIComponent("https://lh3.googleusercontent.com/a-/AOh14GgNSEq1Zp7vNLUscaEcvEXWOEWQpLybI5YU1dBCMA");

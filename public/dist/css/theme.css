@@ -65,7 +65,7 @@ body { margin: 0;overflow-x: hidden; }
 .card-group .card:not(:last-child) { border-right: 1px solid #f1f1f1; }
 
 .card .card-header { border-bottom: 1px solid #f1f1f1; }
-.card .card-header .card-header-right { right: 10px; top: 16px; display: inline-block; float: right; position: absolute; }
+.card .card-header .card-header-right { right: 10px; top: 16px; display: inline-block; position: absolute; }
 .card .card-header .card-header-right .card-option { width: 35px; height: 25px; overflow: hidden; margin: 0; -moz-transition: 0.3s ease-in-out; -o-transition: 0.3s ease-in-out; -webkit-transition: 0.3s ease-in-out; transition: 0.3s ease-in-out; }
 .card .card-header .card-header-right .card-option li { display: inline-block; }
 .card .card-header .card-header-right .card-option li i { margin: 0 5px; cursor: pointer; font-size: 15px; color: #8c8c8c; line-height: 2; font-weight: 300; }
