@@ -3,6 +3,7 @@ $(document).ready(function() {
     var table = $('#data_table').DataTable({
         responsive: true,
         select: true,
+        "pageLength": 20,
         'aoColumnDefs': [{
             'bSortable': false,
             'aTargets': ['nosort']

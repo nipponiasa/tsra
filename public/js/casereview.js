@@ -1,8 +1,9 @@
-document.getElementById("messageToFactory").addEventListener("click", function() {
-    var emailLink = "mailto:development@computerstudio.gr";
-    emailLink += "?subject=" + encodeURIComponent("New Case");
-    emailLink += "&body=" + encodeURIComponent('This is the body of the email');
-    emailLink += "&attachment=" + encodeURIComponent("https://lh3.googleusercontent.com/a-/AOh14GgNSEq1Zp7vNLUscaEcvEXWOEWQpLybI5YU1dBCMA");
+document.getElementById("messageToOutlook").addEventListener("click", function() {
+    var emailLink = "mailto:";
+    emailLink += "?subject=" + encodeURIComponent(document.getElementById("emailsubject").value);
+    emailLink += "&body=" + encodeURIComponent(document.getElementById("emailbody").value);
+
+    // emailLink += "&attachment=" + encodeURIComponent("https://lh3.googleusercontent.com/a-/AOh14GgNSEq1Zp7vNLUscaEcvEXWOEWQpLybI5YU1dBCMA");
   
     window.location.href = emailLink;
   });
@@ -10,4 +11,11 @@ document.getElementById("messageToFactory").addEventListener("click", function()
 
 document.getElementById('status').addEventListener('change', function() { 
     document.getElementById('donotmail').checked = false;
+});
+
+
+document.getElementById('pills-messaging-tab').addEventListener('click', function() {
+    if (!document.getElementById("emailbody").value) {
+        document.getElementById("emailbody").value = document.getElementById("description").value + '\n' + '\n' + document.getElementById("notes").value;
+    }
 });

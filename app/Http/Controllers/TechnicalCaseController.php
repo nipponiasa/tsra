@@ -180,7 +180,7 @@ class TechnicalCaseController extends Controller
 
         // Save files
         $photos=$request->file('photos');
-        foreach ($photos as $photo) {
+        foreach ($photos??[] as $photo) {
             $filename = 'case'.$case->id.'-'.uniqid() . '.' . $photo->extension();
             Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
         }

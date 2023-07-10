@@ -232,7 +232,7 @@
 
     <!-- push external js -->
     @push('script')
-	<script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
+	{{-- <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script> --}}
     <script src="{{ asset('js/datatables.js') }}"></script>
     <script src="{{ asset('js/customva.js') }}"></script>
     @endpush

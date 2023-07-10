@@ -1,6 +1,6 @@
 @can('reporting_data_entry')
 
-<div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="pills-setting-tab">  
+<div class="tab-pane fade show active" id="tabs-summary" role="tabpanel" aria-labelledby="pills-summary-tab" tabindex="0">  
     {{-- "show active" is the class to defaul show --}}
     <div class="card-body">
         <form class="form-horizontal"  method="POST" action="{{route("cases.revise",$case->id)}}">
@@ -52,7 +52,7 @@
                 <ul style="list-style-type:circle;" class="mb-1">
                     @foreach ($photos as $photo)
                             <li><a class="link-info2" href="{{$photos_path.basename($photo)}}" target="_blank">{{basename($photo)}}</a></li>
-                            @endforeach
+                    @endforeach
                 </ul>
                 <a class="link-primary" href="{{route('directives.files',$case->id)}}">View all</a>
             @endif
@@ -226,9 +226,6 @@
                 <textarea name="reminder_desc" id="reminder_desc" rows="5" class="form-control" value="1" @unless ($case->reminder == 1)  {{ 'disabled' }} @endunless >{{old('reminder_desc')??$case->reminder_desc }}</textarea>
             </div>
 
-
-
-            <button id="messageToFactory" class="btn btn-primary d-none" type="button">Message To Factory</button>
 
 
 

@@ -6,6 +6,7 @@
 {{-- <script src="{{ asset('js/va/issueselect.js') }}"></script> --}}
 <script defer src="{{ asset('js/casereview.js') }}"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 @endpush
 
 
@@ -64,17 +65,18 @@
                             <a class="nav-link active" id="pills-timeline-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="pills-timeline" aria-selected="true">{{ __('Importer')}}</a>
                         </li> --}}
 
-                        @can('reporting_data_entry')
-                        <li class="nav-item">
-                            <a class="nav-link active text-danger font-weight-bold" id="pills-setting-tab" data-toggle="pill" href="#summary" role="tab" aria-controls="pills-setting" aria-selected="true">{{ __('Case Summary')}}</a>
-                        </li>
-                        @endcan
 
-                        {{-- @can('communication_with_vendor')
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#vendor" role="tab" aria-controls="pills-setting" aria-selected="false">{{ __('External Com')}}</a>
+                        {{-- @can('reporting_data_entry') --}}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-summary-tab" data-bs-toggle="pill" data-bs-target="#tabs-summary" type="button" role="tab" aria-controls="tabs-summary" aria-selected="true">{{ __('Case Summary')}}</button>
                         </li>
-                        @endcan --}}
+                        {{-- @endcan --}}
+
+                        {{-- @can('communication_with_vendor') --}}
+                        <li class="nav-item">
+                            <button class="nav-link" id="pills-messaging-tab" data-toggle="pill" data-bs-toggle="pill" data-bs-target="#tabs-messaging" type="button" role="tab" aria-controls="tabs-messaging" aria-selected="false">{{ __('Messaging')}}</button>
+                        </li>
+                        {{--  @endcan --}}
 
 
                     </ul>
@@ -157,7 +159,7 @@
 
          
                         @include('support.technical_cases.tabs.summary')
-                        {{-- @include('support.technical_cases.offcanvas.vendortab') --}}
+                        @include('support.technical_cases.tabs.messaging')
 
 
                     </div>
