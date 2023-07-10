@@ -16,8 +16,7 @@ class MessageToFactory extends Mailable
     protected $incoming;
     protected function cases_folder($case_id) 
     { 
-        return Storage::disk('public')->path('public/cases/'.$case_id.'/');     
-        // ναι, θέλει πάλι public, διότι το Storage::disk('public') είναι το storage/app
+        return Storage::disk('public')->path('cases/'.$case_id.'/');     // relative to storage/app/public
     } 
 
     /**

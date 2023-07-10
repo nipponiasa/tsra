@@ -36,8 +36,12 @@ class TechnicalCaseController extends Controller
 {
 
     //* CLASS VARIABLES AND METHODS
-    protected $cases_path = 'public/cases/';   // relative to storage/app/. Use: $this->cases_path
-    public function cases_public_folder($case_id) 
+    protected $cases_path = 'cases/';   // relative to disk public (storage/app/public). (Use: $this->cases_path)
+    protected function storage_path($case_id)       // relative to storage/app
+    { 
+        return 'public/cases/'.$case_id.'/';
+    }
+    protected function case_public_folder($case_id)     // for public access with url
     { 
         return '/storage/cases/'.$case_id.'/';
     } 
@@ -58,7 +62,7 @@ class TechnicalCaseController extends Controller
         $case_id = $request->case_id;
         $case = TechnicalCase::find($case_id);
         $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
-        $photos_path = $this->cases_public_folder($case_id);                         // path for URL is diffeeent from path for Storage::disk
+        $photos_path = $this->case_public_folder($case_id);                         // path for URL is different from path for Storage::disk
         $action = "edit";
         return view('support.technical_cases.case', compact('case', 'photos', 'photos_path', 'action'));
     }
@@ -71,7 +75,7 @@ class TechnicalCaseController extends Controller
             $case_id = $request->case_id;
             $case = TechnicalCase::find($case_id);
             $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
-            $photos_path = $this->cases_public_folder($case_id);                         // path for URL is diffeeent from path for Storage::disk
+            $photos_path = $this->case_public_folder($case_id);                         // path for URL is different from path for Storage::disk
             return view('support.technical_cases.photos', compact('case','photos', 'photos_path'));
         }
 
@@ -84,7 +88,7 @@ class TechnicalCaseController extends Controller
         $case = TechnicalCase::find($case_id);
         $statuses = CaseStatus::All();
         $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
-        $photos_path = $this->cases_public_folder($case_id);                         // path for URL is diffeeent from path for Storage::disk
+        $photos_path = $this->case_public_folder($case_id);                         // path for URL is different from path for Storage::disk
         @$action = "review";
         return view('support.technical_cases.casereview', compact('case', 'photos', 'photos_path', 'action', 'statuses'));
     }
@@ -181,7 +185,7 @@ class TechnicalCaseController extends Controller
         $photos=$request->file('photos');
         foreach ($photos??[] as $photo) {
             $filename = 'case'.$case->id.'-'.uniqid() . '.' . $photo->extension();
-            Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
+            Storage::putFileAs($this->storage_path($case_id), $photo, $filename);
         }
 
         dispatch(New SendCaseEmail(['case'=>$case,'action'=>'new']));
@@ -239,7 +243,7 @@ class TechnicalCaseController extends Controller
         $photos=$request->file('photos');
         foreach ($photos??[] as $photo) {
             $filename = 'case'.$case->id.'-'.uniqid() . '.' . $photo->extension();
-            Storage::putFileAs($this->cases_path.$case->id, $photo, $filename);
+            Storage::putFileAs($this->storage_path($case_id), $photo, $filename);
         }
 
         // dispatch(New SendCaseEmail(['case'=>$case,'action'=>'new']));  // send email
@@ -321,7 +325,7 @@ class TechnicalCaseController extends Controller
     {
         $case_id = $request->case_id;
         $filename = $request->filename;
-        Storage::delete($this->cases_path.$case_id.'/'.$filename);
+        Storage::delete($this->storage_path($case_id).'/'.$filename);
 
         return response()->noContent();
     }
