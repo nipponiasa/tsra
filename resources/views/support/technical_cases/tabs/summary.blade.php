@@ -118,44 +118,97 @@
             <h3>Nipponia Notes</h3>
 
             @php
-                $categories = array(
-                            '1' => "Electrical",
-                            '2' => "Mechanical",
-                            '3' => "Delivery",
-                            '4' => "Battery",
-                            '5' => "Controller",
-                            '6' => "Lighting",
-                            '7' => "Braking",
-                            '8' => "Dashboard",
-                            '9' => "Plastic parts",
-                            '10' => "Charging problem",
-                            '11' => "Range issues",
-                            '12' => "Update problem",
-                            '13' => "Burnt",
-                            '14' => "Paint issues",
-                            '15' => "Broken parts",
-                            '16' => "Stickers issues",
-                            '17' => "Other",
-                        );
+                $categories = array("Electrical", "Mechanical", "Delivery", "Battery");
+                $subcategories = array(
+                    "Assembling",
+                    "Battery",
+                    "Braking",
+                    "Broken parts",
+                    "Charging problem",
+                    "Delivery",
+                    "Engine noise",
+                    "Fuel feed",
+                    "Ignition/Start motor",
+                    "Instrument",
+                    "Lighting",
+                    "Motor",
+                    "Packaging",
+                    "Painting",
+                    "Short-circuit",
+                    "Suspension",
+                    "Switches/buttons",
+                    "Top speed",
+                    "Transmission",
+                    "Update problem",
+                    "Wheels",
+                    "Wiring"
+                );
+                $issues = array(
+                    "Belt",
+                    "Brackets",
+                    "Brake disc",
+                    "Brake pad",
+                    "Cables",
+                    "Calipers",
+                    "Carburetor",
+                    "CBS",
+                    "Charger",
+                    "Clutch",
+                    "Controller",
+                    "Convertor",
+                    "Covers",
+                    "Fender",
+                    "Front fork",
+                    "Grips",
+                    "Headlight",
+                    "Ignition switch",
+                    "Left switch",
+                    "Levers",
+                    "Master cylinder",
+                    "Mirrors",
+                    "Power switch",
+                    "Pulley",
+                    "Rear absorber",
+                    "Right switch",
+                    "Seat",
+                    "Side covers",
+                    "Stand",
+                    "Taillight",
+                    "Throttle",
+                    "Winkers",
+                    "Wire harness",
+                    "Sticker / logo",
+                    "T-box"
+                );
             @endphp
 
             <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="category">{{ __('Category')}}</label>
                     <select name="category" id="category" class="form-select">
                     <option value="0" >{{ __('Please select...')}}</option>
-                    @foreach ($categories as $category_id=>$category_name) 
-                            <option value="{{$category_id}}"   @if ($category_id == $case->case_category_id)  {{ 'selected' }} @endif >{{$category_name}}</option>
+                    @foreach ($categories as $category) 
+                            <option value="{{$category}}"   @if ($category == $case->subcategory)  {{ 'selected' }} @endif >{{$category}}</option>
                     @endforeach
                     </select>
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="subcategory">{{ __('Subcategory')}}</label>
                     <select name="subcategory" id="subcategory" class="form-select">
                     <option value="0" >{{ __('Please select...')}}</option>
-                    @foreach ($categories as $subcategory_id=>$subcategory_name) 
-                            <option value="{{$subcategory_id}}"   @if ($subcategory_id == $case->case_subcategory_id)  {{ 'selected' }} @endif >{{$subcategory_name}}</option>
+                    @foreach ($subcategories as $subcategory) 
+                            <option value="{{$subcategory}}"   @if ($subcategory == $case->subcategory)  {{ 'selected' }} @endif >{{$subcategory}}</option>
+                    @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="issue">{{ __('Issue')}}</label>
+                    <select name="issue" id="issue" class="form-select">
+                    <option value="0" >{{ __('Please select...')}}</option>
+                    @foreach ($issues as $issue) 
+                            <option value="{{$issue}}"   @if ($issue == $case->issue)  {{ 'selected' }} @endif >{{$issue}}</option>
                     @endforeach
                     </select>
                 </div>

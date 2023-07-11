@@ -37,7 +37,7 @@ class TechnicalCaseController extends Controller
 
     //* CLASS VARIABLES AND METHODS
     protected $cases_path = 'cases/';   // relative to disk public (storage/app/public). (Use: $this->cases_path)
-    protected function storage_path($case_id)       // relative to storage/app
+    protected function storage_path($case_id)      
     { 
         return 'public/cases/'.$case_id.'/';
     }
@@ -185,7 +185,7 @@ class TechnicalCaseController extends Controller
         $photos=$request->file('photos');
         foreach ($photos??[] as $photo) {
             $filename = 'case'.$case->id.'-'.uniqid() . '.' . $photo->extension();
-            Storage::putFileAs($this->storage_path($case_id), $photo, $filename);
+            Storage::putFileAs($this->storage_path($case->id), $photo, $filename);
         }
 
         dispatch(New SendCaseEmail(['case'=>$case,'action'=>'new']));
@@ -243,7 +243,7 @@ class TechnicalCaseController extends Controller
         $photos=$request->file('photos');
         foreach ($photos??[] as $photo) {
             $filename = 'case'.$case->id.'-'.uniqid() . '.' . $photo->extension();
-            Storage::putFileAs($this->storage_path($case_id), $photo, $filename);
+            Storage::putFileAs($this->storage_path($case->id), $photo, $filename);
         }
 
         // dispatch(New SendCaseEmail(['case'=>$case,'action'=>'new']));  // send email
