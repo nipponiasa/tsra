@@ -90,10 +90,10 @@
             <div class="col-sm-12 col-md-5 col-lg-4">
                 <div class="widget bg-secondary">
                     <div class="widget-body">
-                        <a href="{{route('cases.index')}}" class="text-white">
+                        <a href="{{route('cases.indexpending')}}" class="text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
-                                <h6>{{ __('Open Cases')}}</h6>
+                                <h6>{{ __('Pending Cases')}}</h6>
                                 <h2>{{$pending_cases}}</h2>
                             </div>
                             <div class="icon">

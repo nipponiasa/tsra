@@ -25,10 +25,10 @@
             
             <div class="mb-3">
                 <label for="to" class="form-label">To <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="to" name="to" value="">
+                <input type="text" class="form-control" id="to" name="to" value="" required>
             </div>
             <div class="mb-3">
-                <label for="cc" class="form-label">CC <span class="text-danger">*</span></label>
+                <label for="cc" class="form-label">CC</label>
                 <input type="text" class="form-control" id="cc" name="cc" value="">
             </div>
             <div id="attachmentsDiv">

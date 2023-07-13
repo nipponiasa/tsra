@@ -37,6 +37,7 @@ class MessageToFactory extends Mailable
     public function build()
     {
         $this->to($this->incoming->to)
+            ->cc($this->incoming->cc)
             ->subject($this->incoming->emailsubject)
             ->view('mail.factory', ['body'=> $this->incoming->emailbody]);
         if ($this->incoming->attachments){

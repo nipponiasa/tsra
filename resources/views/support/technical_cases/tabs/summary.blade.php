@@ -143,7 +143,7 @@
                     "Wheels",
                     "Wiring"
                 );
-                $issues = array(
+                $parts = array(
                     "Belt",
                     "Brackets",
                     "Brake disc",
@@ -204,25 +204,27 @@
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label for="issue">{{ __('Issue')}}</label>
-                    <select name="issue" id="issue" class="form-select">
+                    <label for="part">{{ __('Part')}}</label>
+                    <select name="part" id="part" class="form-select">
                     <option value="0" >{{ __('Please select...')}}</option>
-                    @foreach ($issues as $issue) 
-                            <option value="{{$issue}}"   @if ($issue == $case->issue)  {{ 'selected' }} @endif >{{$issue}}</option>
+                    @foreach ($parts as $part) 
+                            <option value="{{$part}}"   @if ($part == $case->part)  {{ 'selected' }} @endif >{{$part}}</option>
                     @endforeach
                     </select>
                 </div>
 
             </div>
 
-            <div class="form-group">
-                <label for="status">{{ __('Status')}} <span class="text-danger">*</span></label>
-                <select name="status" id="status" class="form-select">
-                {{-- <option value="" >{{ __('Please select...')}}</option> --}}
-                        @foreach ($statuses as $status) 
-                        <option value="{{$status->id}}"  @if ($status->id == $case->status_id)  {{ 'selected' }} @endif  >{{$status->statusname}}</option>
-                        @endforeach
-                </select>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="status">{{ __('Status')}} <span class="text-danger">*</span></label>
+                    <select name="status" id="status" class="form-select">
+                    {{-- <option value="" >{{ __('Please select...')}}</option> --}}
+                            @foreach ($statuses as $status) 
+                            <option value="{{$status->id}}"  @if ($status->id == $case->status_id)  {{ 'selected' }} @endif  >{{$status->statusname}}</option>
+                            @endforeach
+                    </select>
+                </div>
             </div>
 
 
