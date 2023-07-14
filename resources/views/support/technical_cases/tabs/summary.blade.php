@@ -111,99 +111,140 @@
 
             <h3>Nipponia Notes</h3>
 
-            @php
-                $categories = array("Electrical", "Mechanical", "Delivery", "Battery");
-                $subcategories = array(
-                    "Assembling",
-                    "Battery",
-                    "Braking",
-                    "Broken parts",
-                    "Charging problem",
-                    "Delivery",
-                    "Engine noise",
-                    "Fuel feed",
-                    "Ignition/Start motor",
-                    "Instrument",
-                    "Lighting",
-                    "Motor",
-                    "Packaging",
-                    "Painting",
-                    "Short-circuit",
-                    "Suspension",
-                    "Switches/buttons",
-                    "Top speed",
-                    "Transmission",
-                    "Update problem",
-                    "Wheels",
-                    "Wiring"
-                );
-                $parts = array(
-                    "Belt",
-                    "Brackets",
-                    "Brake disc",
-                    "Brake pad",
-                    "Cables",
-                    "Calipers",
-                    "Carburetor",
-                    "CBS",
-                    "Charger",
-                    "Clutch",
-                    "Controller",
-                    "Convertor",
-                    "Covers",
-                    "Fender",
-                    "Front fork",
-                    "Grips",
-                    "Headlight",
-                    "Ignition switch",
-                    "Left switch",
-                    "Levers",
-                    "Master cylinder",
-                    "Mirrors",
-                    "Power switch",
-                    "Pulley",
-                    "Rear absorber",
-                    "Right switch",
-                    "Seat",
-                    "Side covers",
-                    "Stand",
-                    "Taillight",
-                    "Throttle",
-                    "Winkers",
-                    "Wire harness",
-                    "Sticker / logo",
-                    "T-box"
-                );
-            @endphp
+            
+            <script>
+                let categories = ["Electrical", "Mechanical", "Frame parts"];
+                var issues = [
+                    ["Electrical", "Assembly"],
+                    ["Electrical", "Damage"],
+                    ["Electrical", "Charging"],
+                    ["Electrical", "Defect"],
+                    ["Electrical", "Delivery"],
+                    ["Electrical", "Noise"],
+                    ["Electrical", "Malfunction"],
+                    ["Electrical", "Packaging"],
+                    ["Electrical", "Paint"],
+                    ["Electrical", "Rust"],
+                    ["Electrical", "Scratches"],
+                    ["Electrical", "Short-circuit"],
+                    ["Electrical", "Update"],
+                    ["Mechanical", "Assembly"],
+                    ["Mechanical", "Damage"],
+                    ["Mechanical", "Defect"],
+                    ["Mechanical", "Delivery"],
+                    ["Mechanical", "Noise"],
+                    ["Mechanical", "Fuel feed"],
+                    ["Mechanical", "Malfunction"],
+                    ["Mechanical", "Packaging"],
+                    ["Mechanical", "Paint"],
+                    ["Mechanical", "Rust"],
+                    ["Mechanical", "Scratches"],
+                    ["Frame parts", "Assembly"],
+                    ["Frame parts", "Damage"],
+                    ["Frame parts", "Defect"],
+                    ["Frame parts", "Delivery"],
+                    ["Frame parts", "Noise"],
+                    ["Frame parts", "Malfunction"],
+                    ["Frame parts", "Packaging"],
+                    ["Frame parts", "Paint"],
+                    ["Frame parts", "Rust"],
+                    ["Frame parts", "Scratches"]
+                ];
+                var parts = [
+                    ["Electrical", "Battery"],
+                    ["Electrical", "Charger"],
+                    ["Electrical", "Controller"],
+                    ["Electrical", "Convertor"],
+                    ["Electrical", "Headlight"],
+                    ["Electrical", "Ignition"],
+                    ["Electrical", "Instrument"],
+                    ["Electrical", "Left switch"],
+                    ["Electrical", "Motor"],
+                    ["Electrical", "Power switch"],
+                    ["Electrical", "Right switch"],
+                    ["Electrical", "Taillight"],
+                    ["Electrical", "T-box"],
+                    ["Electrical", "Throttle"],
+                    ["Electrical", "Winkers"],
+                    ["Electrical", "Wire harness"],
+                    ["Electrical", "Wiring"],
+                    ["Mechanical", "Belt"],
+                    ["Mechanical", "Bearings"],
+                    ["Mechanical", "Carburetor"],
+                    ["Mechanical", "Clutch"],
+                    ["Mechanical", "Crankshaft"],
+                    ["Mechanical", "CVT"],
+                    ["Mechanical", "Cylinder / Piston / Rings"],
+                    ["Mechanical", "Muffler"],
+                    ["Mechanical", "Oil pump"],
+                    ["Frame parts", "Bearings"],
+                    ["Frame parts", "Brackets"],
+                    ["Frame parts", "Brake disc"],
+                    ["Frame parts", "Brake pad"],
+                    ["Frame parts", "Cables"],
+                    ["Frame parts", "Calipers"],
+                    ["Frame parts", "CBS"],
+                    ["Frame parts", "Covers"],
+                    ["Frame parts", "Fender"],
+                    ["Frame parts", "Front fork"],
+                    ["Frame parts", "Fuel tank"],
+                    ["Frame parts", "Grips"],
+                    ["Frame parts", "Levers"],
+                    ["Frame parts", "Master cylinder"],
+                    ["Frame parts", "Mirrors"],
+                    ["Frame parts", "Rear absorber"],
+                    ["Frame parts", "Rims"],
+                    ["Frame parts", "Seat"],
+                    ["Frame parts", "Side covers"],
+                    ["Frame parts", "Stand"],
+                    ["Frame parts", "Sticker / logo"],
+                    ["Frame parts", "Throttle"],
+                    ["Frame parts", "Tyres"]
+                ];
+            </script>
 
-            <div class="row">
+            <div id="categorization" class="row" x-data="{
+                categories,
+                issues,
+                parts,
+                category: null,
+                issue: null,
+                part: null,
+                get filteredIssues() {
+                    return this.issues.filter( (issue)=>{return issue[0]===this.category} ) ;
+                },
+                get filteredParts() {
+                    return this.parts.filter( (part)=>{return part[0]===this.category} );
+                },
+            }">
                 <div class="form-group col-md-4">
-                    <label for="category">{{ __('Category')}}</label>
-                    <select name="category" id="category" class="form-select">
-                    <option value="0" >{{ __('Please select...')}}</option>
-                    @foreach ($categories as $category) 
-                            <option value="{{$category}}"   @if ($category == $case->subcategory)  {{ 'selected' }} @endif >{{$category}}</option>
-                    @endforeach
+                    <label for="category">{{ __('Category')}} <span class="text-danger">*</span></label>
+                    <select name="category" id="category" x-model="category" class="form-select" required>
+                        <option value="" >{{ __('Please select category first...')}}</option>
+                        <template x-for="category in categories" :key="category">
+                            <option x-text="category" :value="category"></option>
+                        </template>
+
                     </select>
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label for="subcategory">{{ __('Subcategory')}}</label>
-                    <select name="subcategory" id="subcategory" class="form-select">
-                    <option value="0" >{{ __('Please select...')}}</option>
-                    @foreach ($subcategories as $subcategory) 
-                            <option value="{{$subcategory}}"   @if ($subcategory == $case->subcategory)  {{ 'selected' }} @endif >{{$subcategory}}</option>
-                    @endforeach
+                    <label for="issue">{{ __('Issue')}}</label>
+                    <select name="issue" id="issue" x-model="issue" class="form-select">
+                        <option value="" >{{ __('Please select...')}}</option>
+                        <template x-for="issue in filteredIssues" >
+                            <option x-text="issue[1]" :value="issue[1]"></option>
+                        </template>
                     </select>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="part">{{ __('Part')}}</label>
-                    <select name="part" id="part" class="form-select">
-                    <option value="0" >{{ __('Please select...')}}</option>
-                    @foreach ($parts as $part) 
-                            <option value="{{$part}}"   @if ($part == $case->part)  {{ 'selected' }} @endif >{{$part}}</option>
-                    @endforeach
+                    <select name="part" id="part"  x-model="part" class="form-select">
+                        <option value="" >{{ __('Please select...')}}</option>
+                        <template x-for="part in filteredParts" >
+                            <option x-text="part[1]" :value="part[1]"></option>
+                        </template>
                     </select>
                 </div>
 
