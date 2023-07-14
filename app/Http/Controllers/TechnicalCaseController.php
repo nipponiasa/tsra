@@ -170,7 +170,7 @@ class TechnicalCaseController extends Controller
         // $isaclaim=$request->isaclaim?1:0;
         $case->model=$request->model;
         $case->purchase_order=$request->purchase_order;
-        $case->status_id=1;     //Waiting for Nipponia
+        $case->status_id=1;     //Pending Nipponia
         $case->save();          // save case to get case_id
 
 

@@ -87,7 +87,7 @@ class TechnicalReportController extends Controller
         $message=$request->messagetovendor;
         $user_id=Auth::user()->id;
         $date=Carbon::now();
-        $status_id=1;//Waiting for Nipponia
+        $status_id=1;//Pending Nipponia
         $total_number_of_files=$request->number_of_files;
         $attachments=array();
 
@@ -171,7 +171,7 @@ return Redirect::to('/technical_reports/list');
         $files=$request->file('photos');
         $isaclaim=$request->isaclaim?1:0;
         $po=$request->po;
-        $status_id=1;//Waiting for Nipponia
+        $status_id=1;//Pending Nipponia
         $vin_table=$request->vin_table;
         $distance_table=$request->distance_table;
         //dd($vin_table);

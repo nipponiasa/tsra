@@ -115,7 +115,7 @@
                         <a href="{{route('cases.indexpending')}}" class="text-white">        
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="state">
-                                <h6>{{ __('Waiting for Nipponia')}}</h6>
+                                <h6>{{ __('Pending Nipponia')}}</h6>
                                 <h2>{{$waiting_cases}}</h2>
                             </div>
                             <div class="icon">

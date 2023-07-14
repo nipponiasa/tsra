@@ -168,11 +168,11 @@
 
 
 <td>
-@if($case->status->statusname == "Waiting for Nipponia") 
+@if($case->status->statusname == "Pending Nipponia") 
 	<span class="badge badge-pill badge-danger mb-1">{{$case->status->statusname}}</span>
-@elseif ($case->status->statusname == "Waiting for Dealer") 
+@elseif ($case->status->statusname == "Pending Dealer") 
 	<span class="badge badge-pill badge-info mb-1">{{$case->status->statusname}}</span>
-    @elseif ($case->status->statusname == "Waiting for Vendor")
+    @elseif ($case->status->statusname == "Pending Vendor")
         <span class="badge badge-pill badge-info2 mb-1">{{$case->status->statusname}}</span>
 @elseif ($case->status->statusname == "Resolved") 
 	<span class="badge badge-pill badge-success mb-1">{{$case->status->statusname}}</span>

@@ -69,14 +69,8 @@
 
                                             <label>Vechicle Identities <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Enter VIN & distance travelled in kilometers and press &quot;Add VIN&quot;"> </i></label>
                                             <div class="input-group">
-                                                    {{-- <div class=""> --}}
                                                         <input id="newVIN" type="text" min="0" class="form-control" placeholder="Enter new VINs here" @keydown.enter.prevent="addVIN.click()">
-                                                        {{-- <label for="newVIN">VIN</label> --}}
-                                                    {{-- </div> --}}
-                                                    {{-- <div class=""> --}}
-                                                        <input id="newKM" type="number" min="0" step="1" class="form-control" placeholder="Distance (km)" @keydown.enter.prevent="addVIN.click()" style="max-width:200px">
-                                                        {{-- <label for="newKM">Distance (km)</label> --}}
-                                                    {{-- </div> --}}
+                                                        <input id="newKM" type="number" min="0" step="1" class="form-control" placeholder="Mileage (km)" @keydown.enter.prevent="addVIN.click()" style="max-width:200px">
                                                     <button class="btn btn-secondary" type="button" id="addVIN" 
                                                     @click="
                                                         if (newVIN.value.length>0) {vins.push([newVIN.value,newKM.value||0])};
@@ -291,7 +285,7 @@
 
                 <div class="form-group mt-4">
                     <input class="form-check-input" type="checkbox" id="donotmail" name="donotmail" value="1" checked>
-                    <label class="form-check-label" for="donotmail" >Do not send e-mail on Update</label>     
+                    <label class="form-check-label" for="donotmail" >Do not send an update e-mail</label>     
                 </div>
                 
                 <button class="btn btn-success" type="submit">Update Summary</button>
