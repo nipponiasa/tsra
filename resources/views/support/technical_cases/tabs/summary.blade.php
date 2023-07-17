@@ -111,8 +111,16 @@
 
             <h3>Nipponia Notes</h3>
 
+
             
             <script>
+
+                //if there is no case->category, it becomes: '', corresponding to the value="" option
+                let category = "{{old('category')??$case->category }}";     
+                let issue = "{{old('issue')??$case->issue }}";
+                let part = "{{old('subissue')??$case->part }}";
+
+
                 let categories = ["Electrical", "Mechanical", "Frame parts"];
                 var issues = [
                     ["Electrical", "Assembly"],
@@ -207,9 +215,9 @@
                 categories,
                 issues,
                 parts,
-                category: null,
-                issue: null,
-                part: null,
+                category,
+                issue,
+                part,
                 get filteredIssues() {
                     return this.issues.filter( (issue)=>{return issue[0]===this.category} ) ;
                 },
@@ -220,9 +228,9 @@
                 <div class="form-group col-md-4">
                     <label for="category">{{ __('Category')}} <span class="text-danger">*</span></label>
                     <select name="category" id="category" x-model="category" class="form-select" required>
-                        <option value="" >{{ __('Please select category first...')}}</option>
-                        <template x-for="category in categories" :key="category">
-                            <option x-text="category" :value="category"></option>
+                        <option value="" disabled>{{ __('Please select category first...')}}</option>
+                        <template x-for="categOption in categories" :key="categOption">
+                            <option x-text="categOption" :value="categOption" :selected="categOption==category"></option>
                         </template>
 
                     </select>
@@ -232,8 +240,8 @@
                     <label for="issue">{{ __('Issue')}}</label>
                     <select name="issue" id="issue" x-model="issue" class="form-select">
                         <option value="" >{{ __('Please select...')}}</option>
-                        <template x-for="issue in filteredIssues" >
-                            <option x-text="issue[1]" :value="issue[1]"></option>
+                        <template x-for="[cat,issueOption] in filteredIssues">
+                            <option x-text="issueOption" :value="issueOption" :selected="issueOption==issue"></option>
                         </template>
                     </select>
                 </div>
@@ -242,8 +250,8 @@
                     <label for="part">{{ __('Part')}}</label>
                     <select name="part" id="part"  x-model="part" class="form-select">
                         <option value="" >{{ __('Please select...')}}</option>
-                        <template x-for="part in filteredParts" >
-                            <option x-text="part[1]" :value="part[1]"></option>
+                        <template x-for="[cat,partOption] in filteredParts">
+                            <option x-text="partOption" :value="partOption" :selected="partOption==part"></option>
                         </template>
                     </select>
                 </div>
@@ -361,9 +369,4 @@
 
 
 
-
 @endcan
-
-@push('script')
-<script src="{{ asset('js/va/nextorderreminder.js') }}"></script>
-@endpush

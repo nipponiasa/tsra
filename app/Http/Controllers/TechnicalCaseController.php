@@ -284,12 +284,17 @@ class TechnicalCaseController extends Controller
         // $files=$request->file('photos');
         // $isaclaim=$request->isaclaim?1:0;
         $case->model=$request->model;
+
+        $case->category=$request->category;
+        $case->issue=$request->issue;
+        $case->part=$request->part;
+
         $case->purchase_order=$request->purchase_order;
         $case->status_id=$request->status;
         $case->notes=$request->notes;
         $case->approved=$request->approved;
         $case->reminder=$request->reminder;
-        if ($request->reminder_desc){
+        if ($request->reminder_desc){       // το έχω έτσι, ώστε αν γίνει disabled το πεδίο, να μην χαλάει η παλιά τιμή του.
             $case->reminder_desc=$request->reminder_desc;
         }
 

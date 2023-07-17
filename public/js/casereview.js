@@ -1,3 +1,36 @@
+$("#reminder").on('change', function() {
+    if(this.checked) {
+        $("#reminder_desc").prop('disabled', false);
+    }else
+    {
+        $("#reminder_desc").prop('disabled', true);
+    }
+});
+
+function placeCategorization(){
+    $("#category").val(storedCategory);
+    $("#issue").val(storedIssue);
+    $("part").val(storedPart);
+}
+
+
+
+
+document.getElementById('pills-messaging-tab').addEventListener('click', function() {
+    if (!document.getElementById("emailbody").value) {
+        document.getElementById("emailbody").value = document.getElementById("description").value + '\n' + '\n' + document.getElementById("notes").value;
+    }
+});
+
+document.getElementById('status').addEventListener('change', function() { 
+    document.getElementById('donotmail').checked = false;
+});
+
+
+
+
+
+
 document.getElementById("messageToOutlook").addEventListener("click", function() {
     let emailLink = "mailto:";
     emailLink += "?subject=" + encodeURIComponent(document.getElementById("emailsubject").value);
@@ -16,13 +49,9 @@ document.getElementById("messageToOutlook").addEventListener("click", function()
   });
 
 
-document.getElementById('status').addEventListener('change', function() { 
-    document.getElementById('donotmail').checked = false;
-});
 
 
-document.getElementById('pills-messaging-tab').addEventListener('click', function() {
-    if (!document.getElementById("emailbody").value) {
-        document.getElementById("emailbody").value = document.getElementById("description").value + '\n' + '\n' + document.getElementById("notes").value;
-    }
-});
+
+
+
+
