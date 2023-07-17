@@ -26,10 +26,10 @@
                     <nav class="breadcrumb-container" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/dashboard"><i class="ik ik-home"></i></a>
+                                <a href="{{route('dashboard')}}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Technical Cases</a>
+                                <a href="{{route('dashboard')}}">Home</a>
                             </li>
                         </ol>
                     </nav>

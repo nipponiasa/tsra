@@ -36,7 +36,7 @@
                                 <a href="/dashboard"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Technical Cases</a>
+                                <a href="{{route('cases.indexpending')}}">Technical Cases</a>
                             </li>
                             {{-- <li class="breadcrumb-item">
                                 <a href="#">Message</a>
