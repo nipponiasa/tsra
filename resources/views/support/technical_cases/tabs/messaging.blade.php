@@ -24,11 +24,11 @@
             <input type="hidden" name="case_id" value="{{$case->id}}">
             
             <div class="mb-3">
-                <label for="to" class="form-label">To <span class="text-danger">*</span></label>
+                <label for="to" class="form-label">To <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="For multiple recipients, separate by space"></i> </label>
                 <input type="text" class="form-control" id="to" name="to" value="" required>
             </div>
             <div class="mb-3">
-                <label for="cc" class="form-label">CC</label>
+                <label for="cc" class="form-label">CC  <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="For multiple recipients, separate by space"></i>  </label>
                 <input type="text" class="form-control" id="cc" name="cc" value="">
             </div>
             <div id="attachmentsDiv">

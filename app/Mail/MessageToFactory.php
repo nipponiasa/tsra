@@ -36,8 +36,10 @@ class MessageToFactory extends Mailable
      */
     public function build()
     {
-        $this->to($this->incoming->to)
-            ->cc($this->incoming->cc)
+        $recipients = explode(' ', $this->incoming->to);      // string to array, separated by space
+        $carbons = explode(' ', $this->incoming->cc);      // string to array, separated by space
+        $this->to($recipients)
+            ->cc($carbons)
             ->subject($this->incoming->emailsubject)
             ->view('mail.factory', ['body'=> $this->incoming->emailbody]);
         if ($this->incoming->attachments){

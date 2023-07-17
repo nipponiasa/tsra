@@ -1,9 +1,9 @@
 Case #{{ $case->id }} was just sumbitted. Please review.<br>
 <br>
 
-Case Subject: {{ $case->subject }}<br>
-Case Submitter: {{ $case->user->name }}<br>
+Case subject: {{ $case->subject }}<br>
+Case submitter: {{ $case->user->name }}<br>
 
 <br>
-Case Description: <br>
+Case description: <br>
 {{ $case->description }}<br>
