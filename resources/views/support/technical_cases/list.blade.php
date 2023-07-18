@@ -149,18 +149,31 @@
 
 </td> --}}
 
+@can('review_cases')
+    @php
+        $link_fin = "/review";
+    @endphp
+@elsecan('create_cases')
+    @php
+        $link_fin = "/edit";
+    @endphp
+@elsecan('view_cases_full')
+    @php
+        $link_fin = "";
+    @endphp
+@endcan
+
 <td>
-    <a href="/technical_cases/{{$case->id}}/review">{{$case->id}}</a>
+    <a href="/technical_cases/{{$case->id.$link_fin}}">{{$case->id}}</a>
 </td>
 <td>
     {{$case->user->name}}
-    {{-- <a href="/technical_cases/toedit/{{$result->id}}">{{$result->name}}</a> --}}
 </td>
 
 <td>{{date('d-m-Y', strtotime($case->created_at))}}</td>
 
 <td>
-    <a href="/technical_cases/{{$case->id}}/edit">{{$case->subject}}</a>
+    <a href="/technical_cases/{{$case->id.$link_fin}}">{{$case->subject}}</a>
 </td>
 <td>
     {{-- <a href="/technical_cases/toedit/{{$result->id}}">{{$result->models}}</a> --}}

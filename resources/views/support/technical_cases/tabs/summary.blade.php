@@ -337,9 +337,9 @@
 
 
 
+            @can('review_cases')
 
             <hr class="my-4 border border-dark">
-
 
             <div class="text-end">
 
@@ -350,6 +350,7 @@
                 
                 <button class="btn btn-success" type="submit">Update Summary</button>
             </div>
+            @endcan
         </form>
     </div>
 
