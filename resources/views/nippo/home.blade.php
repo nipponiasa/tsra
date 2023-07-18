@@ -4,13 +4,13 @@
     <!-- push external head elements to head -->
     @push('head')
 
-        <link rel="stylesheet" href="{{ asset('plugins/weather-icons/css/weather-icons.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('plugins/weather-icons/css/weather-icons.min.css') }}"> --}}
+        {{-- <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css') }}"> --}}
+        {{-- <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap.css') }}"> --}}
     @endpush
 
 
-    {{-- HOME DASHBOARD --}}
+    {{-- HOME DASHBOARD HEADER --}}
     <div class="container-fluid">
     <div class="container-fluid">
         <div class="page-header">
@@ -50,6 +50,7 @@
 
         {{-- DASHBOARD WIDGETS --}}
         
+        {{-- Technical Directives --}}
         <div class="row">
             <div class="col-sm-12 col-md-5 col-lg-4">
                 <div class="widget bg-primary">
@@ -87,8 +88,10 @@
                     </div>
                 </div>
             </div> --}}
+
+        {{-- Pending Cases --}}
             <div class="col-sm-12 col-md-5 col-lg-4">
-                <div class="widget bg-secondary">
+                <div class="widget bg-secondary @cannot('review_cases') bg-danger @endcan ">
                     <div class="widget-body">
                         <a href="{{route('cases.indexpending')}}" class="text-white">
                         <div class="d-flex justify-content-between align-items-center">
@@ -108,6 +111,9 @@
             </div>
             <div class="row">
             
+
+            {{-- Pending Nipponia --}}
+            @can('review_cases')
             <div class="col-sm-12 col-md-5 col-lg-4">
                 <div class="widget bg-danger">
                     <div class="widget-body">
@@ -126,6 +132,7 @@
                     </div>
                 </div>
             </div>
+            @endcan
             {{-- <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="widget bg-danger">
                     <div class="widget-body">
@@ -151,10 +158,10 @@
               
     <!-- push external js -->
     @push('script')
-        <script src="{{ asset('plugins/moment/moment.js') }}"></script>
-        <script src="{{ asset('plugins/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-        <script src="{{ asset('plugins/jvectormap/jquery-jvectormap.min.js') }}"></script>
-        <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+        {{-- <script src="{{ asset('plugins/moment/moment.js') }}"></script> --}}
+        {{-- <script src="{{ asset('plugins/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}"></script> --}}
+        {{-- <script src="{{ asset('plugins/jvectormap/jquery-jvectormap.min.js') }}"></script> --}}
+        {{-- <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script> --}}
        
         {{-- Dim: αυτό το έβγαλα, μπορεί να χρειάζεται --}}
         {{-- <script src="{{ asset('js/widgets.js') }}"></script> --}}

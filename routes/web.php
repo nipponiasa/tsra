@@ -111,19 +111,19 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     // Themekit demo pages
-    Route::get('/calendar', function () { return view('pages.calendar'); });
-    Route::get('/charts-amcharts', function () { return view('pages.charts-amcharts'); });
-    Route::get('/charts-chartist', function () { return view('pages.charts-chartist'); });
-    Route::get('/charts-flot', function () { return view('pages.charts-flot'); });
-    Route::get('/charts-knob', function () { return view('pages.charts-knob'); });
-    Route::get('/forgot-password', function () { return view('pages.forgot-password'); });
-    Route::get('/form-addon', function () { return view('pages.form-addon'); });
-    Route::get('/form-advance', function () { return view('pages.form-advance'); });
-    Route::get('/form-components', function () { return view('pages.form-components'); });
-    Route::get('/form-picker', function () { return view('pages.form-picker'); });
-    Route::get('/invoice', function () { return view('pages.invoice'); });
-    Route::get('/layout-edit-item', function () { return view('pages.layout-edit-item'); });
-    Route::get('/layouts', function () { return view('pages.layouts'); });
+    // Route::get('/calendar', function () { return view('pages.calendar'); });
+    // Route::get('/charts-amcharts', function () { return view('pages.charts-amcharts'); });
+    // Route::get('/charts-chartist', function () { return view('pages.charts-chartist'); });
+    // Route::get('/charts-flot', function () { return view('pages.charts-flot'); });
+    // Route::get('/charts-knob', function () { return view('pages.charts-knob'); });
+    // Route::get('/forgot-password', function () { return view('pages.forgot-password'); });
+    // Route::get('/form-addon', function () { return view('pages.form-addon'); });
+    // Route::get('/form-advance', function () { return view('pages.form-advance'); });
+    // Route::get('/form-components', function () { return view('pages.form-components'); });
+    // Route::get('/form-picker', function () { return view('pages.form-picker'); });
+    // Route::get('/invoice', function () { return view('pages.invoice'); });
+    // Route::get('/layout-edit-item', function () { return view('pages.layout-edit-item'); });
+    // Route::get('/layouts', function () { return view('pages.layouts'); });
 
 
 
@@ -176,37 +176,9 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-    //! TO FIX
+    //# SETTINGS
     //only those have manage_roles permission will get access
 	Route::group(['middleware' => 'can:manage_settings'], function(){
-    //settings
-    Route::get('/app_settings', [SettingsController::class,'index'])->name('show_settings')->middleware('auth');
-    Route::post('/app_settings', [SettingsController::class,'create'])->name('store_settings')->middleware('auth');
-
-
-    // support 
-    // Route::get('/support_tickets/create', function () { return view('support.support_tickets.create'); }); 
-    // Route::get('/support_tickets', function () { return view('support.support_tickets.list'); });
-    // Route::get('/warranty_claims/create', function () { return view('support.warranty_claims.create'); }); 
-    // Route::get('/warranty_claims', function () { return view('support.warranty_claims.list'); });
-
-
-
-
-
-
-    //Reports
-
-
-
-
-
-
-
-
-
-
-
-
-
-});
+        Route::get('/app_settings', [SettingsController::class,'index'])->name('show_settings')->middleware('auth');
+        Route::post('/app_settings', [SettingsController::class,'create'])->name('store_settings')->middleware('auth');
+    });
