@@ -10,7 +10,7 @@
 @endpush
 
 
-@can('view_cases')
+
 
     <div class="container-fluid">
         <div class="page-header">
@@ -66,16 +66,17 @@
                         </li> --}}
 
 
-
+                        @can('view_cases_full')
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="pills-summary-tab" data-bs-toggle="pill" data-bs-target="#tabs-summary" type="button" role="tab" aria-controls="tabs-summary" aria-selected="true">{{ __('Case Summary')}}</button>
                         </li>
+                        @endcan
 
-                        {{-- @can('communication_with_vendor') --}}
+                        @can('communicate_with_factory')
                         <li class="nav-item">
                             <button class="nav-link" id="pills-messaging-tab" data-toggle="pill" data-bs-toggle="pill" data-bs-target="#tabs-messaging" type="button" role="tab" aria-controls="tabs-messaging" aria-selected="false">{{ __('Messaging')}}</button>
                         </li>
-                        {{--  @endcan --}}
+                         @endcan
 
 
                     </ul>
@@ -156,10 +157,13 @@
                             </div>--}}
                         </div>
 
-         
+                        @can('view_cases_full')
                         @include('support.technical_cases.tabs.summary')
+                        @endcan
+                        
+                        @can('communicate_with_factory')
                         @include('support.technical_cases.tabs.messaging')
-
+                        @endcan
 
                     </div>
                </div>
@@ -216,7 +220,7 @@
 
 
 
-@endcan
+
 
 
 

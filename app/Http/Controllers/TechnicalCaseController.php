@@ -49,7 +49,7 @@ class TechnicalCaseController extends Controller
 
 
 
-    //* GET - CREATE REPORT FORM
+    //* GET - CREATE CASE FORM
     public function create()
     {
         return view('support.technical_cases.case',[/*"models"=>$models,*/ "action"=>"create"]);
@@ -57,7 +57,7 @@ class TechnicalCaseController extends Controller
 
 
 
-    //* GET - EDIT REPORT
+    //* GET - EDIT CASE
     public function edit(Request $request)
     {
         $case_id = $request->case_id;
@@ -82,7 +82,7 @@ class TechnicalCaseController extends Controller
 
 
 
-    //* GET - REVIEW & EDIT REPORT by Nipponia
+    //* GET - REVIEW & EDIT CASE by Nipponia
     public function review(Request $request)
     {
         $case_id = $request->case_id;
@@ -96,9 +96,22 @@ class TechnicalCaseController extends Controller
     }
 
 
+    //* GET - SHOW FULL CASE by Nipponia basic User
+    public function show(Request $request)
+    {
+        $case_id = $request->case_id;
+        $case = TechnicalCase::find($case_id);
+        $statuses = CaseStatus::All();
+        $countries = Country::All();
+        $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
+        $photos_path = $this->case_public_folder($case_id);                         // path for URL is different from path for Storage::disk
+        @$action = "shoW";
+        return view('support.technical_cases.casereview', compact('case', 'photos', 'photos_path', 'action', 'statuses','countries'));
+    }
 
 
-    //* GET - EDIT REPORT LIST (index route)
+
+    //* GET - EDIT REPORT CASE LIST (index route)
     public function index()
     {
         
@@ -127,7 +140,7 @@ class TechnicalCaseController extends Controller
     
     
  
-    //* GET - EDIT PENDING REPORT LIST (indexpending route)
+    //* GET - EDIT PENDING CASE LIST (indexpending route)
     public function indexpending()
     {
         $technical_cases = TechnicalCase::with(
@@ -362,7 +375,7 @@ class TechnicalCaseController extends Controller
 
 
 
-/**
+    /**
      * update (insert new message in db) Technical report
      *
      * @return mixed

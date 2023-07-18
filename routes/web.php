@@ -53,8 +53,8 @@ Route::group(['middleware' => 'auth'], function(){
     
 
     //# ADMIN PAGES
-	//only those have manage_user permission will get access
-	Route::group(['middleware' => 'can:manage_user'], function(){
+	//only those have manage_users permission will get access
+	Route::group(['middleware' => 'can:manage_users'], function(){
         Route::get('/users', [UserController::class,'index']);
         Route::get('/user/get-list', [UserController::class,'getUserList']);
         Route::get('/user/create', [UserController::class,'create']);
@@ -64,8 +64,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/user/delete/{id}', [UserController::class,'delete']);
 	});
 
-	//only those have manage_role permission will get access
-	Route::group(['middleware' => 'can:manage_role|manage_user'], function(){
+	//only those have manage_roles permission will get access
+	Route::group(['middleware' => 'can:manage_roles|manage_users'], function(){
 		Route::get('/roles', [RolesController::class,'index']);
 		Route::get('/role/get-list', [RolesController::class,'getRoleList']);
 		Route::post('/role/create', [RolesController::class,'create']);
@@ -75,8 +75,8 @@ Route::group(['middleware' => 'auth'], function(){
 	});
 
 
-	//only those have manage_permission permission will get access
-	Route::group(['middleware' => 'can:manage_permission|manage_user'], function(){
+	//only those have manage_permissions permission will get access
+	Route::group(['middleware' => 'can:manage_permissions|manage_roles'], function(){
 		Route::get('/permission', [PermissionController::class,'index']);
 		Route::get('/permission/get-list', [PermissionController::class,'getPermissionList']);
 		Route::post('/permission/create', [PermissionController::class,'create']);
@@ -89,15 +89,15 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 	// permission examples
-    Route::get('/permission-example', function () {
-    	return view('permission-example'); 
-    });
+    // Route::get('/permission-example', function () {
+    // 	return view('permission-example'); 
+    // });
     // API Documentation
-    Route::get('/rest-api', function () { return view('api'); });
+    // Route::get('/rest-api', function () { return view('api'); });
     // Editable Datatable
-	Route::get('/table-datatable-edit', function () { 
-		return view('pages.datatable-editable'); 
-	});
+	// Route::get('/table-datatable-edit', function () { 
+	// 	return view('pages.datatable-editable'); 
+	// });
 
     
 	
@@ -132,73 +132,65 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', [HomeController::class,'dashboard'])->name('home')->middleware('auth');
     Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard')->middleware('auth');
 
-    // support 
-    Route::get('/support_tickets/create', function () { return view('support.support_tickets.create'); }); 
-    Route::get('/support_tickets', function () { return view('support.support_tickets.list'); });
-    Route::get('/warranty_claims/create', function () { return view('support.warranty_claims.create'); }); 
-    Route::get('/warranty_claims', function () { return view('support.warranty_claims.list'); });
-
-
-
-   //# TECHNICAL CASES
-    Route::get('/technical_cases/create', [TechnicalCaseController::class,'create'])->name('cases.create')->middleware('auth');
-    Route::get('/technical_cases/{case_id}/edit', [TechnicalCaseController::class,'edit'])->name('cases.edit')->middleware('auth');
-    Route::get('/technical_cases/{case_id}/review', [TechnicalCaseController::class,'review'])->name('cases.review')->middleware('auth');
-    Route::get('/technical_cases/{case_id}/files', [TechnicalCaseController::class,'files'])->name('directives.files')->middleware('auth');
-
-    Route::post('/technical_cases/create', [TechnicalCaseController::class,'store'])->name('cases.store')->middleware('auth');
-    Route::put('/technical_cases/{case_id}/update', [TechnicalCaseController::class,'update'])->name('cases.update')->middleware('auth');
-    Route::put('/technical_cases/{case_id}/revise', [TechnicalCaseController::class,'revise'])->name('cases.revise')->middleware('auth');
-    Route::delete('/technical_cases/{case_id}/deletefile/{filename}', [TechnicalCaseController::class,'destroyfile'])->name('cases.destroyfile')->middleware('auth');
-
     
-    Route::get('/technical_cases/all', [TechnicalCaseController::class,'index'])->name('cases.index')->middleware('auth');
-    Route::get('/technical_cases/pending', [TechnicalCaseController::class,'indexpending'])->name('cases.indexpending')->middleware('auth');
-    Route::get('/technical_cases/{directive_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware('auth');
-
-    Route::post('/api/messageToFactory', [TechnicalCaseController::class,'messageToFactory'])->name('directives.factory')->middleware('auth');
-
-
-    //#Reports
-    Route::get('/reports/vins', [ReportsController::class,'casespervin'])->name('reports.vins')->middleware('auth');
-
-
-    // Route::get('technical_cases/reportt_view_form_modal', [TechnicalCaseController::class,'fetch_TechnicalReport_modal_view'])->name('technicalReport_modal_view')->middleware('auth');//json request
-    // Route::get('/technical_cases/toedit/{id}', [TechnicalCaseController::class,'show_edit'])->name('show_edit_technical_cases')->middleware('auth');
-    // Route::post('/technical_cases/update_new_message', [TechnicalCaseController::class,'update_new_message'])->name('update_edit_technical_cases')->middleware('auth');
-    // Route::post('/technical_cases/send_vendor_message', [TechnicalCaseController::class,'send_vendor_message'])->name('send_vendor_message')->middleware('auth');
-    // Route::get('/technical_cases/fetch_select_children', [TechnicalCaseController::class,'fetch_select_children'])->name('fetch_select_children')->middleware('auth');
-    // Route::get('/technical_cases/fetch_model_for_vin', [TechnicalCaseController::class,'fetch_model_for_vin'])->name('fetch_model_for_vin')->middleware('auth');
     
-
-
-
-
     //# TECHNICAL DIRECTIVES
     Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('directives.create')->middleware('can:manage_directives');
     Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'edit'])->name('directives.edit')->middleware('can:manage_directives');
 
-    
     Route::post('/technical_directives', [TechnicalDirectiveController::class,'store'])->name('directives.store')->middleware('can:manage_directives');
     Route::put('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'update'])->name('directives.update')->middleware('can:manage_directives');
     Route::delete('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'destroy'])->name('directives.destroy')->middleware('can:manage_directives');
     
-    Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('directives.show')->middleware('auth');
-    Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('directives.index')->middleware('auth');
+    Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('directives.show')->middleware('can:view_directives');
+    Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('directives.index')->middleware('can:view_directives');
+
+
+
+   //# TECHNICAL CASES
+    Route::get('/technical_cases/create', [TechnicalCaseController::class,'create'])->name('cases.create')->middleware('can:create_cases');
+    Route::get('/technical_cases/{case_id}/edit', [TechnicalCaseController::class,'edit'])->name('cases.edit')->middleware('can:create_cases');
+    Route::get('/technical_cases/{case_id}/review', [TechnicalCaseController::class,'review'])->name('cases.review')->middleware('can:review_cases');
+    Route::get('/technical_cases/{case_id}/files', [TechnicalCaseController::class,'files'])->name('directives.files')->middleware('can:review_cases');
+
+    Route::post('/technical_cases/create', [TechnicalCaseController::class,'store'])->name('cases.store')->middleware('can:create_cases');
+    Route::put('/technical_cases/{case_id}/update', [TechnicalCaseController::class,'update'])->name('cases.update')->middleware('can:create_cases');
+    Route::put('/technical_cases/{case_id}/revise', [TechnicalCaseController::class,'revise'])->name('cases.revise')->middleware('can:review_cases');
+    Route::delete('/technical_cases/{case_id}/deletefile/{filename}', [TechnicalCaseController::class,'destroyfile'])->name('cases.destroyfile')->middleware('can:create_cases');
+
+    Route::get('/technical_cases/all', [TechnicalCaseController::class,'index'])->name('cases.index')->middleware('can:view_cases_basic');
+    Route::get('/technical_cases/pending', [TechnicalCaseController::class,'indexpending'])->name('cases.indexpending')->middleware('can:view_cases_basic');
+    Route::get('/technical_cases/{case_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware('can:view_cases_full');
+
+    Route::post('/api/messageToFactory', [TechnicalCaseController::class,'messageToFactory'])->name('directives.factory')->middleware('can:communicate_with_factory');
+
+
+
+    //# REPORTS
+    Route::get('/reports/vins', [ReportsController::class,'casespervin'])->name('reports.vins')->middleware('can:view_reports');
 
 
 
     //# TESTS
     Route::get('/test', [TestController::class,'test'])->name('test.new')->middleware('auth');
 
-    
-    //only those have manage_role permission will get access
-	Route::group(['middleware' => 'can:manage_role|manage_user'], function(){
+
+
+    //! TO FIX
+    //only those have manage_roles permission will get access
+	Route::group(['middleware' => 'can:manage_roles|manage_users'], function(){
     //settings
     Route::get('/app_settings', [SettingsController::class,'index'])->name('show_settings')->middleware('auth');
     Route::post('/app_settings', [SettingsController::class,'create'])->name('store_settings')->middleware('auth');
 
-    //settings
+
+    // support 
+    // Route::get('/support_tickets/create', function () { return view('support.support_tickets.create'); }); 
+    // Route::get('/support_tickets', function () { return view('support.support_tickets.list'); });
+    // Route::get('/warranty_claims/create', function () { return view('support.warranty_claims.create'); }); 
+    // Route::get('/warranty_claims', function () { return view('support.warranty_claims.list'); });
+
+
 
 
 

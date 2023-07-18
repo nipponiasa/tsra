@@ -26,7 +26,7 @@
                 <div class="nav-item {{ ($segment1 == 'myprofile') ? 'active' : '' }}">
                 <a href="{{url('myprofile')}}"><i class="ik ik-user"></i><span>{{ __('My Profile')}}</span></a>
                 </div>
-                @can('manage_user')
+                @canany(['manage_users','manage_roles','manage_permissions'])
                     <div class="nav-lavel">{{ __('Administration')}} </div>
              
                 <div class="nav-item {{ ($segment1 == 'users' || $segment1 == 'roles'||$segment1 == 'permission' ||$segment1 == 'user'||$segment1 == 'app_settings') ? 'active open' : '' }} has-sub">
@@ -61,19 +61,19 @@
                 {{-- <div class="nav-item {{ ($segment1 == 'technical_directives' ) ? 'active open' : '' }} has-sub"> --}}
                     {{-- <a href="#"><i class="ik ik-mail"></i><span>{{ __('Technical Directives')}}</span></a> --}}
                     {{-- <div class="submenu-content"> --}}
-                    @can('manage_user') <a href="{{route('directives.create')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('New Directive')}}</a>@endcan
+                    @can('manage_directives') <a href="{{route('directives.create')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('New Directive')}}</a>@endcan
                     <a href="{{route('directives.index')}}" class="menu-item {{ ($segment1 == 'technical_directives' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-mail"></i>{{ __('Directives List')}}</a>
                     {{-- </div> --}}
                 </div>
               
-                @can('manage_user')  <div class="nav-item {{ ($segment1 == 'support_tickets') ? 'active open' : '' }} has-sub">
+                {{-- @can('manage_user')  <div class="nav-item {{ ($segment1 == 'support_tickets') ? 'active open' : '' }} has-sub"> --}}
                       <!-- <a href="#"><i class="ik ik-life-buoy"></i><span>{{ __('Support Tickets')}}</span></a>
                      
                     <div class="submenu-content">
                         <a href="{{url('support_tickets/create')}}" class="menu-item {{ ($segment1 == 'support_tickets' && $segment2 == 'create') ? 'active' : '' }}">{{ __('New Ticket')}}</a>
                         <a href="#" class="menu-item {{ ($segment1 == 'support_tickets' && $segment2 == '') ? 'active' : '' }}">{{ __('List Tickets')}}</a>
                     </div> -->
-                </div>@endcan
+                {{-- </div>@endcan --}}
 
                 
                 <div class="nav-lavel">{{ __('Technical Cases') }} </div>
@@ -81,19 +81,23 @@
                 {{-- <div class="nav-item {{ ($segment1 == 'technical_reports') ? 'active open' : '' }} has-sub"> --}}
                     {{-- <a href="#"><i class="ik ik-file-text"></i><span>{{ __('Technical Cases')}}</span></a> --}}
                     {{-- <div class="submenu-content"> --}}
+                        @can('create_cases')
                         <a href="{{route('cases.create')}}" class="menu-item {{ ($segment1 == 'technical_cases' && $segment2 == 'create') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('New Case')}}</a>
+                        @endcan
+                        @can('view_cases_basic')
                         <a href="{{route('cases.indexpending')}}" class="menu-item {{ ($segment1 == 'technical_cases' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('Pending Cases')}}</a>
                         <a href="{{route('cases.index')}}" class="menu-item {{ ($segment1 == 'technical_cases' && $segment2 == 'list') ? 'active' : '' }}"><i class="ik ik-life-buoy"></i>{{ __('All Cases')}}</a>
+                        @endcan
                     {{-- </div> --}}
                 </div>
                   
-                @can('manage_user') <div class="nav-item {{ ($segment1 == 'warranty_claims' ) ? 'active open' : '' }} has-sub">
+                {{-- @can('manage_user') <div class="nav-item {{ ($segment1 == 'warranty_claims' ) ? 'active open' : '' }} has-sub"> --}}
                    <!--  <a href="#"><i class="ik ik-settings"></i><span>{{ __('Warranty Claims')}}</span></a>
                     <div class="submenu-content">
                         <a href="{{url('warranty_claims/create')}}" class="menu-item {{ ($segment1 == 'warranty_claims' && $segment2 == 'create') ? 'active' : '' }}">{{ __('New Claim')}}</a>
                         <a href="#" class="menu-item {{ ($segment1 == 'warranty_claims' && $segment2 == '') ? 'active' : '' }}">{{ __('List Claims')}}</a>
                     </div> -->
-                </div>@endcan
+                {{-- </div>@endcan --}}
 
 
 
@@ -104,7 +108,7 @@
 
 
 
-                @can('manage_user')
+                @can('view_reports')
 
                 <!-- start report pages -->
 
