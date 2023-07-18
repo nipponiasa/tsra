@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Vin;
 use App\Models\User;
 use App\Http\Requests;
+use App\Models\Country;
 use App\Models\Message;
 use Illuminate\View\View;
 use App\Models\CaseStatus;
@@ -16,8 +17,8 @@ use Microsoft\Graph\Model;
 use App\Jobs\SendCaseEmail;
 use Illuminate\Http\Request;
 use App\Models\TechnicalCase;
-use App\Mail\MessageToFactory;
 
+use App\Mail\MessageToFactory;
 use App\Mail\ReviseCaseMessage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -87,10 +88,11 @@ class TechnicalCaseController extends Controller
         $case_id = $request->case_id;
         $case = TechnicalCase::find($case_id);
         $statuses = CaseStatus::All();
+        $countries = Country::All();
         $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
         $photos_path = $this->case_public_folder($case_id);                         // path for URL is different from path for Storage::disk
         @$action = "review";
-        return view('support.technical_cases.casereview', compact('case', 'photos', 'photos_path', 'action', 'statuses'));
+        return view('support.technical_cases.casereview', compact('case', 'photos', 'photos_path', 'action', 'statuses','countries'));
     }
 
 
@@ -163,6 +165,7 @@ class TechnicalCaseController extends Controller
         $case->subject=$request->subject;
         $case->description=$request->description;
         $case->user_id=Auth::user()->id;
+        $case->country_id=Auth::user()->country_id;
         // $message=$description;
         // $user_email = Auth::user()->email;
         // $date=Carbon::now();
@@ -279,6 +282,7 @@ class TechnicalCaseController extends Controller
         // $case->description=$request->description;    // not editable by Nipponia Member
         // $message=$description;
         $case->agent_id=Auth::user()->id;
+        $case->country_id=$request->country;
         // $user_email = Auth::user()->email;
         // $date=Carbon::now();
         // $files=$request->file('photos');
