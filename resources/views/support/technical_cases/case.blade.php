@@ -59,7 +59,7 @@
                     <div class="card-body">
 
                         
-
+                        @include('include.message')
 
                         <form class="forms" method="POST" enctype="multipart/form-data" action="{{ ($action=='edit') ? route("cases.update",$case->id) : route("cases.create") }}">
                         @csrf

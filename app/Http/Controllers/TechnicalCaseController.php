@@ -207,7 +207,7 @@ class TechnicalCaseController extends Controller
 
         dispatch(New SendCaseEmail(['case'=>$case,'action'=>'new']));
 
-        return redirect()->route('cases.index');
+        return redirect()->route('cases.index')->with('success',"Case created!");
                                         
 
     }
@@ -266,7 +266,7 @@ class TechnicalCaseController extends Controller
         // dispatch(New SendCaseEmail(['case'=>$case,'action'=>'new']));  // send email
         // SendCaseEmail::dispatchAfterResponse(['case'=>$case,'action'=>'new']);  // send email
         
-        return redirect()->back();      // refresh page
+        return redirect()->back()->with('success',"Case updated!");      // refresh page
                                         
     }
 
@@ -332,7 +332,7 @@ class TechnicalCaseController extends Controller
             // Mail::to('Ismini.Zounta@nipponia.com')->send(new ReviseCaseMessage($case));  
         }
         
-        return redirect()->back();      // refresh page
+        return redirect()->back()->with('success', 'Case updated!');      // refresh page
         
 
     }
@@ -368,7 +368,7 @@ class TechnicalCaseController extends Controller
     {
         // return $request;
         Mail::send(new MessageToFactory($request));
-        return redirect()->back();      // refresh page
+        return redirect()->back()->with('success',"E-mail was sent!");;      // refresh page
     }
 
 

@@ -94,7 +94,7 @@ class TechnicalDirectiveController extends Controller
 
         
 
-        return Redirect()->route('directives.index');
+        return Redirect()->route('directives.index')->with('success', 'Directive created!');
                         
 
     }
@@ -206,7 +206,7 @@ class TechnicalDirectiveController extends Controller
 
         $directive->save();
 
-        return redirect()->route('directives.index');
+        return redirect()->route('directives.index')->with('success', 'Directive updated!');
 
     }
 
@@ -222,7 +222,7 @@ class TechnicalDirectiveController extends Controller
         $directive = TechnicalDirective::find($directive_id);
         Storage::deleteDirectory('public/directives/'.$directive_id);
         $directive->delete();
-        return redirect()->route('directives.index');
+        return redirect()->route('directives.index')->with('success', 'Directive was deleted!');;
     }
 
 

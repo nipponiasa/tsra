@@ -37,7 +37,7 @@ class MessageToFactory extends Mailable
     public function build()
     {
         $recipients = explode(' ', $this->incoming->to);      // string to array, separated by space
-        $carbons = explode(' ', $this->incoming->cc);      // string to array, separated by space
+        $carbons = $this->incoming->cc ? explode(' ', $this->incoming->cc) : null;      // string to array, separated by space
         $this->to($recipients)
             ->cc($carbons)
             ->subject($this->incoming->emailsubject)
