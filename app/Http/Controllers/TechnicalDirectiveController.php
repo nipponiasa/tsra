@@ -33,8 +33,9 @@ class TechnicalDirectiveController extends Controller
     //* GET - CREATE DIRECTIVE (view create form)
     public function create()
     {
-        $models=MotorModel::all();
-        return view('support.technical_directives.directive', [/*"models"=>$models,*/ "action"=>"create"]);
+        // $models=MotorModel::all();
+        $countries = Country::all();
+        return view('support.technical_directives.directive', ["countries"=>$countries, "action"=>"create"]);
     }
 
 
@@ -134,8 +135,8 @@ class TechnicalDirectiveController extends Controller
     {
         $directive_id = $request->directive_id;
         $directive = TechnicalDirective::with('motorCountries'/*,'motorModels'*/)->find($directive_id);
-        // $models = MotorModel::all();
-        return view('support.technical_directives.directive', ["directive"=>$directive, /*"models"=>$models,*/ "action"=>"edit"]);
+        $countries = Country::all();
+        return view('support.technical_directives.directive', ["directive"=>$directive, "countries"=>$countries, "action"=>"edit"]);
     }
 
 

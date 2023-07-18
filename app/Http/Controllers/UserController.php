@@ -5,6 +5,7 @@ use Auth;
 use DataTables;
 use App\Models\User;
 
+use App\Models\Country;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -49,6 +50,11 @@ class UserController extends Controller
                 }
 
                 return $badge;
+                // return 'test';
+            })
+            ->addColumn('country', function ($data) {
+                $country = $data->country->shortname??'';
+                return $country;
             })
             ->addColumn('permissions', function ($data) {
                 $roles = $data->getAllPermissions();
@@ -73,7 +79,7 @@ class UserController extends Controller
 
                 return $output;
             })
-            ->rawColumns(['roles', 'permissions', 'action'])
+            ->rawColumns(['roles', 'country', 'permissions', 'action'])
             ->make(true);
     }
 
@@ -89,8 +95,9 @@ class UserController extends Controller
     {
         try {
             $roles = Role::pluck('name', 'id');
+            $countries = Country::all();
 
-            return view('create-user', compact('roles'));
+            return view('create-user', compact('roles','countries'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -112,7 +119,8 @@ class UserController extends Controller
         $validator = $request->validate([
             'name' => ['required','string'],
             'email' => ['required', 'email', Rule::unique('users','email','unique:users')],
-            'password' => ['required', 'confirmed']
+            'password' => ['required', 'confirmed'],
+            'country_id' => ['required'],
         ]);
             
            
@@ -162,8 +170,9 @@ class UserController extends Controller
             if ($user) {
                 $user_role = $user->roles->first();
                 $roles = Role::pluck('name', 'id');
+                $countries = Country::all();
 
-                return view('user-edit', compact('user', 'user_role', 'roles'));
+                return view('user-edit', compact('user', 'user_role', 'roles', 'countries'));
             }
 
             return redirect('404');
@@ -206,6 +215,7 @@ class UserController extends Controller
                 $payload = [
                     'name' => $request->name,
                     'email' => $request->email,
+                    'country_id' => $request->country,
                 ];
                 // update password if user input a new password
                 if (isset($request->password) && $request->password) {

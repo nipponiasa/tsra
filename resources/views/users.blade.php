@@ -47,6 +47,7 @@
                                     <th>{{ __('Name')}}</th>
                                     <th>{{ __('Email')}}</th>
                                     <th>{{ __('Role')}}</th>
+                                    <th class="text-center">{{ __('Country')}}</th>
                                     <th>{{ __('Permissions')}}</th>
                                     <th>{{ __('Action')}}</th>
                                 </tr>
@@ -62,7 +63,7 @@
     <!-- push external js -->
     @push('script')
     <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
-    <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script> --}}
     <!--server side users table script-->
     <script src="{{ asset('js/custom.js') }}"></script>
     @endpush

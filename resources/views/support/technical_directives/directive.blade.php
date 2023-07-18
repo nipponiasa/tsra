@@ -137,7 +137,7 @@
                                     {{-- Applicable Models --}}
                                     <div class="form-group">
                                         <label for="model">{{ __('Applicable Models')}} <span class="text-danger">*</span> <i class="fa fa-info-circle text-primary" data-toggle="tooltip" aria-hidden="true" title="Use no spaces between the model's name and displacement (For example, BRIO110) "> </i></label>
-                                        <input id="model" type="text" class="form-control" name="model" required ="{{old('model')??$directive->model??'' }}" placeholder="Enter all applicable models" >
+                                        <input id="model" type="text" class="form-control" name="model" required value="{{old('model')??$directive->model??'' }}" placeholder="Enter all applicable models" >
                                     </div>
                                     <div class="help-block with-errors">
                                         @error('model')
@@ -148,22 +148,12 @@
 
 
                                     {{-- Applicable Countries --}}
-                                    @php
-                                        $countries = array(
-                                            '4' => "AL - Albania",
-                                            '7' => "BE - Belgium",
-                                            '5' => "CY - Cyprus",
-                                            '1' => "DO - Dominican Republic",
-                                            '3' => "FR - France",
-                                            '8' => "GT - Guatemala",
-                                            '2' => "NL - Netherlands",
-                                        );
-                                    @endphp
+
                                     <div class="form-group">
                                         <label for="countries">{{ __('Applicable Countries')}}</label>
                                         <select name="countries[]" id="countries" class="form-control select2" multiple="multiple" size=1>
-                                            @foreach ($countries as $country_id => $country_name)
-                                                <option value="{{$country_id}}"   {{ ( collect(old('countries'))->contains($country_id) || (isset($directive)&&$directive->motorCountries->pluck('id')->contains($country_id)) ) ? 'selected':'' }}     >{{$country_name}}</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{$country->id}}"   {{ ( collect(old('countries'))->contains($country->id) || (isset($directive)&&$directive->motorCountries->pluck('id')->contains($country->id)) ) ? 'selected':'' }}     >{{$country->shortname.' - '.$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

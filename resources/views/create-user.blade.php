@@ -3,7 +3,7 @@
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
-        <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}"> --}}
     @endpush
 
     
@@ -52,13 +52,13 @@
                                         <label for="name">{{ __('Username')}}<span class="text-red">*</span></label>
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Enter user name" required>
                                         <div class="help-block with-errors"></div>
-
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <label for="email">{{ __('Email')}}<span class="text-red">*</span></label>
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Enter email address" required>
@@ -69,6 +69,16 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="country">{{ __('Restrict to Country (optional)')}}</label>                                        
+                                        <select name="country_id" id="country" class="form-select" required>
+                                            <option value="0" ></option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{$country->id}}" {{ (old('country')==$country->id) ? 'selected':'' }}  >{{$country->shortname.' - '.$country->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                    
                                     <div class="form-group">
@@ -97,7 +107,7 @@
                                     <!-- Assign role & view role permisions -->
                                     <div class="form-group">
                                         <label for="role">{{ __('Assign Role')}}<span class="text-red">*</span></label>
-                                        {!! Form::select('role', $roles, null,[ 'class'=>'form-control select2', 'placeholder' => 'Select Role','id'=> 'role', 'required'=> 'required']) !!}
+                                        {!! Form::select('role', $roles, null,[ 'class'=>'form-control', 'placeholder' => 'Select Role','id'=> 'role', 'required'=> 'required']) !!}
                                     </div>
                                     <div class="form-group" >
                                         <label for="role">{{ __('Permissions')}}</label>
@@ -122,7 +132,7 @@
     </div>
     <!-- push external js -->
     @push('script') 
-        <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
+        {{-- <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script> --}}
          <!--get role wise permissiom ajax script-->
         <script src="{{ asset('js/get-role.js') }}"></script>
     @endpush

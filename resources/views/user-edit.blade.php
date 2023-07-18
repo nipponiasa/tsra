@@ -3,7 +3,7 @@
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
-        <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}"> --}}
     @endpush
 
     
@@ -14,8 +14,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-user-plus bg-primary"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Edit User')}}</h5>
-                            <span>{{ __('Create new user, assign roles & permissions')}}</span>
+                            <h1>{{ __('Edit User')}}</h1>
+                            <p class="lead">{{ __('Edit user, assign roles & permissions')}}</p>
                         </div>
                     </div>
                 </div>
@@ -74,6 +74,17 @@
                                         @enderror
                                     </div>
 
+
+                                    <div class="form-group">
+                                        <label for="country">{{ __('Restrict to Country (optional)')}}</label>                                        
+                                        <select name="country" id="country" class="form-select">
+                                            <option value="0" ></option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{$country->id}}" {{ (old('country')==$country->id || $user->country_id==$country->id ) ? 'selected':'' }}  >{{$country->shortname.' - '.$country->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                    
                                     <div class="form-group">
                                         <label for="password">{{ __('Password')}}</label>
@@ -101,7 +112,7 @@
                                     <!-- Assign role & view role permisions -->
                                     <div class="form-group">
                                         <label for="role">{{ __('Assign Role')}}<span class="text-red">*</span></label>
-                                        {!! Form::select('role', $roles, $user_role->id??'' ,[ 'class'=>'form-control select2', 'placeholder' => 'Select Role','id'=> 'role', 'required'=>'required']) !!}
+                                        {!! Form::select('role', $roles, $user_role->id??'' ,[ 'class'=>'form-select', 'placeholder' => 'Select Role','id'=> 'role', 'required'=>'required']) !!}
                                     </div>
                                     <div class="form-group">
                                         <label for="role">{{ __('Permissions')}}</label>
@@ -131,7 +142,7 @@
     </div>
     <!-- push external js -->
     @push('script') 
-        <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
+        {{-- <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script> --}}
         <!--get role wise permissiom ajax script-->
         <script src="{{ asset('js/get-role.js') }}"></script>
     @endpush

@@ -307,6 +307,7 @@
                 {data:'name', name: 'name', orderable: false, searchable: false},
                 {data:'email', name: 'email'},
                 {data:'roles', name: 'roles'},
+                {data:'country', name: 'country', className: "text-center"},
                 {data:'permissions', name: 'permissions'},
                 //only those have manage_user permission will get access
                 {data:'action', name: 'action'}

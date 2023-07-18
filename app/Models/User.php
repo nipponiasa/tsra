@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Country;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
@@ -35,8 +36,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'country_id'
     ];
+
+
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
 
 
     /**
