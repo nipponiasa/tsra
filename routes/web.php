@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     
 
-    //* ADMIN PAGES
+    //# ADMIN PAGES
 	//only those have manage_user permission will get access
 	Route::group(['middleware' => 'can:manage_user'], function(){
         Route::get('/users', [UserController::class,'index']);
@@ -175,13 +175,13 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     //# TECHNICAL DIRECTIVES
-    Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('directives.create')->middleware('auth');
-    Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'edit'])->name('directives.edit')->middleware('auth');
+    Route::get('/technical_directives/create', [TechnicalDirectiveController::class,'create'])->name('directives.create')->middleware('can:manage_directives');
+    Route::get('/technical_directives/{directive_id}/edit', [TechnicalDirectiveController::class,'edit'])->name('directives.edit')->middleware('can:manage_directives');
 
     
-    Route::post('/technical_directives', [TechnicalDirectiveController::class,'store'])->name('directives.store')->middleware('auth');
-    Route::put('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'update'])->name('directives.update')->middleware('auth');
-    Route::delete('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'destroy'])->name('directives.destroy')->middleware('auth');
+    Route::post('/technical_directives', [TechnicalDirectiveController::class,'store'])->name('directives.store')->middleware('can:manage_directives');
+    Route::put('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'update'])->name('directives.update')->middleware('can:manage_directives');
+    Route::delete('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'destroy'])->name('directives.destroy')->middleware('can:manage_directives');
     
     Route::get('/technical_directives/{directive_id}', [TechnicalDirectiveController::class,'show'])->name('directives.show')->middleware('auth');
     Route::get('/technical_directives', [TechnicalDirectiveController::class,'index'])->name('directives.index')->middleware('auth');

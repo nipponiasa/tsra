@@ -106,8 +106,18 @@ class TechnicalDirectiveController extends Controller
     //* SHOW TECHNICAL DIRECTIVE LIST (index route)
     public function index()
     {
-        $technical_directives = TechnicalDirective::with('motorCountries'/*,'motorModels'*/)->get();
-        return view('support.technical_directives.list')->with('technical_directives',$technical_directives);
+        $user_country = Auth::user()->country_id;
+        if (!$user_country) {   // not restricted
+            $technical_directives = TechnicalDirective::with('motorCountries'/*,'motorModels'*/)->get();
+        } else {
+            // return "hello!";
+            $technical_directives = TechnicalDirective::with('motorCountries')
+                ->whereHas('motorCountries', function ($query) use ($user_country) {
+                    $query->where('country_id', $user_country);
+                })
+                ->get();
+        }
+        return view('support.technical_directives.list',['technical_directives'=>$technical_directives]);
     }
 
 
@@ -123,9 +133,10 @@ class TechnicalDirectiveController extends Controller
         // ReadState::mark_read_user($directive_id,'DIRECTIVE',$user_id);
         // $directive = TechnicalDirective::find($request->directive_id);
         $directive = TechnicalDirective::with('motorCountries'/*,'motorModels'*/)->find($directive_id);
+        $countries = Country::all();
         // $models=MotorModel::all();
             
-        return view('support.technical_directives.directive', ["directive"=>$directive, /*"models"=>$models,*/ "action"=>"show"]);
+        return view('support.technical_directives.directive', ["directive"=>$directive, "countries"=>$countries, "action"=>"show"]);
     }
 
 

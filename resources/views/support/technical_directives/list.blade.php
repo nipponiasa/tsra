@@ -83,7 +83,8 @@
                             @foreach($technical_directives as $directive) 
                                 <tr>
                                 <td>{{$directive->id}}</td> 
-                                <td><a href="/technical_directives/{{$directive->id}}/edit">{{$directive->subject}}</a></td>
+                                <td><a href="/technical_directives/{{$directive->id}}@can('manage_directives')/edit @endcan">
+                                    {{$directive->subject}}</a></td>
                                 {{-- old code where models was many-to-many relationship, not text --}}
                                 {{-- <td>{{$directive->motorModels->pluck('name')->implode(', ')}}</td> --}}
                                 <td>{{$directive->model}}</td> 
