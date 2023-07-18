@@ -33,19 +33,23 @@
                     <a href="#"><i class="ik ik-users"></i><span>{{ __('Administrator')}}</span></a>
                     <div class="submenu-content">
                          <!-- only those have manage_user permission will get access -->
-                        
+                         @can('manage_users')
                         <a href="{{url('users')}}" class="menu-item {{ ($segment1 == 'users') ? 'active' : '' }}">{{ __('Users')}}</a>
                         <a href="{{url('user/create')}}" class="menu-item {{ ($segment1 == 'user' && $segment2 == 'create') ? 'active' : '' }}">{{ __('Add User')}}</a>
-                       
-                         <!-- only those have manage_role permission will get access -->
-                  
-                        <a href="{{url('roles')}}" class="menu-item {{ ($segment1 == 'roles') ? 'active' : '' }}">{{ __('Roles')}}</a>
-                    
-                        <!-- only those have manage_permission permission will get access -->
-                       
-                        <a href="{{url('permission')}}" class="menu-item {{ ($segment1 == 'permission') ? 'active' : '' }}">{{ __('Permissions')}}</a>
+                        @endcan
 
-                    <a href="{{url('app_settings')}}" class="menu-item {{ ($segment1 == 'app_settings') ? 'active' : '' }}">{{ __('Settings')}}</a>
+                         <!-- only those have manage_role permission will get access -->
+                         @can('manage_roles')
+                        <a href="{{url('roles')}}" class="menu-item {{ ($segment1 == 'roles') ? 'active' : '' }}">{{ __('Roles')}}</a>
+                        @endcan
+                        <!-- only those have manage_permission permission will get access -->
+                        @can('manage_permissions')
+                        <a href="{{url('permission')}}" class="menu-item {{ ($segment1 == 'permission') ? 'active' : '' }}">{{ __('Permissions')}}</a>
+                        @endcan
+                        
+                        @can('manage_settings')
+                        <a href="{{url('app_settings')}}" class="menu-item {{ ($segment1 == 'app_settings') ? 'active' : '' }}">{{ __('Settings')}}</a>
+                        @endcan
                     </div>
                 </div>
                 @endcan

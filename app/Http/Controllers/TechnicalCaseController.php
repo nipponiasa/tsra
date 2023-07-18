@@ -114,27 +114,15 @@ class TechnicalCaseController extends Controller
     //* GET - EDIT REPORT CASE LIST (index route)
     public function index()
     {
+        $user_country = Auth::user()->country_id;
+        if (!$user_country) {   // not restricted
+            $technical_cases = TechnicalCase::with(['user','status'])->get();
+        } else {
+            $technical_cases = TechnicalCase::with(['user','status'])
+                ->where('country_id', $user_country)
+                ->get();
+        }
         
-        // $user_id=Auth::id();
-        // $user_role=DB::select(DB::raw(' SELECT roleid, rolename FROM  users_with_role WHERE id='. $user_id.';'))[0];
-        // //dd($user_role);
-        // //$uii=DB::select(DB::raw('SELECT support_cases.subject as subject, support_cases.id as id,support_cases.po as po, support_cases.description as description, support_cases.created_at as created_at, users.name as name, support_cases.attached_files_folder_path as attached_files_folder_path FROM support_cases INNER JOIN users ON support_cases.user_id=users.id;'));
-        // $user_role_name=$user_role->rolename;
-    
-        // if($user_role_name==="Admin" or $user_role_name==="Super Admin" or $user_role_name==="Agent HQ")
-        // {
-        //     //$uii=DB::select(DB::raw(' SELECT * FROM  list_tr ;'));
-            // $uii=TechnicalCas::list_tr_all();
-        //     //dd($uii);
-        
-        // }else
-        // {
-        //     $uii=DB::select(DB::raw(' SELECT * FROM  list_tr WHERE roleid='. $user_role->roleid.';'));
-
-        // }
-        
-        // $technical_cases = TechnicalCase::all();
-        $technical_cases = TechnicalCase::with(['user','status'])->get();
         return view('support.technical_cases.list',['technical_cases'=>$technical_cases,'pending'=>false]);
     }
     
@@ -143,12 +131,25 @@ class TechnicalCaseController extends Controller
     //* GET - EDIT PENDING CASE LIST (indexpending route)
     public function indexpending()
     {
-        $technical_cases = TechnicalCase::with(
-            ['user','status'])->whereHas('status', function($query)         // where status.statuscategory is one of ["Initial", "Pending"]
-            {
-                $query->whereIn('statuscategory', ["Initial", "Pending"]); 
-            })
-            ->get();
+        $user_country = Auth::user()->country_id;
+        if (!$user_country) {       // not restricted
+            $technical_cases = TechnicalCase::with(['user','status'])
+                ->whereHas('status', function($query)         // where status.statuscategory is one of ["Initial", "Pending"]
+                    {
+                        $query->whereIn('statuscategory', ["Initial", "Pending"]); 
+                    })
+                ->get();
+        } else {
+            $technical_cases = TechnicalCase::with(['user','status'])
+                ->where('country_id', $user_country)
+                ->whereHas('status', function($query)         // where status.statuscategory is one of ["Initial", "Pending"]
+                    {
+                        $query->whereIn('statuscategory', ["Initial", "Pending"]); 
+                    })
+                ->get();
+
+        }
+
             return view('support.technical_cases.list', ['technical_cases'=>$technical_cases , 'pending'=>true]);
     }   
 

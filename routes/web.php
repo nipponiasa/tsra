@@ -149,18 +149,18 @@ Route::group(['middleware' => 'auth'], function(){
 
    //# TECHNICAL CASES
     Route::get('/technical_cases/create', [TechnicalCaseController::class,'create'])->name('cases.create')->middleware('can:create_cases');
-    Route::get('/technical_cases/{case_id}/edit', [TechnicalCaseController::class,'edit'])->name('cases.edit')->middleware('can:create_cases');
-    Route::get('/technical_cases/{case_id}/review', [TechnicalCaseController::class,'review'])->name('cases.review')->middleware('can:review_cases');
-    Route::get('/technical_cases/{case_id}/files', [TechnicalCaseController::class,'files'])->name('directives.files')->middleware('can:review_cases');
+    Route::get('/technical_cases/{case_id}/edit', [TechnicalCaseController::class,'edit'])->name('cases.edit')->middleware(['can:create_cases','can:accessThisCountry,case_id']);
+    Route::get('/technical_cases/{case_id}/review', [TechnicalCaseController::class,'review'])->name('cases.review')->middleware(['can:review_cases','can:accessThisCountry,case_id']);
+    Route::get('/technical_cases/{case_id}/files', [TechnicalCaseController::class,'files'])->name('directives.files')->middleware(['can:review_cases','can:accessThisCountry,case_id']);
 
     Route::post('/technical_cases/create', [TechnicalCaseController::class,'store'])->name('cases.store')->middleware('can:create_cases');
-    Route::put('/technical_cases/{case_id}/update', [TechnicalCaseController::class,'update'])->name('cases.update')->middleware('can:create_cases');
-    Route::put('/technical_cases/{case_id}/revise', [TechnicalCaseController::class,'revise'])->name('cases.revise')->middleware('can:review_cases');
-    Route::delete('/technical_cases/{case_id}/deletefile/{filename}', [TechnicalCaseController::class,'destroyfile'])->name('cases.destroyfile')->middleware('can:create_cases');
+    Route::put('/technical_cases/{case_id}/update', [TechnicalCaseController::class,'update'])->name('cases.update')->middleware(['can:create_cases','can:accessThisCountry,case_id']);
+    Route::put('/technical_cases/{case_id}/revise', [TechnicalCaseController::class,'revise'])->name('cases.revise')->middleware(['can:review_cases','can:accessThisCountry,case_id']);
+    Route::delete('/technical_cases/{case_id}/deletefile/{filename}', [TechnicalCaseController::class,'destroyfile'])->name('cases.destroyfile')->middleware(['can:create_cases','can:accessThisCountry,case_id']);
 
     Route::get('/technical_cases/all', [TechnicalCaseController::class,'index'])->name('cases.index')->middleware('can:view_cases_basic');
     Route::get('/technical_cases/pending', [TechnicalCaseController::class,'indexpending'])->name('cases.indexpending')->middleware('can:view_cases_basic');
-    Route::get('/technical_cases/{case_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware('can:view_cases_full');
+    Route::get('/technical_cases/{case_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware(['can:view_cases_full','can:accessThisCountry,case_id']);
 
     Route::post('/api/messageToFactory', [TechnicalCaseController::class,'messageToFactory'])->name('directives.factory')->middleware('can:communicate_with_factory');
 
@@ -178,7 +178,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     //! TO FIX
     //only those have manage_roles permission will get access
-	Route::group(['middleware' => 'can:manage_roles|manage_users'], function(){
+	Route::group(['middleware' => 'can:manage_settings'], function(){
     //settings
     Route::get('/app_settings', [SettingsController::class,'index'])->name('show_settings')->middleware('auth');
     Route::post('/app_settings', [SettingsController::class,'create'])->name('store_settings')->middleware('auth');
