@@ -1,5 +1,3 @@
-@can('reporting_data_entry')
-
 <div class="tab-pane fade show active" id="tabs-summary" role="tabpanel" aria-labelledby="pills-summary-tab" tabindex="0">  
     {{-- "show active" is the class to defaul show --}}
     <div class="card-body">
@@ -369,4 +367,4 @@
 
 
 
-@endcan
+

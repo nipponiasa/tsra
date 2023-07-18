@@ -109,7 +109,7 @@ class UserController extends Controller
     {
         
         // validate user fields
-        $validator = Validator::make($request->all(), [
+        $validator = $request->validate([
             'name' => ['required','string'],
             'email' => ['required', 'email', Rule::unique('users','email','unique:users')],
             'password' => ['required', 'confirmed']
@@ -117,9 +117,9 @@ class UserController extends Controller
             
            
             
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('error', $validator->messages()->first());
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withInput()->with('error', $validator->messages()->first());
+        // }
 
 
             // Το hash γίνεται στο model User.php

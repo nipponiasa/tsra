@@ -69,15 +69,15 @@ class TechnicalCaseController extends Controller
 
 
 
-        //* GET - SHOW CASE FILES
-        public function files(Request $request)
-        {
-            $case_id = $request->case_id;
-            $case = TechnicalCase::find($case_id);
-            $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
-            $photos_path = $this->case_public_folder($case_id);                         // path for URL is different from path for Storage::disk
-            return view('support.technical_cases.photos', compact('case','photos', 'photos_path'));
-        }
+    //* GET - SHOW CASE FILES
+    public function files(Request $request)
+    {
+        $case_id = $request->case_id;
+        $case = TechnicalCase::find($case_id);
+        $photos = Storage::disk('public')->files($this->cases_path.$case_id);        // get files array (all files in cases folder)
+        $photos_path = $this->case_public_folder($case_id);                         // path for URL is different from path for Storage::disk
+        return view('support.technical_cases.photos', compact('case','photos', 'photos_path'));
+    }
 
 
 

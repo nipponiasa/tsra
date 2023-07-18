@@ -11,6 +11,7 @@
 
             order: [],
             lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            pageLength: 25,
             processing: true,
             responsive: false,
             serverSide: true,
@@ -143,6 +144,7 @@
 
          order: [],
          lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+         pageLength: 25,
          processing: true,
          responsive: false,
          serverSide: true,
@@ -283,6 +285,7 @@
 
             order: [],
             lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            pageLength: 25,
             processing: true,
             responsive: false,
             serverSide: true,

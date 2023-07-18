@@ -10,10 +10,10 @@
 @endpush
 
 
-
+@can('view_cases')
 
     <div class="container-fluid">
-    <div class="page-header">
+        <div class="page-header">
             <div class="row align-items-end">
 
 
@@ -66,11 +66,10 @@
                         </li> --}}
 
 
-                        {{-- @can('reporting_data_entry') --}}
+
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="pills-summary-tab" data-bs-toggle="pill" data-bs-target="#tabs-summary" type="button" role="tab" aria-controls="tabs-summary" aria-selected="true">{{ __('Case Summary')}}</button>
                         </li>
-                        {{-- @endcan --}}
 
                         {{-- @can('communication_with_vendor') --}}
                         <li class="nav-item">
@@ -217,7 +216,7 @@
 
 
 
-
+@endcan
 
 
 
