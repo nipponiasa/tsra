@@ -167,7 +167,7 @@
     <a href="/technical_cases/{{$case->id.$link_fin}}">{{$case->id}}</a>
 </td>
 <td>
-    {{$case->user->name}}
+    {{$case->user->name??''}}
 </td>
 
 <td>{{date('d-m-Y', strtotime($case->created_at))}}</td>

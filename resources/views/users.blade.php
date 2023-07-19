@@ -53,6 +53,8 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- See: public\js\custom.js --}}
+                                {{-- See: app\Http\Controllers\UserController.php \ getUserList --}}
                             </tbody>
                         </table>
                     </div>

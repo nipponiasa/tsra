@@ -70,12 +70,12 @@ class UserController extends Controller
                 if ($data->name == 'Super Admin') {
                     return '';
                 }
-                if ($hasManageUser) {
+                // if ($hasManageUser) {
                     $output = '<div class="table-actions">
                                 <a href="' . url('user/' . $data->id) . '" ><i class="ik ik-edit-2 f-16 mr-15 text-green"></i></a>
-                                <a href="' . url('user/delete/' . $data->id) . '"><i class="ik ik-trash-2 f-16 text-red"></i></a>
+                                <a href="' . url('user/delete/' . $data->id) . '" onclick="return confirm(`Are you sure you want to delete this user?`)"><i class="ik ik-trash-2 f-16 text-red"></i></a>
                             </div>';
-                }
+                // }
 
                 return $output;
             })
