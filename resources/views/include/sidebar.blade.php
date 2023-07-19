@@ -47,9 +47,9 @@
                         <a href="{{url('permission')}}" class="menu-item {{ ($segment1 == 'permission') ? 'active' : '' }}">{{ __('Permissions')}}</a>
                         @endcan
                         
-                        @can('manage_settings')
+                        {{-- @can('manage_settings')
                         <a href="{{url('app_settings')}}" class="menu-item {{ ($segment1 == 'app_settings') ? 'active' : '' }}">{{ __('Settings')}}</a>
-                        @endcan
+                        @endcan --}}
                     </div>
                 </div>
                 @endcan

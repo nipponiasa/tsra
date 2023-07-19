@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function(){
 	});
 
 	//only those have manage_roles permission will get access
-	Route::group(['middleware' => 'can:manage_roles|manage_users'], function(){
+	Route::group(['middleware' => 'can:manage_roles'], function(){
 		Route::get('/roles', [RolesController::class,'index']);
 		Route::get('/role/get-list', [RolesController::class,'getRoleList']);
 		Route::post('/role/create', [RolesController::class,'create']);
@@ -78,7 +78,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 	//only those have manage_permissions permission will get access
-	Route::group(['middleware' => 'can:manage_permissions|manage_roles'], function(){
+	Route::group(['middleware' => 'can:manage_permissions'], function(){
 		Route::get('/permission', [PermissionController::class,'index']);
 		Route::get('/permission/get-list', [PermissionController::class,'getPermissionList']);
 		Route::post('/permission/create', [PermissionController::class,'create']);
