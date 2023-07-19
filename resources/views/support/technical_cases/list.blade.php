@@ -185,8 +185,13 @@
 	<span class="badge badge-pill badge-danger mb-1">{{$case->status->statusname}}</span>
 @elseif ($case->status->statusname == "Pending Dealer") 
 	<span class="badge badge-pill badge-info mb-1">{{$case->status->statusname}}</span>
-    @elseif ($case->status->statusname == "Pending Vendor")
+@elseif ($case->status->statusname == "Pending Vendor")
+    {{-- If agent show "Pending Nipponia" instead of "Pending Vendor" --}}
+    @can('review_cases')
         <span class="badge badge-pill badge-info2 mb-1">{{$case->status->statusname}}</span>
+    @else
+        <span class="badge badge-pill badge-danger mb-1">Pending Nipponia</span>
+    @endcan
 @elseif ($case->status->statusname == "Resolved") 
 	<span class="badge badge-pill badge-success mb-1">{{$case->status->statusname}}</span>
 @elseif ($case->status->statusname == "Claim approved")
