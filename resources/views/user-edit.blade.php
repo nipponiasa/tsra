@@ -75,16 +75,6 @@
                                     </div>
 
 
-                                    <div class="form-group">
-                                        <label for="country">{{ __('Restrict to Country (optional)')}}</label>                                        
-                                        <select name="country" id="country" class="form-select">
-                                            <option value="0" ></option>
-                                            @foreach ($countries as $country)
-                                                <option value="{{$country->id}}" {{ (old('country')==$country->id || $user->country_id==$country->id ) ? 'selected':'' }}  >{{$country->shortname.' - '.$country->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
                                    
                                     <div class="form-group">
                                         <label for="password">{{ __('Password')}}</label>
@@ -125,6 +115,15 @@
                                             @endforeach
                                         </div>
                                         <input type="hidden" id="token" name="token" value="{{ csrf_token() }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country">{{ __('Restrict to Country (optional)')}}</label>                                        
+                                        <select name="country" id="country" class="form-select">
+                                            <option value="0" ></option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{$country->id}}" {{ (old('country')==$country->id || $user->country_id==$country->id ) ? 'selected':'' }}  >{{$country->shortname.' - '.$country->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

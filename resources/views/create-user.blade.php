@@ -14,7 +14,7 @@
                     <div class="page-header-title">
                         <i class="ik ik-user-plus bg-primary"></i>
                         <div class="d-inline">
-                            <h1>{{ __('Add User')}}</h1>
+                            <h1>{{ __('Create User')}}</h1>
                             <p class="lead">{{ __('Create new user, assign roles & permissions')}}</p>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                                 <a href="{{url('dashboard')}}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">{{ __('Add User')}}</a>
+                                <a href="#">{{ __('Create User')}}</a>
                             </li>
                         </ol>
                     </nav>
@@ -40,7 +40,7 @@
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header">
-                        <h3>{{ __('Add user')}}</h3>
+                        <h3>{{ __('Create user')}}</h3>
                     </div>
                     <div class="card-body">
                         <form class="forms-sample" method="POST" action="{{ route('create-user') }}" >
@@ -69,16 +69,6 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="country">{{ __('Restrict to Country (optional)')}}</label>                                        
-                                        <select name="country_id" id="country" class="form-select" required>
-                                            <option value="0" ></option>
-                                            @foreach ($countries as $country)
-                                                <option value="{{$country->id}}" {{ (old('country')==$country->id) ? 'selected':'' }}  >{{$country->shortname.' - '.$country->name}}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                    
                                     <div class="form-group">
@@ -116,10 +106,19 @@
                                         </div>
                                         <input type="hidden" id="token" name="token" value="{{ csrf_token() }}">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="country">{{ __('Restrict to Country (optional)')}}</label>                                        
+                                        <select name="country_id" id="country" class="form-select" required>
+                                            <option value="0" ></option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{$country->id}}" {{ (old('country')==$country->id) ? 'selected':'' }}  >{{$country->shortname.' - '.$country->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">{{ __('Submit')}}</button>
+                                    <div class="form-group text-end m-3">
+                                        <button type="submit" class="btn btn-primary">{{ __('Create User')}}</button>
                                     </div>
                                 </div>
                             </div>
