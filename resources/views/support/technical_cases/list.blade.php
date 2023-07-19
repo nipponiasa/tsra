@@ -186,7 +186,7 @@
 @elseif ($case->status->statusname == "Pending Dealer") 
 	<span class="badge badge-pill badge-info mb-1">{{$case->status->statusname}}</span>
 @elseif ($case->status->statusname == "Pending Vendor")
-    {{-- If agent show "Pending Nipponia" instead of "Pending Vendor" --}}
+    {{-- If agent, show "Pending Nipponia" instead of the true "Pending Vendor" --}}
     @can('review_cases')
         <span class="badge badge-pill badge-info2 mb-1">{{$case->status->statusname}}</span>
     @else

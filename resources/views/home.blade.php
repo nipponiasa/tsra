@@ -32,8 +32,8 @@
 		            </a>
 				</div>
 				<div>
-					<a class="btn btn-success btn-rounded mr-3" href="{{url('login')}}/">Demo</a>
-					<a class="btn btn-warning btn-rounded" href="https://arthemicofficial.github.io/Radmin-Laravel-Admin-Starter-Kit/">Documentation</a>
+					<a class="btn btn-success mr-3" href="{{url('login')}}/">Demo</a>
+					<a class="btn btn-warning " href="https://arthemicofficial.github.io/Radmin-Laravel-Admin-Starter-Kit/">Documentation</a>
 				</div>
 			</div>
 	    	<div class="banner-text m-4 d-relative">

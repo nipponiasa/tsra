@@ -73,7 +73,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                	<button type="submit" class="btn btn-primary btn-rounded">{{ __('Update')}}</button>
+                                	<button type="submit" class="btn btn-primary">{{ __('Update')}}</button>
                                 </div>
                             </div>
                         </div>

@@ -15,11 +15,15 @@
                     <div class="page-header-title">
                         <i class="ik ik-unlock bg-blue"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Permissions')}}</h5>
-                            <span>{{ __('Define permissions of user')}}</span>
+                            <h1>{{ __('Permissions')}}</h1>
+                            <p class="lead">{{ __('Define the permissions of the roles')}}</p>
                         </div>
                     </div>
                 </div>
+
+
+
+                
                 <div class="col-lg-4">
                     <nav class="breadcrumb-container" aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -34,43 +38,12 @@
                 </div>
             </div>
         </div>
-        <div class="row clearfix">
-            <!-- start message area-->
-            @include('include.message')
-            <!-- end message area-->
-            <!-- only those have manage_permission permission will get access -->
-            @can('manage_permission')
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"><h3>{{ __('Add Permission')}}</h3></div>
-                    <div class="card-body">
-                        <form class="forms-sample" method="POST" action="{{url('permission/create')}}">
-                            @csrf
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="permission">{{ __('Permission')}}<span class="text-red">*</span></label>
-                                        <input type="text" class="form-control" id="permission" name="name" placeholder="Permission Name" required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail3">{{ __('Assigned to Role')}} </label>
-                                        {!! Form::select('roles[]', $roles, null,[ 'class'=>'form-control select2', 'multiple' => 'multiple']) !!}
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-rounded">{{ __('Save')}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            @endcan
-        </div>
+
+        <!-- start message area-->
+        @include('include.message')
+        <!-- end message area-->
+
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="card p-3">
@@ -91,6 +64,47 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="row clearfix">
+
+        <!-- only those have manage_permission permission will get access -->
+        @can('manage_permission')
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h3>{{ __('Add Permission')}}</h3></div>
+                <div class="card-body">
+                    <form class="forms-sample" method="POST" action="{{url('permission/create')}}">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="permission">{{ __('New Permission Name')}}<span class="text-red">*</span></label>
+                                    <input type="text" class="form-control" id="permission" name="name" placeholder="Permission Name" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail3">{{ __('Assigned to Role')}} </label>
+                                    {!! Form::select('roles[]', $roles, null,[ 'class'=>'form-control select2', 'multiple' => 'multiple']) !!}
+                                </div>
+                            </div>
+
+                                <div class="col-sm-2 form-group center-contents pt-4">
+                                    <button type="submit" class="btn btn-primary">{{ __('Save')}}</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endcan
+    </div>
+
+
+
     <!-- push external js -->
     @push('script')
     <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
