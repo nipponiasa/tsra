@@ -3,4 +3,4 @@
 @stack('script')
 
 <script src="{{ asset('dist/js/theme.js') }}"></script>
-<script src="{{ asset('js/chat.js') }}"></script>
+{{-- <script src="{{ asset('js/chat.js') }}"></script> --}}

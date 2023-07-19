@@ -26,6 +26,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 | contains the "web" middleware group. Now create something great!
 |
 */ 
+
+//# LOGIN & ACCOUNT PAGES
 Route::get('/', function () { return view('auth.login'); });
 // Route::get('test', [HomeController::class,'test'])->name('test');
 
@@ -44,7 +46,7 @@ Route::post('password/reset', [ResetPasswordController::class,'reset'])->name('p
 //* ONLY FOR LOGGED ON USERS
 Route::group(['middleware' => 'auth'], function(){
 	
-    //* USER PAGES
+    //# USER PAGES
 	Route::get('/logout', [LoginController::class,'logout']);
 	Route::get('/clear-cache', [HomeController::class,'clearCache']);
     Route::get('/myprofile', [UserController::class,'editmyprofile'])->name('myprofile');

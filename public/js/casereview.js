@@ -27,6 +27,11 @@ document.getElementById('status').addEventListener('change', function() {
 });
 
 
+$('form').on('submit', function() {     //after correct validation, before submit
+    $('.spinner').removeClass('d-none');
+});
+
+
 
 
 

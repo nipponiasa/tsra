@@ -62,7 +62,8 @@
             </div>
 
             <div class="text-end">
-                <button type="submit" class="btn btn-primary">Send e-mail</button>
+                    <div><button type="submit" class="btn btn-primary show-spinner">Send e-mail</button></div>
+                    <div class="spinner spinner-border text-primary my-3 mx-4 d-none" role="status"></div>
             </div>   
 
         </form>

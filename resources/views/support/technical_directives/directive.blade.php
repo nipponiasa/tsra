@@ -69,7 +69,7 @@
                                     {{-- Subject --}}
                                     <div class="form-group">
                                         <label for="subject">Subject <span class="text-danger">*</span></label>
-                                        <input id="subject" type="text" class="form-control" name="subject" value="{{old('subject')??$directive->subject??'' }}" placeholder="Enter a subject" >
+                                        <input id="subject" type="text" class="form-control" name="subject" value="{{old('subject')??$directive->subject??'' }}" placeholder="Enter a subject" required>
 
                                         <div class="help-block with-errors">
                                             @error('subject')
@@ -192,13 +192,18 @@
 
 
                                     @if($action=="create")
-                                        <div class="form-group text-right my-5">
-                                            <button type="submit" class="btn btn-primary">Create</button>
+                                        <div class="text-end py-5">
+                                            <div class="d-inline-flex">
+                                                <div class="spinner spinner-border text-primary mx-2 d-none"></div>
+                                                <div><button type="submit" class="btn btn-primary show-spinner mx-3">Create</button></div>
+                                            </div>
                                         </div>
                                     @elseif($action=="edit")
-                                        <div class="form-group text-right my-5">
-                                            <button type="submit" class="btn btn-success m-2">Update</button>
-                                            {{-- <button type="button" class="btn btn-danger m-2" id="deleteThis">Delete</button> --}}
+                                        <div class="text-end py-5">
+                                            <div class="d-inline-flex">
+                                                <div class="spinner spinner-border text-success mx-2 d-none"></div>
+                                                <div><button type="submit" class="btn btn-success show-spinner mx-3">Update</button></div>
+                                            </div>
                                         </div>
                                     @endif
 
@@ -228,8 +233,11 @@
 
 <script>
     $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+        $('[data-toggle="tooltip"]').tooltip()
+        $('form').on('submit', function() {     //after correct validation, before submit
+            $('.spinner').removeClass('d-none');
+        });
+    })
     </script>
 
 {{-- <script type="text/javascript">

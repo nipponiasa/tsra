@@ -348,7 +348,8 @@
                     <label class="form-check-label" for="donotmail" >Do not send an update e-mail</label>     
                 </div>
                 
-                <button class="btn btn-success" type="submit">Update Summary</button>
+                <div><button class="btn btn-success show-spinner" type="submit">Update Summary</button></div>
+                <div class="spinner spinner-border text-success my-2 mx-5 d-none" role="status"></div>
             </div>
             @endcan
         </form>
