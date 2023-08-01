@@ -76,7 +76,7 @@
                     <div class="page-header-title">
                         <i class="ik ik-headphones bg-green"></i>
                         <div class="d-inline">
-                            <h1>{{$pending ? "Pending " : ""}} Technical Cases</h1>
+                            <h1>{{$pending ? "Pending " : "All"}} Cases</h1>
                             {{-- <span class="lead">View, delete and update Technical Cases</span> --}}
                         </div>
                     </div>

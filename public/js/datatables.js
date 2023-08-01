@@ -4,10 +4,11 @@ $(document).ready(function() {
         responsive: true,
         select: true,
         "pageLength": 20,
-        'aoColumnDefs': [{
-            'bSortable': false,
-            'aTargets': ['nosort']
-        }],
+        // 'aoColumnDefs': [{
+        //     'bSortable': false,
+        //     'aTargets': ['nosort']
+        // }],
+        lengthMenu: [20,50,100],
         dom: "<'row'<'col-sm-2'l><'col-sm-7 text-center'B><'col-sm-3'f>>tipr",
                 buttons: [
                     // {
@@ -57,7 +58,8 @@ $(document).ready(function() {
                             stripHtml: false
                         }
                     }
-                ]
+                ],
+        order: [0, 'desc'],   // default sorting
     
     });
     $('#data_table tbody').on( 'click', 'tr', function() {

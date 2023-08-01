@@ -110,6 +110,7 @@
                                         <div class="custom-file">
                                             <label class="form-label" for="avatar">{{ __('User Photo (jpg format, 512px square preferred)')}}</label>
                                             <input type="file" class="form-control" id="avatar" name="avatar" accept=".jpg">
+                                            <p class="form-p" for="avatar">{{ __('You may need to refresh your browser (Ctrl+F5) after pressing "Update", in order to see your new photo')}}</label>
                                         </div>
                                         {{-- Για κάποιο λόγο δεν δείχνει ότι επιλέχθηκε εικόνα, οπότε βάζω αυτό: --}}
                                         <script>
@@ -136,7 +137,7 @@
 
 
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="locale">{{ __('Language Preferences')}} <span class="text-red">*</span></label>
                                         <select name="locale" id="locale" class="form-select">
                                             @foreach(App\Models\User::LOCALES as $locale => $label)
@@ -145,7 +146,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
 
 
 
@@ -184,7 +185,7 @@
 
 
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 my-3">
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary form-control-right">{{ __('Update')}}</button>
                                     </div>

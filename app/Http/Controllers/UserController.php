@@ -281,47 +281,6 @@ class UserController extends Controller
                     // the user object
                     $user = Auth::user();
 
-                    // $userid=Auth::id();
-                    // $mypics = $request->file('mypic');
-                    // $locale = $request->locale;
-          
-
-                
-                       //dd($mypics);
-
-
-                    // if( !is_null($mypics)) 
-                    // {   
-
-                    //     foreach($mypics as $mypic)
-                    //     {
-                    //         $directory="users";
-                    //             $stored=false;
-                    //             if( !is_null($mypic)) 
-                    //             {   
-                    //             $allowedfileExtension=['pdf','jpg','avi','mp4','png','docx','PNG'];
-                    //             $filename = $mypic->getClientOriginalName();
-                    //             $extension = $mypic->getClientOriginalExtension();
-                    //             $originalName = $mypic->getClientOriginalName();
-                    //             $check=in_array($extension,$allowedfileExtension);
-                    //             $stored=($stored or $check)?true:false;
-                    //             //dd($file);
-
-                    //             if($check)
-                    //                 {
-                    //                 //dd($directory);
-
-                    //                 $storagePath=Storage::putFileAs($directory, $mypic, $originalName);
-                                    
-                    //                     DB::select(DB::raw('UPDATE `users` SET  mypic="storage/azure_ext/'.$storagePath.'"WHERE id='.$userid.';'));
-                    //             }
-
-                    //         }
-
-
-                    //     }
-
-                    // }
 
 
                     // update user profile
@@ -339,12 +298,8 @@ class UserController extends Controller
                     }
 
 
-                    //  DB::select(DB::raw('UPDATE `users` SET  locale="'. $locale.'" WHERE id='.$userid.';'));  
-                    //     $user_rows=DB::select(DB::raw(' SELECT * FROM users WHERE id='.$userid.';'));
-                    //         $user= $user_rows[0];
-                    //         $mypic=URL::to($user->mypic);
-                        // return view('myprofile')->with('user',$user)->with('mypic',$mypic);
-                    return view('myprofile')->with('user',$user);
+                    // return view('myprofile')->with('user',$user);
+                    return redirect()->route('myprofile')->with('success', 'User profile updated succesfully!');
                     }
 
 
