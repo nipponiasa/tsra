@@ -23,7 +23,7 @@
                     <nav class="breadcrumb-container" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{url('/')}}"><i class="ik ik-home"></i></a>
+                                <a href="{{route('home')}}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
                                 <!-- clean unescaped data is to avoid potential XSS risk -->
