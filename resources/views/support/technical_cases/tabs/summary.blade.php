@@ -109,8 +109,8 @@
                 <div class="form-group col-md-4">
                     <label for="country">Applicable country</label>
                     {{-- <input id="country" type="text" class="form-control" name="country" value="{{old('country')??$case->user->country->name??'' }}" disabled> --}}
-                    <select name="country" id="country" class="form-select">
-                        <option value="0" ></option>
+                    <select name="country" id="country" class="form-select" required>
+                        <option value="" ></option>
                         @foreach ($countries as $country)
                             <option value="{{$country->id}}" {{ (old('country')==$country->id || $case->country_id==$country->id ) ? 'selected':'' }}  >{{$country->shortname.' - '.$country->name}}</option>
                         @endforeach

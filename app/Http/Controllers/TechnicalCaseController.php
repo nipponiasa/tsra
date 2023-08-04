@@ -119,7 +119,7 @@ class TechnicalCaseController extends Controller
             $technical_cases = TechnicalCase::with(['user','status'])->get();
         } else {
             $technical_cases = TechnicalCase::with(['user','status'])
-                ->where('country_id', $user_country)
+                ->where('country_id', $user_country)        //->orWhere('country_id', '')
                 ->get();
         }
         
@@ -132,9 +132,9 @@ class TechnicalCaseController extends Controller
     public function indexpending()
     {
         $user_country = Auth::user()->country_id;
-        if (!$user_country) {       // not restricted
+        if (!$user_country) {       // user sees all countries
             $technical_cases = TechnicalCase::with(['user','status'])
-                ->whereHas('status', function($query)         // where status.statuscategory is one of ["Initial", "Pending"]
+                ->whereHas('status', function($query)         // where case->status->statuscategory is one of ["Initial", "Pending"]
                     {
                         $query->whereIn('statuscategory', ["Initial", "Pending"]); 
                     })
@@ -142,7 +142,7 @@ class TechnicalCaseController extends Controller
         } else {
             $technical_cases = TechnicalCase::with(['user','status'])
                 ->where('country_id', $user_country)
-                ->whereHas('status', function($query)         // where status.statuscategory is one of ["Initial", "Pending"]
+                ->whereHas('status', function($query)         // where case->status->statuscategory is one of ["Initial", "Pending"]
                     {
                         $query->whereIn('statuscategory', ["Initial", "Pending"]); 
                     })
@@ -169,7 +169,7 @@ class TechnicalCaseController extends Controller
             'description' => 'nullable',
             'model' => "required",     
             // 'models' => 'nullable', //old code where models was many-to-many relationship, not text
-            'purchase_order' => 'required',
+            'purchase_order' => 'nullable',
             'vins' => 'required',
         ]);
        
@@ -227,7 +227,7 @@ class TechnicalCaseController extends Controller
             'description' => 'nullable',
             'model' => "required",     
             // 'models' => 'nullable', //old code where models was many-to-many relationship, not text
-            'purchase_order' => 'required',
+            'purchase_order' => 'nullable',
             'vins' => 'required',
         ]);
        
@@ -286,7 +286,7 @@ class TechnicalCaseController extends Controller
             'description' => 'nullable',
             // 'model' => "required",     
             // 'models' => 'nullable', //old code where models was many-to-many relationship, not text
-            'purchase_order' => 'required',
+            'purchase_order' => 'nullable',
         ]);
        
         $case_id = $request->case_id;

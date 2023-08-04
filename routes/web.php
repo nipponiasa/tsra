@@ -162,9 +162,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/technical_cases/all', [TechnicalCaseController::class,'index'])->name('cases.index')->middleware('can:view_cases_basic');
     Route::get('/technical_cases/pending', [TechnicalCaseController::class,'indexpending'])->name('cases.indexpending')->middleware('can:view_cases_basic');
-    Route::get('/technical_cases/{case_id}', [TechnicalCaseController::class,'show'])->name('directives.show')->middleware(['can:view_cases_full','can:accessThisCountry,case_id']);
+    Route::get('/technical_cases/{case_id}', [TechnicalCaseController::class,'show'])->name('cases.show')->middleware(['can:view_cases_full','can:accessThisCountry,case_id']);
 
-    Route::post('/api/messageToFactory', [TechnicalCaseController::class,'messageToFactory'])->name('directives.factory')->middleware('can:communicate_with_factory');
+    Route::post('/api/messageToFactory', [TechnicalCaseController::class,'messageToFactory'])->name('cases.factory')->middleware('can:communicate_with_factory');
 
 
 
