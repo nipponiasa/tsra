@@ -107,7 +107,7 @@
 
             <div class="row">
                 <div class="form-group col-md-4">
-                    <label for="country">Applicable country</label>
+                    <label for="country">Applicable country <span class="text-danger">*</span></label>
                     {{-- <input id="country" type="text" class="form-control" name="country" value="{{old('country')??$case->user->country->name??'' }}" disabled> --}}
                     <select name="country" id="country" class="form-select" required>
                         <option value="" ></option>
