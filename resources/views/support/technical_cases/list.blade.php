@@ -176,7 +176,7 @@
     <a href="/technical_cases/{{$case->id.$link_fin}}">{{$case->subject}}</a>
 </td>
 <td>
-    {{-- <a href="/technical_cases/toedit/{{$result->id}}">{{$result->models}}</a> --}}
+    {{$case->model}}
 </td>
 
 
